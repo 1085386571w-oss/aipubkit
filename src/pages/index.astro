@@ -1,0 +1,159 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { topConnectors } from "../data/apps";
+
+const title = "AI PubKit - One-click AI publishing connectors for global apps";
+const description =
+  "AI PubKit helps creators and teams publish AI-generated content to global platforms through app connectors, MCP workflows, and managed deployment paths.";
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Can AI publish content to multiple apps in one click?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. AI PubKit is designed to connect AI-generated content to publishing destinations through app connectors. Some apps support direct API publishing, while others require assisted workflows, drafts, or account approval.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is AI PubKit only for China-market apps?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. AI PubKit is built for global apps such as YouTube, TikTok, Instagram, Facebook Pages, X, LinkedIn, Threads, Pinterest, Reddit, WordPress, and Medium, while also tracking China-market platforms.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can users request new app connectors?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Users can request an app connector, share API documentation, volunteer to test, or sponsor custom connector development.",
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} schema={faqSchema}>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">Global AI publishing connector</p>
+        <h1>Publish AI content to the apps your audience already uses.</h1>
+        <p class="lead">
+          AI PubKit turns AI-generated drafts into connector-ready publishing
+          workflows for global social, video, community, and CMS platforms.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="/apps/">Explore connectors</a>
+          <a class="button secondary" href="/request-app/">Request an app</a>
+        </div>
+        <div class="hero-finder" aria-label="Popular connectors">
+          <div class="finder-label">Start with a destination</div>
+          <div class="quick-apps">
+            {topConnectors.slice(0, 8).map((connector) => (
+              <a href={`/apps/#${connector.name.toLowerCase().replaceAll(" ", "-")}`}>
+                {connector.name}
+              </a>
+            ))}
+          </div>
+        </div>
+        <div class="metric-row">
+          <div class="metric"><strong>18+</strong> connectors mapped</div>
+          <div class="metric"><strong>Global</strong> social and video apps</div>
+          <div class="metric"><strong>MCP</strong> AI assistant workflow</div>
+          <div class="metric"><strong>Open</strong> app request pipeline</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">What we are building</p>
+        <h2>A connector layer, not another locked publishing tool.</h2>
+      </div>
+      <p>
+        The product direction is simple: if a creator or company wants to send
+        AI-generated content somewhere, that destination should become a
+        connector with clear capabilities and limitations.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Direct publishing where APIs allow it</h3>
+        <p>
+          Use official or stable API paths for video, social posts, CMS articles,
+          community updates, and scheduled publishing when a platform permits it.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Assisted workflows where platforms restrict automation</h3>
+        <p>
+          Generate drafts, captions, metadata, checklists, reminders, and copy-ready
+          assets when an app requires human approval or has limited API access.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Connector requests from the market</h3>
+        <p>
+          Let users request regional apps, share API docs, volunteer for testing,
+          and sponsor connectors that matter to their audience.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Popular destinations</p>
+        <h2>Start global, keep regional coverage open.</h2>
+      </div>
+      <a class="button light" href="/apps/">View all apps</a>
+    </div>
+    <div class="grid three">
+      {topConnectors.map((connector) => (
+        <article class="connector" id={connector.name.toLowerCase().replaceAll(" ", "-")}>
+          <div class="connector-top">
+            <div>
+              <h3>{connector.name}</h3>
+              <p>{connector.category} · {connector.region}</p>
+            </div>
+            <span class={`status ${connector.status.toLowerCase().replace(" ", "-")}`}>
+              {connector.status}
+            </span>
+          </div>
+          <div class="tag-row">
+            {connector.content.map((item) => <span class="tag">{item}</span>)}
+          </div>
+          <p>{connector.notes}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="callout">
+    <div class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">First release path</p>
+          <h2>Use open-source foundations, then build the AI PubKit connector brand.</h2>
+        </div>
+        <p>
+          AiToEarn can be the first deployment guide and proof point, while AI
+          PubKit owns the global connector directory, request pipeline, MCP
+          workflows, and managed setup service.
+        </p>
+      </div>
+      <div class="actions">
+        <a class="button primary" href="/aitoearn-one-click-deploy/">AiToEarn deploy guide</a>
+        <a class="button secondary" href="/mcp-ai-publishing/">MCP publishing workflow</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

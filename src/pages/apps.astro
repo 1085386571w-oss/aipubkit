@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { connectors } from "../data/apps";
+
+const title = "Supported app connectors - AI PubKit";
+const description =
+  "Browse AI PubKit publishing connectors for global social, video, community, CMS, and regional apps.";
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "AI PubKit supported app connectors",
+  itemListElement: connectors.map((connector, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: connector.name,
+    description: `${connector.status} connector for ${connector.content.join(", ")}.`,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={itemListSchema}>
+  <section class="page-hero">
+    <p class="eyebrow">Supported apps</p>
+    <h1>Publishing connectors for global and regional platforms.</h1>
+    <p class="page-lead">
+      Each connector has a practical status. Direct publishing is used where
+      official or stable APIs allow it. Assisted workflows are used when an app
+      requires human review, account approval, or platform-specific limits.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="filter-bar" aria-label="Connector filters">
+      <input id="connector-search" type="search" placeholder="Search apps, regions, content types..." />
+      <select id="connector-status" aria-label="Filter by status">
+        <option value="">All statuses</option>
+        <option value="Live path">Live path</option>
+        <option value="Assisted">Assisted</option>
+        <option value="Researching">Researching</option>
+      </select>
+    </div>
+
+    <div class="grid three" id="connector-grid">
+      {connectors.map((connector) => (
+        <article
+          class="connector"
+          id={connector.name.toLowerCase().replaceAll(" ", "-")}
+          data-connector
+          data-search={`${connector.name} ${connector.category} ${connector.region} ${connector.status} ${connector.content.join(" ")} ${connector.notes}`.toLowerCase()}
+          data-status={connector.status}
+        >
+          <div class="connector-top">
+            <div>
+              <h3>{connector.name}</h3>
+              <p>{connector.category} · {connector.region}</p>
+            </div>
+            <span class={`status ${connector.status.toLowerCase().replace(" ", "-")}`}>
+              {connector.status}
+            </span>
+          </div>
+          <div class="tag-row">
+            {connector.content.map((item) => <span class="tag">{item}</span>)}
+          </div>
+          <p>{connector.notes}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="notice" style="margin-top: 18px;">
+      <h3>Do not see the app you need?</h3>
+      <p>
+        Request a connector and include the app website, region, content type,
+        and any API documentation you already found.
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/request-app/">Request an app</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const searchInput = document.querySelector("#connector-search");
+    const statusSelect = document.querySelector("#connector-status");
+    const cards = Array.from(document.querySelectorAll("[data-connector]"));
+
+    function applyFilters() {
+      const query = String(searchInput?.value || "").trim().toLowerCase();
+      const status = String(statusSelect?.value || "");
+
+      cards.forEach((card) => {
+        const matchesQuery = !query || String(card.dataset.search || "").includes(query);
+        const matchesStatus = !status || card.dataset.status === status;
+        card.hidden = !(matchesQuery && matchesStatus);
+      });
+    }
+
+    searchInput?.addEventListener("input", applyFilters);
+    statusSelect?.addEventListener("change", applyFilters);
+
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("q");
+    if (q && searchInput) {
+      searchInput.value = q;
+      applyFilters();
+    }
+  </script>
+</BaseLayout>

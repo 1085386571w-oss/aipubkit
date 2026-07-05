@@ -1,0 +1,116 @@
+---
+import "../styles/global.css";
+
+type Props = {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+};
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  schema,
+} = Astro.props;
+
+const siteName = "AI PubKit";
+const siteUrl = "https://aipubkit.com";
+const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
+const ogImageUrl = `${siteUrl}/images/ai-pubkit-hero.png`;
+const baseSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    url: `${siteUrl}/`,
+    description:
+      "Global AI publishing connector for creators, agencies, and teams.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteUrl}/apps/?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteName,
+    url: `${siteUrl}/`,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: siteName,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    description:
+      "AI PubKit helps teams connect AI-generated content to global publishing destinations through app connectors.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  },
+];
+const pageSchema = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta
+      property="og:image:alt"
+      content="AI PubKit dashboard connecting content to global publishing apps"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <script type="application/ld+json" set:html={schemaJson} />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="AI PubKit home">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>AI PubKit</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/apps/">Apps</a>
+        <a href="/request-app/">Request app</a>
+        <a href="/mcp-ai-publishing/">MCP</a>
+        <a href="/deployment-service/">Deploy</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div>
+        <strong>AI PubKit</strong>
+        <p>Global AI publishing connectors for creators and teams.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="/apps/">Supported apps</a>
+        <a href="/request-app/">Request an app</a>
+        <a href="/aitoearn-one-click-deploy/">AiToEarn deploy</a>
+        <a href="/contact/">Contact</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+      </nav>
+    </footer>
+  </body>
+</html>

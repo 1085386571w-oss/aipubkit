@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Privacy policy - AI PubKit";
+const description =
+  "AI PubKit privacy policy for the static website and connector request workflow.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="page-hero">
+    <p class="eyebrow">Privacy</p>
+    <h1>Privacy policy</h1>
+    <p class="page-lead">
+      This website is a static information site. If you contact AI PubKit by
+      email or request a connector, the information you send is used to respond
+      to that request and evaluate the connector workflow.
+    </p>
+  </section>
+  <section class="section">
+    <div class="grid two">
+      <article class="card">
+        <h3>Data you provide</h3>
+        <p>
+          Connector requests may include your email address, app name, platform
+          URL, API documentation links, and workflow notes.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Data we do not need</h3>
+        <p>
+          Do not send passwords, private API keys, account tokens, or sensitive
+          customer data through the public request form.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

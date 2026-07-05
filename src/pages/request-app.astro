@@ -1,0 +1,131 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Request an app connector - AI PubKit";
+const description =
+  "Request a new AI publishing connector for the app, platform, or regional channel your team needs.";
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Request an AI publishing connector",
+  step: [
+    {
+      "@type": "HowToStep",
+      name: "Name the app",
+      text: "Share the app name, website, region, and the type of content you want to publish.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Share API details",
+      text: "Add official API documentation or developer links if you have them.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Choose involvement",
+      text: "Tell AI PubKit whether you can test, sponsor, or simply vote for the connector.",
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} schema={howToSchema}>
+  <section class="page-hero">
+    <p class="eyebrow">Request an app</p>
+    <h1>Tell us where AI should publish next.</h1>
+    <p class="page-lead">
+      AI PubKit is designed to grow from real demand. Request a platform, share
+      API documentation, and tell us whether you can help test the connector.
+    </p>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <h2>Good connector requests include enough detail to evaluate the path.</h2>
+      <p class="page-lead">
+        Some apps support direct publishing. Others require assisted drafts,
+        reminders, browser workflows, or manual approval. The more detail you
+        include, the faster a connector can be researched.
+      </p>
+      <div class="notice">
+        <h3>Current intake email</h3>
+        <p>
+          Until the backend is connected, requests are prepared as an email to
+          <strong>hello@aipubkit.com</strong>.
+        </p>
+      </div>
+    </aside>
+
+    <form class="form-panel form-grid" data-request-form>
+      <div class="field">
+        <label for="app-name">App or platform name</label>
+        <input id="app-name" name="app_name" required placeholder="Example: YouTube, LINE, Shopify Blog" />
+      </div>
+      <div class="field">
+        <label for="app-url">Website or API documentation</label>
+        <input id="app-url" name="app_url" type="url" placeholder="https://developers.example.com/" />
+      </div>
+      <div class="field">
+        <label for="region">Primary region</label>
+        <select id="region" name="region">
+          <option>Global</option>
+          <option>United States / Europe</option>
+          <option>China</option>
+          <option>Southeast Asia</option>
+          <option>Japan / Korea</option>
+          <option>Latin America</option>
+          <option>Other regional market</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="content-type">What should it publish?</label>
+        <input id="content-type" name="content_type" placeholder="Text, images, video, short video, articles, newsletters..." />
+      </div>
+      <div class="field">
+        <label for="involvement">How can you help?</label>
+        <select id="involvement" name="involvement">
+          <option>I want to vote for this app</option>
+          <option>I can test the connector</option>
+          <option>I can share API access details</option>
+          <option>I may sponsor custom development</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="email">Your email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" />
+      </div>
+      <div class="field">
+        <label for="notes">Extra context</label>
+        <textarea id="notes" name="notes" placeholder="What workflow are you trying to automate?"></textarea>
+      </div>
+      <button class="button dark" type="submit">Prepare request email</button>
+      <p class="muted">
+        This static form opens your email app with the request details. A hosted
+        database-backed form can be connected after DNS and hosting are ready.
+      </p>
+    </form>
+  </section>
+
+  <script>
+    const form = document.querySelector("[data-request-form]");
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const lines = [
+        "New AI PubKit connector request",
+        "",
+        `App: ${data.get("app_name") || ""}`,
+        `Website/API docs: ${data.get("app_url") || ""}`,
+        `Region: ${data.get("region") || ""}`,
+        `Content type: ${data.get("content_type") || ""}`,
+        `Involvement: ${data.get("involvement") || ""}`,
+        `Email: ${data.get("email") || ""}`,
+        "",
+        "Notes:",
+        String(data.get("notes") || ""),
+      ];
+      const subject = encodeURIComponent(`Connector request: ${data.get("app_name") || "new app"}`);
+      const body = encodeURIComponent(lines.join("\n"));
+      window.location.href = `mailto:hello@aipubkit.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</BaseLayout>
