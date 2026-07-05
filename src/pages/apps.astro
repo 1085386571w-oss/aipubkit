@@ -13,6 +13,7 @@ const itemListSchema = {
     "@type": "ListItem",
     position: index + 1,
     name: connector.name,
+    url: `https://aipubkit.com/apps/${appSlug(connector.name)}/`,
     description: `${connector.status} publishing destination for ${connector.content.join(", ")}.`,
   })),
 };

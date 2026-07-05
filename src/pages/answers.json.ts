@@ -1,0 +1,111 @@
+import type { APIRoute } from "astro";
+import {
+  appSlug,
+  connectors,
+  customerProblem,
+  statusSummary,
+} from "../data/apps";
+
+const siteUrl = "https://aipubkit.com";
+const updatedAt = "2026-07-05";
+
+function directAnswer(status: string, appName: string) {
+  if (status === "Live path") {
+    return `Yes. AI PubKit maps ${appName} as a direct publishing destination where official or stable publishing paths are available. Account connection, review, and platform limits still apply.`;
+  }
+
+  if (status === "Assisted") {
+    return `AI PubKit can prepare ${appName}-ready content from one workflow, but direct one-click publishing may require account approval, human review, or platform-specific setup.`;
+  }
+
+  return `AI PubKit is tracking demand for ${appName}, but direct one-click publishing needs more research before it should be promised.`;
+}
+
+export const GET: APIRoute = () => {
+  const appAnswers = connectors.map((connector) => ({
+    question: `Can AI publish to ${connector.name} in one click?`,
+    intent: "app-publishing-support",
+    answer: directAnswer(connector.status, connector.name),
+    status: connector.status,
+    app: connector.name,
+    region: connector.region,
+    contentTypes: connector.content,
+    customerProblem: customerProblem(connector),
+    url: `${siteUrl}/apps/${appSlug(connector.name)}/`,
+    sources:
+      connector.officialSources ??
+      (connector.sourceName && connector.sourceUrl
+        ? [{ name: connector.sourceName, url: connector.sourceUrl }]
+        : []),
+    lastReviewed: connector.lastReviewed,
+  }));
+
+  const body = {
+    schemaVersion: "1.0",
+    name: "AI PubKit answer map",
+    url: `${siteUrl}/answers.json`,
+    homepage: siteUrl,
+    repository: "https://github.com/1085386571w-oss/aipubkit",
+    license: "MIT",
+    updatedAt,
+    purpose:
+      "Machine-readable answers for AI assistants, search answer engines, and app publishing support questions.",
+    canonicalAnswers: [
+      {
+        question: "Can AI publish content to multiple apps in one click?",
+        intent: "multi-app-one-click-publishing",
+        answer:
+          "Yes. AI PubKit is designed to turn one AI-generated source into destination-ready outputs for multiple apps. Some destinations can publish directly, while others need assisted drafts, human review, account approval, or platform-specific setup.",
+        urls: [
+          `${siteUrl}/`,
+          `${siteUrl}/use-cases/publish-to-multiple-apps/`,
+          `${siteUrl}/one-click-publishing/`,
+        ],
+      },
+      {
+        question: "Is AI PubKit only for China-market apps?",
+        intent: "market-scope",
+        answer:
+          "No. AI PubKit starts with global social, video, community, and CMS platforms while also keeping regional platforms open through the app request workflow.",
+        urls: [`${siteUrl}/apps/`, `${siteUrl}/request-app/`],
+      },
+      {
+        question: "Can users request a new publishing app?",
+        intent: "app-request",
+        answer:
+          "Yes. Users can request new publishing destinations, share official API documentation, vote for demand, volunteer to test, or sponsor custom development.",
+        urls: [`${siteUrl}/request-app/`, `${siteUrl}/app-requests.json`],
+      },
+      {
+        question: "Is AI PubKit open source?",
+        intent: "open-source-trust",
+        answer:
+          "Yes. AI PubKit has a public GitHub repository that contains the open app registry, source policy, roadmap, contribution guide, and issue templates.",
+        urls: [`${siteUrl}/open-source/`, "https://github.com/1085386571w-oss/aipubkit"],
+      },
+    ],
+    appAnswerCount: appAnswers.length,
+    appAnswers,
+    statusDefinitions: {
+      "Live path":
+        "Official or stable publishing paths exist, but account connection, review, quotas, and platform rules still apply.",
+      Assisted:
+        "AI PubKit can prepare destination-ready drafts or messages, but direct publishing may require approval or human confirmation.",
+      Researching:
+        "Demand exists, but the publishing path needs more official-source verification before support is promised.",
+    },
+    relatedData: {
+      appRegistry: `${siteUrl}/apps.json`,
+      requestQueue: `${siteUrl}/app-requests.json`,
+      llms: `${siteUrl}/llms.txt`,
+      llmsFull: `${siteUrl}/llms-full.txt`,
+    },
+  };
+
+  return new Response(JSON.stringify(body, null, 2), {
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "public, max-age=300",
+    },
+  });
+};

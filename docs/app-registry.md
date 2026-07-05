@@ -9,6 +9,7 @@ research.
 Machine-readable versions:
 
 - https://aipubkit.com/apps.json
+- https://aipubkit.com/answers.json
 - https://aipubkit.com/app-requests.json
 
 ## Status Levels

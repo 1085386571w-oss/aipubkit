@@ -1,19 +1,31 @@
 import type { APIRoute } from "astro";
 import { appSlug, connectors } from "../data/apps";
 
+const lastmod = "2026-07-05";
 const pages = [
-  "/",
-  "/apps/",
-  "/apps.json",
-  "/app-requests.json",
-  ...connectors.map((connector) => `/apps/${appSlug(connector.name)}/`),
-  "/use-cases/publish-to-multiple-apps/",
-  "/open-source/",
-  "/request-app/",
-  "/one-click-publishing/",
-  "/contact/",
-  "/privacy/",
-  "/terms/",
+  { path: "/", priority: "1.0", changefreq: "daily" },
+  { path: "/apps/", priority: "0.9", changefreq: "weekly" },
+  { path: "/apps.json", priority: "0.8", changefreq: "weekly" },
+  { path: "/answers.json", priority: "0.8", changefreq: "weekly" },
+  { path: "/app-requests.json", priority: "0.7", changefreq: "weekly" },
+  { path: "/llms.txt", priority: "0.7", changefreq: "weekly" },
+  { path: "/llms-full.txt", priority: "0.7", changefreq: "weekly" },
+  ...connectors.map((connector) => ({
+    path: `/apps/${appSlug(connector.name)}/`,
+    priority: "0.8",
+    changefreq: "weekly",
+  })),
+  {
+    path: "/use-cases/publish-to-multiple-apps/",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  { path: "/open-source/", priority: "0.8", changefreq: "weekly" },
+  { path: "/request-app/", priority: "0.8", changefreq: "weekly" },
+  { path: "/one-click-publishing/", priority: "0.8", changefreq: "weekly" },
+  { path: "/contact/", priority: "0.5", changefreq: "monthly" },
+  { path: "/privacy/", priority: "0.3", changefreq: "yearly" },
+  { path: "/terms/", priority: "0.3", changefreq: "yearly" },
 ];
 
 export const GET: APIRoute = () => {
@@ -21,10 +33,11 @@ export const GET: APIRoute = () => {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
   .map(
-    (path) => `  <url>
-    <loc>https://aipubkit.com${path}</loc>
-    <changefreq>${path === "/" ? "daily" : "weekly"}</changefreq>
-    <priority>${path === "/" ? "1.0" : "0.8"}</priority>
+    (page) => `  <url>
+    <loc>https://aipubkit.com${page.path}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
   </url>`,
   )
   .join("\n")}

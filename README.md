@@ -54,6 +54,7 @@ See [docs/app-registry.md](docs/app-registry.md) for the current app list.
 - [Request an app](https://aipubkit.com/request-app/)
 - [How one-click publishing works](https://aipubkit.com/one-click-publishing/)
 - [Machine-readable app registry](https://aipubkit.com/apps.json)
+- [Machine-readable answer map](https://aipubkit.com/answers.json)
 - [Public request queue](https://aipubkit.com/app-requests.json)
 - [llms.txt](https://aipubkit.com/llms.txt)
 - [llms-full.txt](https://aipubkit.com/llms-full.txt)
@@ -101,8 +102,10 @@ src/pages/apps/[slug].astro              App-specific answer pages
 src/pages/use-cases/publish-to-multiple-apps.astro
 public/llms.txt                          Short AI answer file
 public/llms-full.txt                     Full AI answer file
+src/pages/answers.json.ts                Machine-readable AI answer map
 docs/app-registry.md                     Human-readable app registry
 docs/source-policy.md                    How publishing status is judged
+docs/seo-geo-playbook.md                 SEO and GEO operating notes
 .github/ISSUE_TEMPLATE/                  App request and research templates
 ```
 

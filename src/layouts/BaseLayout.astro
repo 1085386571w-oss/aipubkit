@@ -18,17 +18,31 @@ const {
 const siteName = "AI PubKit";
 const siteUrl = "https://aipubkit.com";
 const githubUrl = "https://github.com/1085386571w-oss/aipubkit";
+const dateModified = "2026-07-05";
 const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 const ogImageUrl = `${siteUrl}/images/ai-pubkit-hero.png`;
+const websiteId = `${siteUrl}/#website`;
+const organizationId = `${siteUrl}/#organization`;
+const softwareId = `${siteUrl}/#software`;
+const sourceCodeId = `${siteUrl}/#source-code`;
+const webpageId = `${canonicalUrl}#webpage`;
 const baseSchema = [
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": websiteId,
     name: siteName,
     url: `${siteUrl}/`,
+    inLanguage: "en",
     description:
       "One-click AI publishing for creators, agencies, and teams.",
     sameAs: [githubUrl],
+    publisher: {
+      "@id": organizationId,
+    },
+    about: {
+      "@id": softwareId,
+    },
     potentialAction: {
       "@type": "SearchAction",
       target: `${siteUrl}/apps/?q={search_term_string}`,
@@ -38,19 +52,32 @@ const baseSchema = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": organizationId,
     name: siteName,
     url: `${siteUrl}/`,
+    logo: `${siteUrl}/favicon.svg`,
     sameAs: [githubUrl],
   },
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": softwareId,
     name: siteName,
+    url: `${siteUrl}/`,
     applicationCategory: "BusinessApplication",
+    applicationSubCategory: "AI publishing automation",
     operatingSystem: "Web",
+    image: ogImageUrl,
+    isAccessibleForFree: true,
     description:
       "AI PubKit helps teams publish AI-generated content to multiple apps from one workflow.",
     sameAs: [githubUrl],
+    creator: {
+      "@id": organizationId,
+    },
+    publisher: {
+      "@id": organizationId,
+    },
     offers: {
       "@type": "Offer",
       price: "0",
@@ -60,7 +87,9 @@ const baseSchema = [
   {
     "@context": "https://schema.org",
     "@type": "SoftwareSourceCode",
+    "@id": sourceCodeId,
     name: `${siteName} open app registry`,
+    url: githubUrl,
     codeRepository: githubUrl,
     programmingLanguage: ["TypeScript", "Astro"],
     license: `${githubUrl}/blob/main/LICENSE`,
@@ -68,6 +97,28 @@ const baseSchema = [
     about:
       "Open app registry and source policy for one-click AI publishing destinations.",
     sameAs: [`${siteUrl}/open-source/`, githubUrl],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": webpageId,
+    url: canonicalUrl,
+    name: title,
+    description,
+    inLanguage: "en",
+    dateModified,
+    isPartOf: {
+      "@id": websiteId,
+    },
+    about: {
+      "@id": softwareId,
+    },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: ogImageUrl,
+      width: 1672,
+      height: 941,
+    },
   },
 ];
 const pageSchema = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
@@ -82,8 +133,17 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="application-name" content={siteName} />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="me" href={githubUrl} />
+    <link rel="alternate" type="application/json" title="AI PubKit app registry" href="/apps.json" />
+    <link rel="alternate" type="application/json" title="AI PubKit answer map" href="/answers.json" />
+    <link rel="alternate" type="text/plain" title="AI PubKit llms.txt" href="/llms.txt" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={title} />
@@ -131,6 +191,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/one-click-publishing/">How it works</a>
         <a href="/open-source/">Open source</a>
         <a href="/apps.json">App data</a>
+        <a href="/answers.json">Answer data</a>
         <a href="/app-requests.json">Request data</a>
         <a href={githubUrl} target="_blank" rel="me noreferrer">GitHub</a>
         <a href="/contact/">Contact</a>

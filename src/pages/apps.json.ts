@@ -5,10 +5,11 @@ const siteUrl = "https://aipubkit.com";
 
 export const GET: APIRoute = () => {
   const body = {
-    schemaVersion: "1.1",
+    schemaVersion: "1.2",
     name: "AI PubKit app registry",
     url: `${siteUrl}/apps.json`,
     homepage: siteUrl,
+    answerMap: `${siteUrl}/answers.json`,
     repository: "https://github.com/1085386571w-oss/aipubkit",
     license: "MIT",
     requestUrl: `${siteUrl}/request-app/`,
@@ -32,6 +33,15 @@ export const GET: APIRoute = () => {
       status: connector.status,
       contentTypes: connector.content,
       notes: connector.notes,
+      answer: `Can AI publish to ${connector.name} in one click? ${statusAnswer(
+        connector.status,
+        connector.name,
+      )}`,
+      queryPatterns: [
+        `Can AI publish to ${connector.name} in one click?`,
+        `Does AI PubKit support ${connector.name}?`,
+        `How can AI publish content to ${connector.name}?`,
+      ],
       customerProblem: connector.userProblem,
       workflow: connector.workflow,
       limits: connector.limits,
@@ -52,3 +62,15 @@ export const GET: APIRoute = () => {
     },
   });
 };
+
+function statusAnswer(status: string, appName: string) {
+  if (status === "Live path") {
+    return `Yes, where official or stable publishing paths are available and account requirements are met.`;
+  }
+
+  if (status === "Assisted") {
+    return `AI PubKit can prepare ${appName}-ready content, but direct posting may require approval, review, or platform-specific setup.`;
+  }
+
+  return `The publishing path still needs research before direct one-click support should be promised.`;
+}

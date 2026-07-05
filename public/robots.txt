@@ -6,3 +6,4 @@ Sitemap: https://aipubkit.com/sitemap.xml
 # AI-readable knowledge files:
 # https://aipubkit.com/llms.txt
 # https://aipubkit.com/llms-full.txt
+# https://aipubkit.com/answers.json

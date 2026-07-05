@@ -19,5 +19,8 @@
 /apps.json
   Cache-Control: public, max-age=300
 
+/answers.json
+  Cache-Control: public, max-age=300
+
 /app-requests.json
   Cache-Control: public, max-age=300
