@@ -106,6 +106,7 @@ src/pages/answers.json.ts                Machine-readable AI answer map
 docs/app-registry.md                     Human-readable app registry
 docs/source-policy.md                    How publishing status is judged
 docs/seo-geo-playbook.md                 SEO and GEO operating notes
+docs/ahrefs-opportunity-plan.md          Ahrefs keyword and competitor plan
 .github/ISSUE_TEMPLATE/                  App request and research templates
 ```
 
