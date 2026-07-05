@@ -1,0 +1,49 @@
+name: Platform publishing research
+description: Share official documentation or research for an app publishing path.
+title: "Research: "
+labels:
+  - research
+body:
+  - type: input
+    id: app_name
+    attributes:
+      label: App name
+      placeholder: "Example: LinkedIn"
+    validations:
+      required: true
+  - type: textarea
+    id: official_sources
+    attributes:
+      label: Official sources
+      description: Add official API, developer, or help center links.
+      placeholder: "- https://developers.example.com/publish"
+    validations:
+      required: true
+  - type: dropdown
+    id: suggested_status
+    attributes:
+      label: Suggested status
+      options:
+        - Live path
+        - Assisted
+        - Researching
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and limits
+      description: Explain why the status should be changed or confirmed.
+      placeholder: "Publishing endpoint exists, but requires app review..."
+    validations:
+      required: true
+  - type: textarea
+    id: content_types
+    attributes:
+      label: Supported content types
+      placeholder: "Post, image, video, article, message..."
+  - type: textarea
+    id: approval_requirements
+    attributes:
+      label: Approval, account, or quota requirements
+      placeholder: "Developer app review, paid tier, business account, upload limit..."

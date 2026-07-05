@@ -1,0 +1,69 @@
+name: New app request
+description: Request a new one-click AI publishing destination.
+title: "App request: "
+labels:
+  - app-request
+body:
+  - type: input
+    id: app_name
+    attributes:
+      label: App name
+      description: Name of the app or platform.
+      placeholder: "Example: YouTube, LINE, Shopify Blog"
+    validations:
+      required: true
+  - type: input
+    id: app_url
+    attributes:
+      label: Website
+      description: Public website for the app.
+      placeholder: "https://example.com"
+    validations:
+      required: true
+  - type: dropdown
+    id: region
+    attributes:
+      label: Primary region
+      options:
+        - Global
+        - United States / Europe
+        - China
+        - Southeast Asia
+        - Japan / Korea
+        - Latin America
+        - Other regional market
+    validations:
+      required: true
+  - type: textarea
+    id: content_types
+    attributes:
+      label: What should AI PubKit publish?
+      description: List the content types users need.
+      placeholder: "Text posts, short videos, images, articles, newsletters..."
+    validations:
+      required: true
+  - type: input
+    id: docs_url
+    attributes:
+      label: Official API or developer docs
+      description: Add the best official link if you have it.
+      placeholder: "https://developers.example.com/docs"
+  - type: textarea
+    id: workflow
+    attributes:
+      label: User workflow
+      description: What repeated publishing work should this app remove?
+      placeholder: "I want to turn one AI-generated source into..."
+    validations:
+      required: true
+  - type: dropdown
+    id: involvement
+    attributes:
+      label: How can you help?
+      options:
+        - I want to vote for this app
+        - I can test the publishing path
+        - I can share API access details
+        - I may sponsor custom development
+    validations:
+      required: true
