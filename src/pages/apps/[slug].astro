@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import {
   appSlug,
   connectors,
+  customerProblem,
   statusSummary,
   type Connector,
 } from "../../data/apps";
@@ -18,12 +19,19 @@ const { connector } = Astro.props as { connector: Connector };
 const title = `Can AI publish to ${connector.name} in one click? - AI PubKit`;
 const description = `AI PubKit ${connector.status.toLowerCase()} status for publishing AI-generated content to ${connector.name}: ${connector.content.join(", ")}.`;
 const summary = statusSummary(connector.status, connector.name);
+const problem = customerProblem(connector);
 const directAnswer =
   connector.status === "Live path"
     ? `Yes. ${connector.name} is mapped as a direct publishing destination in AI PubKit where stable publishing paths are available.`
     : connector.status === "Assisted"
       ? `AI PubKit can prepare ${connector.name}-ready content in one workflow, but direct posting may require approval, review, or platform-specific setup.`
       : `AI PubKit is tracking ${connector.name} demand, but direct one-click publishing needs more research before it is listed as supported.`;
+const practicalNextStep =
+  connector.status === "Live path"
+    ? `For ${connector.name}, the practical product target is direct publishing after the user connects an approved account and confirms the post.`
+    : connector.status === "Assisted"
+      ? `For ${connector.name}, the practical product target is a ready-to-review draft first, then direct publishing only when the account and platform permissions allow it.`
+      : `For ${connector.name}, the practical product target is demand validation before promising a production publishing path.`;
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -34,6 +42,14 @@ const faqSchema = {
       acceptedAnswer: {
         "@type": "Answer",
         text: directAnswer,
+      },
+    },
+    {
+      "@type": "Question",
+      name: `What customer problem does AI PubKit solve for ${connector.name}?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: problem,
       },
     },
     {
@@ -91,6 +107,24 @@ const faqSchema = {
           ready for review.
         </p>
       </article>
+
+      <article class="notice">
+        <h3>Customer problem</h3>
+        <p>{problem}</p>
+      </article>
+
+      <article class="notice">
+        <h3>Practical next step</h3>
+        <p>{practicalNextStep}</p>
+        {connector.sourceUrl && connector.sourceName && (
+          <p>
+            Reference:{" "}
+            <a href={connector.sourceUrl} target="_blank" rel="noreferrer">
+              {connector.sourceName}
+            </a>
+          </p>
+        )}
+      </article>
     </div>
   </section>
 
@@ -108,15 +142,24 @@ const faqSchema = {
     <div class="grid three">
       <article class="card">
         <h3>Create source content</h3>
-        <p>Start with a script, article, product update, campaign idea, or announcement.</p>
+        <p>
+          Start with a script, article, product update, campaign idea, or
+          announcement.
+        </p>
       </article>
       <article class="card">
         <h3>Adapt for {connector.name}</h3>
-        <p>Generate the right format, caption, title, description, metadata, and media notes.</p>
+        <p>
+          Generate the right format, caption, title, description, metadata, and
+          media notes.
+        </p>
       </article>
       <article class="card">
         <h3>Publish or review</h3>
-        <p>Use direct publishing when available, or save a review-ready draft when required.</p>
+        <p>
+          Use direct publishing when available, or save a review-ready draft when
+          required.
+        </p>
       </article>
     </div>
   </section>

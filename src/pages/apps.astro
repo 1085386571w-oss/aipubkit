@@ -62,6 +62,14 @@ const itemListSchema = {
             {connector.content.map((item) => <span class="tag">{item}</span>)}
           </div>
           <p>{connector.notes}</p>
+          {connector.sourceUrl && connector.sourceName && (
+            <p class="source-link">
+              Based on{" "}
+              <a href={connector.sourceUrl} target="_blank" rel="noreferrer">
+                {connector.sourceName}
+              </a>
+            </p>
+          )}
           <div class="actions">
             <a class="button light" href={`/apps/${appSlug(connector.name)}/`}>
               View publishing page

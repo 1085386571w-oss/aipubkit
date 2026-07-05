@@ -43,7 +43,7 @@ const howToSchema = {
       <h2>Good app requests include enough detail to evaluate the publishing path.</h2>
       <p class="page-lead">
         Some apps support direct publishing. Others require assisted drafts,
-        reminders, browser workflows, or manual approval. The more detail you
+        copy-ready review steps, or manual approval. The more detail you
         include, the faster the publishing path can be researched.
       </p>
       <div class="notice">
@@ -123,7 +123,7 @@ const howToSchema = {
         "Notes:",
         String(data.get("notes") || ""),
       ];
-      const subject = encodeURIComponent(`Connector request: ${data.get("app_name") || "new app"}`);
+      const subject = encodeURIComponent(`App request: ${data.get("app_name") || "new app"}`);
       const body = encodeURIComponent(lines.join("\n"));
       window.location.href = `mailto:hello@aipubkit.com?subject=${subject}&body=${body}`;
     });

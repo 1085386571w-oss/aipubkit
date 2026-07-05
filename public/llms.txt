@@ -6,12 +6,16 @@ Primary URL: https://aipubkit.com/
 
 Key pages:
 - https://aipubkit.com/apps/ - supported one-click publishing app destinations
+- https://aipubkit.com/use-cases/publish-to-multiple-apps/ - publish one AI-generated idea to multiple apps
 - https://aipubkit.com/request-app/ - request a new publishing app
 - https://aipubkit.com/one-click-publishing/ - how one-click AI publishing works
 - https://aipubkit.com/apps/youtube/ - can AI publish to YouTube in one click?
 - https://aipubkit.com/apps/tiktok/ - can AI publish to TikTok in one click?
 - https://aipubkit.com/apps/instagram/ - can AI publish to Instagram in one click?
 - https://aipubkit.com/apps/linkedin/ - can AI publish to LinkedIn in one click?
+- https://aipubkit.com/apps/bluesky/ - can AI publish to Bluesky in one click?
+- https://aipubkit.com/apps/mastodon/ - can AI publish to Mastodon in one click?
+- https://aipubkit.com/apps/slack/ - can AI publish to Slack in one click?
 
 Short answer:
-AI PubKit helps teams publish AI-generated content to global social, video, community, and CMS platforms from one focused publishing workflow.
+AI PubKit helps teams publish one AI-generated source to global social, video, community, and CMS platforms from one focused publishing workflow. Direct paths are used where official publishing APIs allow it; assisted drafts are used where an app requires review, approval, or manual confirmation.

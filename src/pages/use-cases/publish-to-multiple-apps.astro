@@ -1,0 +1,231 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { appSlug, connectors } from "../../data/apps";
+
+const directApps = connectors.filter((connector) => connector.status === "Live path");
+const assistedApps = connectors.filter((connector) => connector.status === "Assisted");
+const title = "Publish AI content to multiple apps in one click - AI PubKit";
+const description =
+  "AI PubKit helps creators and teams turn one AI-generated source into app-ready posts, videos, messages, and articles for multiple publishing destinations.";
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Can AI publish to multiple apps in one click?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. AI PubKit is designed to turn one source of AI-generated content into destination-ready versions for multiple apps. Some destinations can be published directly, while others need assisted drafts, review, or account approval.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Which apps can use direct publishing paths?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: `AI PubKit tracks direct publishing paths for apps such as ${directApps
+          .map((connector) => connector.name)
+          .slice(0, 10)
+          .join(", ")}.`,
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What happens when an app does not allow direct publishing?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI PubKit should create a platform-ready draft with the right copy, metadata, media notes, and review checklist instead of pretending that every platform allows unrestricted automation.",
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} schema={faqSchema}>
+  <section class="page-hero">
+    <p class="eyebrow">Use case</p>
+    <h1>Publish one AI-generated idea to multiple apps.</h1>
+    <p class="page-lead">
+      The customer problem is simple: one idea becomes many repeated manual
+      jobs. AI PubKit focuses on turning that one source into destination-ready
+      content for the apps a creator, agency, or team actually uses.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/apps/">Explore app destinations</a>
+      <a class="button light" href="/request-app/">Request another app</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Customer problem</p>
+        <h2>The work users want removed.</h2>
+      </div>
+      <p>
+        The value is not just pressing a button. The value is avoiding repeated
+        formatting, rewriting, file upload, metadata, and review work across
+        every destination.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Repeated copy-paste</h3>
+        <p>
+          Users do not want to manually rewrite the same announcement for
+          YouTube, TikTok, Instagram, LinkedIn, X, WordPress, and community
+          channels.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Different platform rules</h3>
+        <p>
+          Every app has its own captions, media rules, permissions, review
+          process, and publishing limits. A useful AI workflow must respect
+          those differences.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Unclear publish status</h3>
+        <p>
+          Users need to know whether a destination can publish directly, needs
+          an assisted draft, or is still being researched before they trust the
+          workflow.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Practical workflow</p>
+      <h2>One source in, app-ready outputs out.</h2>
+      <p class="page-lead">
+        AI PubKit should behave like a publishing answer layer: it explains what
+        can be done for each app and then moves the content toward that outcome.
+      </p>
+    </aside>
+    <div class="steps">
+      <article class="step">
+        <h3>Create the source</h3>
+        <p>
+          Start from a video script, launch note, article, image caption,
+          product update, or campaign idea.
+        </p>
+      </article>
+      <article class="step">
+        <h3>Select destinations</h3>
+        <p>
+          Choose apps such as YouTube, TikTok, Instagram, Facebook Pages, X,
+          LinkedIn, Threads, Pinterest, Reddit, WordPress, Telegram, Discord,
+          Bluesky, Mastodon, Slack, or regional apps.
+        </p>
+      </article>
+      <article class="step">
+        <h3>Adapt by destination</h3>
+        <p>
+          Generate titles, captions, descriptions, tags, links, media notes,
+          article fields, and review checklists for each selected app.
+        </p>
+      </article>
+      <article class="step">
+        <h3>Publish or prepare draft</h3>
+        <p>
+          Publish directly where stable paths are available. Save ready-to-review
+          drafts where platform approval or human review is required.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Direct paths</p>
+        <h2>Apps with direct publishing potential.</h2>
+      </div>
+      <p>
+        These destinations have official or stable publishing paths that make
+        them strong candidates for one-click publishing after account connection.
+      </p>
+    </div>
+    <div class="grid three">
+      {directApps.map((connector) => (
+        <article class="connector">
+          <div class="connector-top">
+            <div>
+              <h3>{connector.name}</h3>
+              <p>{connector.category} · {connector.region}</p>
+            </div>
+            <span class="status live-path">{connector.status}</span>
+          </div>
+          <p>{connector.notes}</p>
+          <div class="actions">
+            <a class="button light" href={`/apps/${appSlug(connector.name)}/`}>
+              View answer
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Assisted paths</p>
+        <h2>Apps that need review, approval, or platform-specific setup.</h2>
+      </div>
+      <p>
+        Assisted support still solves customer work: it prepares the correct
+        draft and checklist instead of forcing the user to start from scratch.
+      </p>
+    </div>
+    <div class="grid three">
+      {assistedApps.map((connector) => (
+        <article class="connector">
+          <div class="connector-top">
+            <div>
+              <h3>{connector.name}</h3>
+              <p>{connector.category} · {connector.region}</p>
+            </div>
+            <span class="status assisted">{connector.status}</span>
+          </div>
+          <p>{connector.notes}</p>
+          <div class="actions">
+            <a class="button light" href={`/apps/${appSlug(connector.name)}/`}>
+              View answer
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <h2>Reference basis</h2>
+      <p>
+        The publishing status model is based on platform documentation and the
+        product patterns used by strong social publishing tools: direct posting
+        where possible, assisted drafts where required, and an open request path
+        when users need another app.
+      </p>
+      <div class="actions">
+        <a class="button light" href="https://developers.google.com/youtube/v3/docs/videos/insert" target="_blank" rel="noreferrer">
+          YouTube API
+        </a>
+        <a class="button light" href="https://developers.tiktok.com/products/content-posting-api/" target="_blank" rel="noreferrer">
+          TikTok API
+        </a>
+        <a class="button light" href="https://developers.facebook.com/documentation/instagram-platform/content-publishing" target="_blank" rel="noreferrer">
+          Instagram API
+        </a>
+        <a class="button light" href="https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api" target="_blank" rel="noreferrer">
+          LinkedIn API
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
