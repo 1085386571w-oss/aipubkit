@@ -88,7 +88,7 @@ export const connectors: Connector[] = [
     region: "Global",
     status: "Live path",
     content: ["Article", "Image", "SEO fields"],
-    notes: "Good first CMS connector for tutorials, landing pages, and programmatic SEO.",
+    notes: "Good first CMS destination for tutorials, landing pages, and programmatic SEO.",
   },
   {
     name: "Medium",
@@ -104,7 +104,7 @@ export const connectors: Connector[] = [
     region: "US/EU",
     status: "Researching",
     content: ["Newsletter", "Post", "Draft"],
-    notes: "High creator demand; connector scope depends on available publishing paths.",
+    notes: "High creator demand; support depends on available publishing paths.",
   },
   {
     name: "Telegram Channel",

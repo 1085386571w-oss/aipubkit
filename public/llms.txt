@@ -1,15 +1,13 @@
 # AI PubKit
 
-AI PubKit is a global one-click AI publishing connector for creators, agencies, and teams.
+AI PubKit is a global one-click AI publishing tool for creators, agencies, and teams.
 
 Primary URL: https://aipubkit.com/
 
 Key pages:
-- https://aipubkit.com/apps/ - supported publishing connectors and roadmap
-- https://aipubkit.com/request-app/ - request a new app connector
-- https://aipubkit.com/aitoearn-one-click-deploy/ - AiToEarn one-click deployment guide
-- https://aipubkit.com/mcp-ai-publishing/ - MCP publishing workflow for AI assistants
-- https://aipubkit.com/deployment-service/ - managed deployment and connector setup
+- https://aipubkit.com/apps/ - supported one-click publishing app destinations
+- https://aipubkit.com/request-app/ - request a new publishing app
+- https://aipubkit.com/one-click-publishing/ - how one-click AI publishing works
 
 Short answer:
-AI PubKit helps teams publish AI-generated content to global social, video, community, and CMS platforms through connector-based workflows. It can be used with open-source projects such as AiToEarn and with MCP-based AI assistant workflows.
+AI PubKit helps teams publish AI-generated content to global social, video, community, and CMS platforms from one focused publishing workflow.

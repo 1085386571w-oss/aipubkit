@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "One-click AI publishing workflow - AI PubKit";
+const description =
+  "Learn how AI PubKit focuses on one-click AI publishing: create once, adapt for each app, review limits, and publish or save drafts.";
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Use one-click AI publishing",
+  step: [
+    {
+      "@type": "HowToStep",
+      name: "Create once",
+      text: "Write or generate the source content one time.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Choose apps",
+      text: "Select the destination apps where the content should go.",
+    },
+    {
+      "@type": "HowToStep",
+      name: "Publish or draft",
+      text: "Publish directly where available, or create a ready-to-review draft where the platform requires approval.",
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} schema={howToSchema}>
+  <section class="page-hero">
+    <p class="eyebrow">How it works</p>
+    <h1>One-click publishing means one content workflow for many apps.</h1>
+    <p class="page-lead">
+      AI PubKit has one product job: help creators and teams move AI-generated
+      content into the apps where it needs to be published.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="grid three">
+      <article class="card">
+        <h3>Create once</h3>
+        <p>
+          Start with one source: a product update, video script, image caption,
+          article, announcement, or campaign message.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Adapt by app</h3>
+        <p>
+          Turn the source into platform-ready titles, captions, descriptions,
+          tags, links, and media notes for each selected destination.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Publish or save drafts</h3>
+        <p>
+          Send content directly when an app supports it. Save drafts when a
+          platform requires human review or account approval.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <h2>Keep the product boundary clear</h2>
+      <p class="page-lead">
+        Every page, form, and app listing should point back to the same promise:
+        publish AI content to selected apps from one workflow.
+      </p>
+    </aside>
+    <div class="notice">
+      <h3>Product boundary</h3>
+      <p>
+        AI PubKit should stay focused on the user question: can this content be
+        published to my apps in one workflow?
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/apps/">View supported apps</a>
+        <a class="button light" href="/request-app/">Request an app</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

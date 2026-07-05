@@ -1,13 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const title = "Request an app connector - AI PubKit";
+const title = "Request a publishing app - AI PubKit";
 const description =
-  "Request a new AI publishing connector for the app, platform, or regional channel your team needs.";
+  "Request a new one-click AI publishing destination for the app, platform, or regional channel your team needs.";
 const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "Request an AI publishing connector",
+  name: "Request an AI publishing app destination",
   step: [
     {
       "@type": "HowToStep",
@@ -22,7 +22,7 @@ const howToSchema = {
     {
       "@type": "HowToStep",
       name: "Choose involvement",
-      text: "Tell AI PubKit whether you can test, sponsor, or simply vote for the connector.",
+      text: "Tell AI PubKit whether you can test, sponsor, or simply vote for the app destination.",
     },
   ],
 };
@@ -34,22 +34,22 @@ const howToSchema = {
     <h1>Tell us where AI should publish next.</h1>
     <p class="page-lead">
       AI PubKit is designed to grow from real demand. Request a platform, share
-      API documentation, and tell us whether you can help test the connector.
+      API documentation, and tell us whether you can help test the publishing path.
     </p>
   </section>
 
   <section class="section split">
     <aside>
-      <h2>Good connector requests include enough detail to evaluate the path.</h2>
+      <h2>Good app requests include enough detail to evaluate the publishing path.</h2>
       <p class="page-lead">
         Some apps support direct publishing. Others require assisted drafts,
         reminders, browser workflows, or manual approval. The more detail you
-        include, the faster a connector can be researched.
+        include, the faster the publishing path can be researched.
       </p>
       <div class="notice">
         <h3>Current intake email</h3>
         <p>
-          Until the backend is connected, requests are prepared as an email to
+          Until the live intake form is ready, requests are prepared as an email to
           <strong>hello@aipubkit.com</strong>.
         </p>
       </div>
@@ -84,7 +84,7 @@ const howToSchema = {
         <label for="involvement">How can you help?</label>
         <select id="involvement" name="involvement">
           <option>I want to vote for this app</option>
-          <option>I can test the connector</option>
+          <option>I can test the publishing path</option>
           <option>I can share API access details</option>
           <option>I may sponsor custom development</option>
         </select>
@@ -100,7 +100,7 @@ const howToSchema = {
       <button class="button dark" type="submit">Prepare request email</button>
       <p class="muted">
         This static form opens your email app with the request details. A hosted
-        database-backed form can be connected after DNS and hosting are ready.
+        live request inbox can be added after the first traffic test.
       </p>
     </form>
   </section>
@@ -111,7 +111,7 @@ const howToSchema = {
       event.preventDefault();
       const data = new FormData(form);
       const lines = [
-        "New AI PubKit connector request",
+        "New AI PubKit app request",
         "",
         `App: ${data.get("app_name") || ""}`,
         `Website/API docs: ${data.get("app_url") || ""}`,

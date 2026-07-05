@@ -26,7 +26,7 @@ const baseSchema = [
     name: siteName,
     url: `${siteUrl}/`,
     description:
-      "Global AI publishing connector for creators, agencies, and teams.",
+      "One-click AI publishing for creators, agencies, and teams.",
     potentialAction: {
       "@type": "SearchAction",
       target: `${siteUrl}/apps/?q={search_term_string}`,
@@ -46,7 +46,7 @@ const baseSchema = [
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     description:
-      "AI PubKit helps teams connect AI-generated content to global publishing destinations through app connectors.",
+      "AI PubKit helps teams publish AI-generated content to multiple apps from one workflow.",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -91,8 +91,8 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="/apps/">Apps</a>
         <a href="/request-app/">Request app</a>
-        <a href="/mcp-ai-publishing/">MCP</a>
-        <a href="/deployment-service/">Deploy</a>
+        <a href="/one-click-publishing/">How it works</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </header>
     <main>
@@ -101,12 +101,12 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
     <footer class="site-footer">
       <div>
         <strong>AI PubKit</strong>
-        <p>Global AI publishing connectors for creators and teams.</p>
+        <p>One-click AI publishing for creators and teams.</p>
       </div>
       <nav aria-label="Footer navigation">
         <a href="/apps/">Supported apps</a>
         <a href="/request-app/">Request an app</a>
-        <a href="/aitoearn-one-click-deploy/">AiToEarn deploy</a>
+        <a href="/one-click-publishing/">How it works</a>
         <a href="/contact/">Contact</a>
         <a href="/privacy/">Privacy</a>
         <a href="/terms/">Terms</a>

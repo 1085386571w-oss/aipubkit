@@ -2,18 +2,18 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { connectors } from "../data/apps";
 
-const title = "Supported app connectors - AI PubKit";
+const title = "Supported publishing apps - AI PubKit";
 const description =
-  "Browse AI PubKit publishing connectors for global social, video, community, CMS, and regional apps.";
+  "Browse AI PubKit one-click publishing destinations for global social, video, community, CMS, and regional apps.";
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "AI PubKit supported app connectors",
+  name: "AI PubKit supported publishing apps",
   itemListElement: connectors.map((connector, index) => ({
     "@type": "ListItem",
     position: index + 1,
     name: connector.name,
-    description: `${connector.status} connector for ${connector.content.join(", ")}.`,
+    description: `${connector.status} publishing destination for ${connector.content.join(", ")}.`,
   })),
 };
 ---
@@ -21,9 +21,9 @@ const itemListSchema = {
 <BaseLayout title={title} description={description} schema={itemListSchema}>
   <section class="page-hero">
     <p class="eyebrow">Supported apps</p>
-    <h1>Publishing connectors for global and regional platforms.</h1>
+    <h1>Publishing apps for global and regional platforms.</h1>
     <p class="page-lead">
-      Each connector has a practical status. Direct publishing is used where
+      Each app has a practical publishing status. Direct publishing is used where
       official or stable APIs allow it. Assisted workflows are used when an app
       requires human review, account approval, or platform-specific limits.
     </p>
@@ -69,7 +69,7 @@ const itemListSchema = {
     <div class="notice" style="margin-top: 18px;">
       <h3>Do not see the app you need?</h3>
       <p>
-        Request a connector and include the app website, region, content type,
+        Request an app and include the website, region, content type,
         and any API documentation you already found.
       </p>
       <div class="actions">

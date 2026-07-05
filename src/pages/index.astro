@@ -2,9 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { topConnectors } from "../data/apps";
 
-const title = "AI PubKit - One-click AI publishing connectors for global apps";
+const title = "AI PubKit - One-click AI publishing for global apps";
 const description =
-  "AI PubKit helps creators and teams publish AI-generated content to global platforms through app connectors, MCP workflows, and managed deployment paths.";
+  "AI PubKit helps creators and teams publish AI-generated content to global apps from one simple publishing workflow.";
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -14,7 +14,7 @@ const faqSchema = {
       name: "Can AI publish content to multiple apps in one click?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. AI PubKit is designed to connect AI-generated content to publishing destinations through app connectors. Some apps support direct API publishing, while others require assisted workflows, drafts, or account approval.",
+        text: "Yes. AI PubKit is designed for one-click AI publishing across multiple app destinations. Some apps support direct publishing, while others require assisted drafts or account approval.",
       },
     },
     {
@@ -27,10 +27,10 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      name: "Can users request new app connectors?",
+      name: "Can users request new publishing apps?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Users can request an app connector, share API documentation, volunteer to test, or sponsor custom connector development.",
+        text: "Yes. Users can request a new app destination, share API documentation, volunteer to test, or sponsor publishing support.",
       },
     },
   ],
@@ -41,17 +41,17 @@ const faqSchema = {
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-copy">
-        <p class="eyebrow">Global AI publishing connector</p>
+        <p class="eyebrow">Global one-click publishing</p>
         <h1>Publish AI content to the apps your audience already uses.</h1>
         <p class="lead">
-          AI PubKit turns AI-generated drafts into connector-ready publishing
-          workflows for global social, video, community, and CMS platforms.
+          AI PubKit turns one piece of AI-generated content into ready-to-post
+          versions for global social, video, community, and CMS platforms.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="/apps/">Explore connectors</a>
+          <a class="button primary" href="/apps/">Explore apps</a>
           <a class="button secondary" href="/request-app/">Request an app</a>
         </div>
-        <div class="hero-finder" aria-label="Popular connectors">
+        <div class="hero-finder" aria-label="Popular publishing apps">
           <div class="finder-label">Start with a destination</div>
           <div class="quick-apps">
             {topConnectors.slice(0, 8).map((connector) => (
@@ -62,9 +62,9 @@ const faqSchema = {
           </div>
         </div>
         <div class="metric-row">
-          <div class="metric"><strong>18+</strong> connectors mapped</div>
+          <div class="metric"><strong>18+</strong> apps mapped</div>
           <div class="metric"><strong>Global</strong> social and video apps</div>
-          <div class="metric"><strong>MCP</strong> AI assistant workflow</div>
+          <div class="metric"><strong>1 click</strong> publishing workflow</div>
           <div class="metric"><strong>Open</strong> app request pipeline</div>
         </div>
       </div>
@@ -75,34 +75,34 @@ const faqSchema = {
     <div class="section-heading">
       <div>
         <p class="eyebrow">What we are building</p>
-        <h2>A connector layer, not another locked publishing tool.</h2>
+        <h2>One workflow for publishing to many apps.</h2>
       </div>
       <p>
-        The product direction is simple: if a creator or company wants to send
-        AI-generated content somewhere, that destination should become a
-        connector with clear capabilities and limitations.
+        The product direction is simple: write or generate content once, choose
+        the destination apps, then publish directly or prepare review-ready drafts
+        depending on each platform's rules.
       </p>
     </div>
     <div class="grid three">
       <article class="card">
-        <h3>Direct publishing where APIs allow it</h3>
+        <h3>Publish directly where platforms allow it</h3>
         <p>
-          Use official or stable API paths for video, social posts, CMS articles,
-          community updates, and scheduled publishing when a platform permits it.
+          Send posts, videos, articles, links, and updates through official or
+          stable publishing paths when a destination supports them.
         </p>
       </article>
       <article class="card">
-        <h3>Assisted workflows where platforms restrict automation</h3>
+        <h3>Create drafts where review is required</h3>
         <p>
-          Generate drafts, captions, metadata, checklists, reminders, and copy-ready
-          assets when an app requires human approval or has limited API access.
+          Prepare captions, metadata, media notes, and copy-ready drafts when an
+          app requires manual review or account approval.
         </p>
       </article>
       <article class="card">
-        <h3>Connector requests from the market</h3>
+        <h3>Add the apps users actually need</h3>
         <p>
-          Let users request regional apps, share API docs, volunteer for testing,
-          and sponsor connectors that matter to their audience.
+          Let users request new destinations so the publishing list grows around
+          real creator and team demand.
         </p>
       </article>
     </div>
@@ -141,18 +141,17 @@ const faqSchema = {
     <div class="section">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">First release path</p>
-          <h2>Use open-source foundations, then build the AI PubKit connector brand.</h2>
+          <p class="eyebrow">Single purpose</p>
+          <h2>AI PubKit is for one-click publishing, not mixed automation.</h2>
         </div>
         <p>
-          AiToEarn can be the first deployment guide and proof point, while AI
-          PubKit owns the global connector directory, request pipeline, MCP
-          workflows, and managed setup service.
+          The site stays focused on one job: take AI-generated content and move
+          it toward the apps where it needs to be published.
         </p>
       </div>
       <div class="actions">
-        <a class="button primary" href="/aitoearn-one-click-deploy/">AiToEarn deploy guide</a>
-        <a class="button secondary" href="/mcp-ai-publishing/">MCP publishing workflow</a>
+        <a class="button primary" href="/one-click-publishing/">See how it works</a>
+        <a class="button secondary" href="/request-app/">Request an app</a>
       </div>
     </div>
   </section>
