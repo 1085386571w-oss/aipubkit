@@ -6,6 +6,7 @@ The first release is a static Astro site for `aipubkit.com` with:
 
 - Global one-click publishing positioning
 - Supported apps directory
+- App-specific answer pages for one-click publishing queries
 - Request-an-app intake page
 - One-click publishing workflow page
 - SEO and GEO files: sitemap, robots, llms.txt, llms-full.txt, structured data

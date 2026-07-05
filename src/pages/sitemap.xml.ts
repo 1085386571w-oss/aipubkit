@@ -1,8 +1,10 @@
 import type { APIRoute } from "astro";
+import { appSlug, connectors } from "../data/apps";
 
 const pages = [
   "/",
   "/apps/",
+  ...connectors.map((connector) => `/apps/${appSlug(connector.name)}/`),
   "/request-app/",
   "/one-click-publishing/",
   "/contact/",

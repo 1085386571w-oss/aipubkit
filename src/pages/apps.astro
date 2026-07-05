@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { connectors } from "../data/apps";
+import { appSlug, connectors } from "../data/apps";
 
 const title = "Supported publishing apps - AI PubKit";
 const description =
@@ -44,7 +44,7 @@ const itemListSchema = {
       {connectors.map((connector) => (
         <article
           class="connector"
-          id={connector.name.toLowerCase().replaceAll(" ", "-")}
+          id={appSlug(connector.name)}
           data-connector
           data-search={`${connector.name} ${connector.category} ${connector.region} ${connector.status} ${connector.content.join(" ")} ${connector.notes}`.toLowerCase()}
           data-status={connector.status}
@@ -62,6 +62,11 @@ const itemListSchema = {
             {connector.content.map((item) => <span class="tag">{item}</span>)}
           </div>
           <p>{connector.notes}</p>
+          <div class="actions">
+            <a class="button light" href={`/apps/${appSlug(connector.name)}/`}>
+              View publishing page
+            </a>
+          </div>
         </article>
       ))}
     </div>

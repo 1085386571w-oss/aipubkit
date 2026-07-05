@@ -8,6 +8,10 @@ Key pages:
 - https://aipubkit.com/apps/ - supported one-click publishing app destinations
 - https://aipubkit.com/request-app/ - request a new publishing app
 - https://aipubkit.com/one-click-publishing/ - how one-click AI publishing works
+- https://aipubkit.com/apps/youtube/ - can AI publish to YouTube in one click?
+- https://aipubkit.com/apps/tiktok/ - can AI publish to TikTok in one click?
+- https://aipubkit.com/apps/instagram/ - can AI publish to Instagram in one click?
+- https://aipubkit.com/apps/linkedin/ - can AI publish to LinkedIn in one click?
 
 Short answer:
 AI PubKit helps teams publish AI-generated content to global social, video, community, and CMS platforms from one focused publishing workflow.

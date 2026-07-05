@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { topConnectors } from "../data/apps";
+import { appSlug, topConnectors } from "../data/apps";
 
 const title = "AI PubKit - One-click AI publishing for global apps";
 const description =
@@ -55,7 +55,7 @@ const faqSchema = {
           <div class="finder-label">Start with a destination</div>
           <div class="quick-apps">
             {topConnectors.slice(0, 8).map((connector) => (
-              <a href={`/apps/#${connector.name.toLowerCase().replaceAll(" ", "-")}`}>
+              <a href={`/apps/${appSlug(connector.name)}/`}>
                 {connector.name}
               </a>
             ))}
@@ -118,7 +118,7 @@ const faqSchema = {
     </div>
     <div class="grid three">
       {topConnectors.map((connector) => (
-        <article class="connector" id={connector.name.toLowerCase().replaceAll(" ", "-")}>
+        <article class="connector" id={appSlug(connector.name)}>
           <div class="connector-top">
             <div>
               <h3>{connector.name}</h3>
@@ -132,6 +132,11 @@ const faqSchema = {
             {connector.content.map((item) => <span class="tag">{item}</span>)}
           </div>
           <p>{connector.notes}</p>
+          <div class="actions">
+            <a class="button light" href={`/apps/${appSlug(connector.name)}/`}>
+              View publishing page
+            </a>
+          </div>
         </article>
       ))}
     </div>

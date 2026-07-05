@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  appSlug,
+  connectors,
+  statusSummary,
+  type Connector,
+} from "../../data/apps";
+
+export function getStaticPaths() {
+  return connectors.map((connector) => ({
+    params: { slug: appSlug(connector.name) },
+    props: { connector },
+  }));
+}
+
+const { connector } = Astro.props as { connector: Connector };
+const title = `Can AI publish to ${connector.name} in one click? - AI PubKit`;
+const description = `AI PubKit ${connector.status.toLowerCase()} status for publishing AI-generated content to ${connector.name}: ${connector.content.join(", ")}.`;
+const summary = statusSummary(connector.status, connector.name);
+const directAnswer =
+  connector.status === "Live path"
+    ? `Yes. ${connector.name} is mapped as a direct publishing destination in AI PubKit where stable publishing paths are available.`
+    : connector.status === "Assisted"
+      ? `AI PubKit can prepare ${connector.name}-ready content in one workflow, but direct posting may require approval, review, or platform-specific setup.`
+      : `AI PubKit is tracking ${connector.name} demand, but direct one-click publishing needs more research before it is listed as supported.`;
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: `Can AI publish to ${connector.name} in one click?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: directAnswer,
+      },
+    },
+    {
+      "@type": "Question",
+      name: `What content can AI PubKit prepare for ${connector.name}?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: `AI PubKit tracks ${connector.content.join(", ")} workflows for ${connector.name}.`,
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} schema={faqSchema}>
+  <section class="page-hero">
+    <p class="eyebrow">{connector.region} · {connector.category}</p>
+    <h1>Can AI publish to {connector.name} in one click?</h1>
+    <p class="page-lead">{directAnswer}</p>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <h2>{connector.name} publishing status</h2>
+      <p class="page-lead">{summary}</p>
+      <div class="actions">
+        <a class="button dark" href="/one-click-publishing/">How one-click publishing works</a>
+        <a class="button light" href="/request-app/">Request another app</a>
+      </div>
+    </aside>
+
+    <div class="grid">
+      <article class="connector">
+        <div class="connector-top">
+          <div>
+            <h3>{connector.name}</h3>
+            <p>{connector.category} · {connector.region}</p>
+          </div>
+          <span class={`status ${connector.status.toLowerCase().replace(" ", "-")}`}>
+            {connector.status}
+          </span>
+        </div>
+        <div class="tag-row">
+          {connector.content.map((item) => <span class="tag">{item}</span>)}
+        </div>
+        <p>{connector.notes}</p>
+      </article>
+
+      <article class="notice">
+        <h3>What one-click means here</h3>
+        <p>
+          One-click publishing does not mean ignoring platform rules. It means
+          using one content workflow to create the right post format, check the
+          destination's limits, and either publish directly or prepare a draft
+          ready for review.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Workflow</p>
+        <h2>Publish once, adapt for {connector.name}.</h2>
+      </div>
+      <p>
+        AI PubKit keeps the workflow focused: source content in, destination-ready
+        publishing output out.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Create source content</h3>
+        <p>Start with a script, article, product update, campaign idea, or announcement.</p>
+      </article>
+      <article class="card">
+        <h3>Adapt for {connector.name}</h3>
+        <p>Generate the right format, caption, title, description, metadata, and media notes.</p>
+      </article>
+      <article class="card">
+        <h3>Publish or review</h3>
+        <p>Use direct publishing when available, or save a review-ready draft when required.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

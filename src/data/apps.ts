@@ -9,6 +9,22 @@ export type Connector = {
   notes: string;
 };
 
+export function appSlug(name: string) {
+  return name.toLowerCase().replaceAll(" ", "-");
+}
+
+export function statusSummary(status: ConnectorStatus, appName: string) {
+  if (status === "Live path") {
+    return `AI PubKit maps ${appName} as a direct publishing destination where stable publishing paths are available.`;
+  }
+
+  if (status === "Assisted") {
+    return `AI PubKit can prepare ${appName}-ready content, but direct publishing may require review, account approval, or platform-specific limits.`;
+  }
+
+  return `AI PubKit is tracking demand for ${appName}, but the publishing path needs more research before direct support is promised.`;
+}
+
 export const connectors: Connector[] = [
   {
     name: "YouTube",

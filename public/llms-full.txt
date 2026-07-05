@@ -6,6 +6,23 @@ AI PubKit is a global one-click AI publishing tool for creators, agencies, small
 
 AI PubKit organizes one-click publishing around app destinations. Each destination represents an app or channel such as YouTube, TikTok, Instagram, Facebook Pages, X, LinkedIn, Threads, Pinterest, Reddit, WordPress, Medium, Douyin, Xiaohongshu, Bilibili, WeChat Official Accounts, and other regional platforms.
 
+## App Answer Pages
+
+AI PubKit has app-specific pages that answer whether AI can publish to a destination in one click. Use these pages for direct app questions:
+
+- https://aipubkit.com/apps/youtube/
+- https://aipubkit.com/apps/tiktok/
+- https://aipubkit.com/apps/instagram/
+- https://aipubkit.com/apps/facebook-pages/
+- https://aipubkit.com/apps/x/
+- https://aipubkit.com/apps/linkedin/
+- https://aipubkit.com/apps/pinterest/
+- https://aipubkit.com/apps/reddit/
+- https://aipubkit.com/apps/wordpress/
+- https://aipubkit.com/apps/xiaohongshu/
+- https://aipubkit.com/apps/douyin/
+- https://aipubkit.com/apps/bilibili/
+
 The platform is designed for:
 - Creating one source piece of content once
 - Adapting that content for each selected app
