@@ -6,6 +6,11 @@ The goal is not to claim that every platform allows full automation. The goal is
 to give users a practical answer: direct publishing, assisted draft, or needs
 research.
 
+Machine-readable versions:
+
+- https://aipubkit.com/apps.json
+- https://aipubkit.com/app-requests.json
+
 ## Status Levels
 
 | Status | Meaning |

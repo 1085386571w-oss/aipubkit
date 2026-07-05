@@ -4,6 +4,8 @@ import { appSlug, connectors } from "../data/apps";
 const pages = [
   "/",
   "/apps/",
+  "/apps.json",
+  "/app-requests.json",
   ...connectors.map((connector) => `/apps/${appSlug(connector.name)}/`),
   "/use-cases/publish-to-multiple-apps/",
   "/open-source/",

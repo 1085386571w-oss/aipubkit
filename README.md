@@ -53,6 +53,8 @@ See [docs/app-registry.md](docs/app-registry.md) for the current app list.
 - [Publish to multiple apps](https://aipubkit.com/use-cases/publish-to-multiple-apps/)
 - [Request an app](https://aipubkit.com/request-app/)
 - [How one-click publishing works](https://aipubkit.com/one-click-publishing/)
+- [Machine-readable app registry](https://aipubkit.com/apps.json)
+- [Public request queue](https://aipubkit.com/app-requests.json)
 - [llms.txt](https://aipubkit.com/llms.txt)
 - [llms-full.txt](https://aipubkit.com/llms-full.txt)
 

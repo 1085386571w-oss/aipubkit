@@ -1,34 +1,50 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { demandItems } from "../data/demand";
 
 const title = "Request a publishing app - AI PubKit";
 const description =
   "Request a new one-click AI publishing destination for the app, platform, or regional channel your team needs.";
-const howToSchema = {
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  name: "Request an AI publishing app destination",
-  step: [
-    {
-      "@type": "HowToStep",
-      name: "Name the app",
-      text: "Share the app name, website, region, and the type of content you want to publish.",
-    },
-    {
-      "@type": "HowToStep",
-      name: "Share API details",
-      text: "Add official API documentation or developer links if you have them.",
-    },
-    {
-      "@type": "HowToStep",
-      name: "Choose involvement",
-      text: "Tell AI PubKit whether you can test, sponsor, or simply vote for the app destination.",
-    },
-  ],
-};
+const githubIssueUrl = "https://github.com/1085386571w-oss/aipubkit/issues/new";
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Request an AI publishing app destination",
+    step: [
+      {
+        "@type": "HowToStep",
+        name: "Name the app",
+        text: "Share the app name, website, region, and the type of content you want to publish.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Share API details",
+        text: "Add official API documentation or developer links if you have them.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Choose involvement",
+        text: "Tell AI PubKit whether you can test, sponsor, or simply vote for the app destination.",
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "AI PubKit public app request queue",
+    itemListElement: demandItems.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      description: item.customerNeed,
+      url: item.issueUrl,
+    })),
+  },
+];
 ---
 
-<BaseLayout title={title} description={description} schema={howToSchema}>
+<BaseLayout title={title} description={description} schema={schema}>
   <section class="page-hero">
     <p class="eyebrow">Request an app</p>
     <h1>Tell us where AI should publish next.</h1>
@@ -47,10 +63,10 @@ const howToSchema = {
         include, the faster the publishing path can be researched.
       </p>
       <div class="notice">
-        <h3>Current intake email</h3>
+        <h3>Public request intake</h3>
         <p>
-          Until the live intake form is ready, requests are prepared as an email to
-          <strong>hello@aipubkit.com</strong>.
+          Requests are prepared as public GitHub issues so other users can vote,
+          add official source links, and help test the publishing path.
         </p>
       </div>
     </aside>
@@ -81,6 +97,10 @@ const howToSchema = {
         <input id="content-type" name="content_type" placeholder="Text, images, video, short video, articles, newsletters..." />
       </div>
       <div class="field">
+        <label for="workflow">Workflow to remove</label>
+        <input id="workflow" name="workflow" placeholder="Example: turn one AI article into a product blog post and social update" />
+      </div>
+      <div class="field">
         <label for="involvement">How can you help?</label>
         <select id="involvement" name="involvement">
           <option>I want to vote for this app</option>
@@ -90,42 +110,129 @@ const howToSchema = {
         </select>
       </div>
       <div class="field">
-        <label for="email">Your email</label>
-        <input id="email" name="email" type="email" placeholder="you@example.com" />
+        <label for="docs-url">Official developer docs</label>
+        <input id="docs-url" name="docs_url" type="url" placeholder="https://developers.example.com/docs" />
       </div>
       <div class="field">
         <label for="notes">Extra context</label>
         <textarea id="notes" name="notes" placeholder="What workflow are you trying to automate?"></textarea>
       </div>
-      <button class="button dark" type="submit">Prepare request email</button>
-      <p class="muted">
-        This static form opens your email app with the request details. A hosted
-        live request inbox can be added after the first traffic test.
-      </p>
+      <button class="button dark" type="submit">Prepare GitHub request</button>
+      <div class="request-output" data-request-output hidden>
+        <div class="field">
+          <label for="request-body">Generated request</label>
+          <textarea id="request-body" data-request-body readonly></textarea>
+        </div>
+        <div class="actions">
+          <a class="button dark" data-github-link href={githubIssueUrl} target="_blank" rel="noreferrer">
+            Open GitHub issue
+          </a>
+          <button class="button light" type="button" data-copy-request>Copy request</button>
+        </div>
+        <p class="muted" data-copy-status></p>
+      </div>
     </form>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Public queue</p>
+        <h2>Current demand signals.</h2>
+      </div>
+      <p>
+        These requests show which publishing destinations and registry tasks are
+        already being tracked in public.
+      </p>
+    </div>
+    <div class="grid three">
+      {demandItems.map((item) => (
+        <article class="connector">
+          <div class="connector-top">
+            <div>
+              <h3>{item.name}</h3>
+              <p>{item.category} · {item.region}</p>
+            </div>
+            <span class={`status ${item.stage.toLowerCase().replaceAll(" ", "-")}`}>
+              {item.stage}
+            </span>
+          </div>
+          <p>{item.customerNeed}</p>
+          <div class="actions">
+            <a class="button light" href={item.issueUrl} target="_blank" rel="noreferrer">
+              View issue
+            </a>
+            {item.pageUrl && (
+              <a class="button light" href={item.pageUrl}>
+                View page
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
   </section>
 
   <script>
     const form = document.querySelector("[data-request-form]");
+    const output = document.querySelector("[data-request-output]");
+    const requestBody = document.querySelector("[data-request-body]");
+    const githubLink = document.querySelector("[data-github-link]");
+    const copyButton = document.querySelector("[data-copy-request]");
+    const copyStatus = document.querySelector("[data-copy-status]");
+
+    function fieldValue(data, key) {
+      return String(data.get(key) || "").trim();
+    }
+
     form?.addEventListener("submit", (event) => {
       event.preventDefault();
       const data = new FormData(form);
+      const appName = fieldValue(data, "app_name") || "New app";
       const lines = [
-        "New AI PubKit app request",
+        "## App request",
+        `- App: ${appName}`,
+        `- Website: ${fieldValue(data, "app_url")}`,
+        `- Primary region: ${fieldValue(data, "region")}`,
+        `- Content types: ${fieldValue(data, "content_type")}`,
+        `- Official docs: ${fieldValue(data, "docs_url")}`,
+        `- Involvement: ${fieldValue(data, "involvement")}`,
         "",
-        `App: ${data.get("app_name") || ""}`,
-        `Website/API docs: ${data.get("app_url") || ""}`,
-        `Region: ${data.get("region") || ""}`,
-        `Content type: ${data.get("content_type") || ""}`,
-        `Involvement: ${data.get("involvement") || ""}`,
-        `Email: ${data.get("email") || ""}`,
+        "## Workflow",
+        fieldValue(data, "workflow"),
         "",
         "Notes:",
-        String(data.get("notes") || ""),
+        fieldValue(data, "notes"),
+        "",
+        "## Acceptance criteria",
+        "- Verify official publishing or draft creation path.",
+        "- Add source links and status to the app registry.",
+        "- Add or update the customer-facing answer page.",
       ];
-      const subject = encodeURIComponent(`App request: ${data.get("app_name") || "new app"}`);
-      const body = encodeURIComponent(lines.join("\n"));
-      window.location.href = `mailto:hello@aipubkit.com?subject=${subject}&body=${body}`;
+      const body = lines.join("\n");
+      const title = `App request: ${appName}`;
+      const url = new URL("https://github.com/1085386571w-oss/aipubkit/issues/new");
+      url.searchParams.set("title", title);
+      url.searchParams.set("body", body);
+      url.searchParams.set("labels", "app-request");
+
+      if (requestBody instanceof HTMLTextAreaElement) {
+        requestBody.value = body;
+      }
+      if (githubLink instanceof HTMLAnchorElement) {
+        githubLink.href = url.toString();
+      }
+      if (output instanceof HTMLElement) {
+        output.hidden = false;
+      }
+    });
+
+    copyButton?.addEventListener("click", async () => {
+      if (!(requestBody instanceof HTMLTextAreaElement)) return;
+      await navigator.clipboard.writeText(requestBody.value);
+      if (copyStatus instanceof HTMLElement) {
+        copyStatus.textContent = "Request copied.";
+      }
     });
   </script>
 </BaseLayout>

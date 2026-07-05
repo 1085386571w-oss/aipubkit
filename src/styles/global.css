@@ -396,6 +396,14 @@ h3 {
   background: var(--amber);
 }
 
+.status.requested {
+  background: var(--blue);
+}
+
+.status.ready-to-map {
+  background: var(--green);
+}
+
 .connector .tag {
   background: var(--surface-2);
   border-color: var(--line);
@@ -450,6 +458,14 @@ th {
 .form-panel textarea {
   min-height: 120px;
   resize: vertical;
+}
+
+.request-output {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  margin-top: 4px;
+  padding-top: 16px;
 }
 
 .form-grid {

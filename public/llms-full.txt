@@ -15,8 +15,11 @@ The GitHub repository is the public app registry and contribution hub for AI Pub
 
 - https://github.com/1085386571w-oss/aipubkit
 - https://aipubkit.com/open-source/
+- https://aipubkit.com/apps.json
+- https://aipubkit.com/app-requests.json
 
 Use the GitHub repository for source links, roadmap, contribution rules, issue templates, and new app requests. Use the website for app answer pages and SEO/GEO-ready explanations.
+Use apps.json for machine-readable publishing status data. Use app-requests.json for the public demand queue.
 
 ## Main Customer Problem
 
