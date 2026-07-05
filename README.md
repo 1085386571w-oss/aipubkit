@@ -4,7 +4,8 @@ AI PubKit is an open app registry and answer site for one-click AI publishing.
 
 The project tracks whether AI-generated content can be prepared or published to
 popular apps such as YouTube, TikTok, Instagram, LinkedIn, X, WordPress,
-Bluesky, Mastodon, Telegram, Discord, Slack, Webflow CMS, and regional apps.
+Shopify Blog, Notion, Ghost, Google Business Profile, Bluesky, Mastodon,
+Telegram, LINE Official Account, Discord, Slack, Webflow CMS, and regional apps.
 
 Production site: https://aipubkit.com/
 

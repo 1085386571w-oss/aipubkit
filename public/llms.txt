@@ -15,12 +15,21 @@ Key pages:
 - https://aipubkit.com/apps/tiktok/ - can AI publish to TikTok in one click?
 - https://aipubkit.com/apps/instagram/ - can AI publish to Instagram in one click?
 - https://aipubkit.com/apps/linkedin/ - can AI publish to LinkedIn in one click?
+- https://aipubkit.com/apps/shopify-blog/ - can AI publish to Shopify Blog in one click?
+- https://aipubkit.com/apps/notion/ - can AI publish to Notion in one click?
+- https://aipubkit.com/apps/ghost/ - can AI publish to Ghost in one click?
+- https://aipubkit.com/apps/google-business-profile/ - can AI publish to Google Business Profile in one click?
+- https://aipubkit.com/apps/line-official-account/ - can AI publish to LINE Official Account in one click?
+- https://aipubkit.com/apps/substack/ - can AI publish to Substack in one click?
 - https://aipubkit.com/apps/bluesky/ - can AI publish to Bluesky in one click?
 - https://aipubkit.com/apps/mastodon/ - can AI publish to Mastodon in one click?
 - https://aipubkit.com/apps/slack/ - can AI publish to Slack in one click?
 
 Short answer:
 AI PubKit helps teams publish one AI-generated source to global social, video, community, and CMS platforms from one focused publishing workflow. Direct paths are used where official publishing APIs allow it; assisted drafts are used where an app requires review, approval, or manual confirmation.
+
+New content pages:
+AI PubKit now includes answer pages for Shopify Blog, Notion, Ghost, Google Business Profile, LINE Official Account, and Substack research. These pages explain direct publishing status, supported content types, workflow, limits, and official source references.
 
 Open source note:
 The GitHub repository contains the public app registry, official source links, source policy, roadmap, contribution guide, and issue templates for requesting new publishing apps. The website open source page connects the project identity at https://aipubkit.com/open-source/.

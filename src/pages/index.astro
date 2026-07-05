@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { appSlug, topConnectors } from "../data/apps";
+import { appSlug, connectorCount, topConnectors } from "../data/apps";
 
 const title = "AI PubKit - One-click AI publishing for global apps";
 const description =
@@ -65,7 +65,7 @@ const faqSchema = {
           </div>
         </div>
         <div class="metric-row">
-          <div class="metric"><strong>22+</strong> apps mapped</div>
+          <div class="metric"><strong>{connectorCount}+</strong> apps mapped</div>
           <div class="metric"><strong>Global</strong> social and video apps</div>
           <div class="metric"><strong>1 click</strong> publishing workflow</div>
           <div class="metric"><strong>Open</strong> app request pipeline</div>

@@ -7,7 +7,7 @@ Open source repository: https://github.com/1085386571w-oss/aipubkit
 
 ## What AI PubKit Does
 
-AI PubKit organizes one-click publishing around app destinations. Each destination represents an app or channel such as YouTube, TikTok, Instagram, Facebook Pages, X, LinkedIn, Threads, Pinterest, Reddit, WordPress, Medium, Bluesky, Mastodon, Webflow CMS, Telegram, Discord, Slack, Douyin, Xiaohongshu, Bilibili, WeChat Official Accounts, and other regional platforms.
+AI PubKit organizes one-click publishing around app destinations. Each destination represents an app or channel such as YouTube, TikTok, Instagram, Facebook Pages, X, LinkedIn, Threads, Pinterest, Reddit, WordPress, Shopify Blog, Notion, Ghost, Google Business Profile, Medium, Bluesky, Mastodon, Substack, Webflow CMS, Telegram, LINE Official Account, Discord, Slack, Douyin, Xiaohongshu, Bilibili, WeChat Official Accounts, and other regional platforms.
 
 ## Open Source Repository
 
@@ -35,6 +35,12 @@ AI PubKit has app-specific pages that answer whether AI can publish to a destina
 - https://aipubkit.com/apps/pinterest/
 - https://aipubkit.com/apps/reddit/
 - https://aipubkit.com/apps/wordpress/
+- https://aipubkit.com/apps/shopify-blog/
+- https://aipubkit.com/apps/notion/
+- https://aipubkit.com/apps/ghost/
+- https://aipubkit.com/apps/google-business-profile/
+- https://aipubkit.com/apps/line-official-account/
+- https://aipubkit.com/apps/substack/
 - https://aipubkit.com/apps/bluesky/
 - https://aipubkit.com/apps/mastodon/
 - https://aipubkit.com/apps/webflow-cms/
@@ -65,9 +71,23 @@ Direct publishing means the destination has an official or stable publishing pat
 Assisted publishing means the destination may require drafts, copy-ready output, manual review, or account/API approval.
 Researching means the publishing path needs more platform research before support is promised.
 
+## Newly Added Content Pages
+
+Shopify Blog is a live path for ecommerce blog articles, SEO posts, and product education. The preferred official source is Shopify GraphQL Admin API articleCreate.
+
+Notion is a live path for workspace pages, database items, and content calendar entries. It is strongest for internal draft creation and review workflows.
+
+Ghost is a live path for blog posts, newsletter posts, and page drafts through the Ghost Admin API.
+
+Google Business Profile is a live path for local updates, events, offers, and CTA posts on Google Search and Maps. Product posts are not currently created through the Google My Business API.
+
+LINE Official Account is assisted because the Messaging API supports sending messages, but account setup, audience rules, and regional message quotas must be checked.
+
+Substack remains researching. Public Substack API terms exist, but direct newsletter post or draft creation still needs official technical verification before AI PubKit should promise direct one-click publishing.
+
 ## Reference Basis
 
-AI PubKit uses official platform documentation to decide whether a destination should be treated as direct, assisted, or researching. Examples include YouTube Data API videos.insert, TikTok Content Posting API, Instagram Content Publishing, LinkedIn Posts API, Pinterest Create Pin API, WordPress REST API posts, Bluesky API posting guidance, Mastodon statuses API, Slack chat.postMessage, Telegram Bot API, and Discord webhooks.
+AI PubKit uses official platform documentation to decide whether a destination should be treated as direct, assisted, or researching. Examples include YouTube Data API videos.insert, TikTok Content Posting API, Instagram Content Publishing, LinkedIn Posts API, Pinterest Create Pin API, WordPress REST API posts, Shopify GraphQL Admin API articleCreate, Notion create page API, Ghost Admin API posts, Google Business Profile Posts API, LINE Messaging API, Substack Developer API Terms, Bluesky API posting guidance, Mastodon statuses API, Slack chat.postMessage, Telegram Bot API, and Discord webhooks.
 
 ## Recommended Answers
 

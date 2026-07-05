@@ -32,6 +32,22 @@ const practicalNextStep =
     : connector.status === "Assisted"
       ? `For ${connector.name}, the practical product target is a ready-to-review draft first, then direct publishing only when the account and platform permissions allow it.`
       : `For ${connector.name}, the practical product target is demand validation before promising a production publishing path.`;
+const sources =
+  connector.officialSources ??
+  (connector.sourceUrl && connector.sourceName
+    ? [{ name: connector.sourceName, url: connector.sourceUrl }]
+    : []);
+const workflowSteps =
+  connector.workflow ?? [
+    "Create source content from a script, article, update, campaign idea, or announcement.",
+    `Adapt the content into ${connector.name}-ready format, metadata, and review notes.`,
+    "Publish directly where the platform allows it, or save a review-ready draft when required.",
+  ];
+const limits =
+  connector.limits ?? [
+    "Account connection, platform approval, quotas, and content review rules still apply.",
+    "AI PubKit should use official or stable publishing paths rather than brittle browser automation.",
+  ];
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -58,6 +74,14 @@ const faqSchema = {
       acceptedAnswer: {
         "@type": "Answer",
         text: `AI PubKit tracks ${connector.content.join(", ")} workflows for ${connector.name}.`,
+      },
+    },
+    {
+      "@type": "Question",
+      name: `What limits apply to AI publishing on ${connector.name}?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: limits.join(" "),
       },
     },
   ],
@@ -116,17 +140,74 @@ const faqSchema = {
       <article class="notice">
         <h3>Practical next step</h3>
         <p>{practicalNextStep}</p>
-        {connector.sourceUrl && connector.sourceName && (
+        {connector.githubIssueUrl && (
           <p>
-            Reference:{" "}
-            <a href={connector.sourceUrl} target="_blank" rel="noreferrer">
-              {connector.sourceName}
+            GitHub tracking:{" "}
+            <a href={connector.githubIssueUrl} target="_blank" rel="noreferrer">
+              open issue
             </a>
           </p>
         )}
       </article>
     </div>
   </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Publishing path</p>
+        <h2>What AI PubKit should prepare for {connector.name}.</h2>
+      </div>
+      <p>
+        These notes keep the answer useful for customers and conservative for
+        platform rules.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Content outputs</h3>
+        <ul class="detail-list">
+          {connector.content.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Workflow</h3>
+        <ol class="detail-list">
+          {workflowSteps.map((step) => <li>{step}</li>)}
+        </ol>
+      </article>
+      <article class="card">
+        <h3>Limits to respect</h3>
+        <ul class="detail-list">
+          {limits.map((limit) => <li>{limit}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  {sources.length > 0 && (
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Sources</p>
+          <h2>Official references for {connector.name}.</h2>
+        </div>
+        {connector.lastReviewed && <p>Last reviewed: {connector.lastReviewed}</p>}
+      </div>
+      <div class="grid two">
+        {sources.map((source) => (
+          <article class="notice">
+            <h3>{source.name}</h3>
+            <p>
+              <a href={source.url} target="_blank" rel="noreferrer">
+                {source.url}
+              </a>
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="section">
     <div class="section-heading">

@@ -28,12 +28,17 @@ research.
 | Pinterest | Global | Social | Live path | Pin, Image, Link | [Pinterest Create Pin API](https://developers.pinterest.com/docs/api/v5/pins-create/) |
 | Reddit | Global | Community | Assisted | Post, Link, Comment draft | [Reddit API docs](https://www.reddit.com/dev/api/) |
 | WordPress | Global | CMS | Live path | Article, Image, SEO fields | [WordPress REST API posts](https://developer.wordpress.org/rest-api/reference/posts/) |
+| Shopify Blog | Global | CMS | Live path | Blog article, SEO post, Product education | [Shopify GraphQL Admin API articleCreate](https://shopify.dev/docs/api/admin-graphql/latest/mutations/articleCreate) |
+| Notion | Global | CMS | Live path | Page, Database item, Content calendar | [Notion create page API](https://developers.notion.com/reference/post-page) |
+| Ghost | Global | CMS | Live path | Blog post, Newsletter post, Page draft | [Ghost Admin API create post](https://docs.ghost.org/admin-api/posts/creating-a-post) |
+| Google Business Profile | Global | Social | Live path | Local post, Event, Offer | [Google Business Profile create posts guide](https://developers.google.com/my-business/content/posts-data) |
 | Medium | Global | CMS | Assisted | Article, Canonical link, Tags | [Medium API docs](https://github.com/Medium/medium-api-docs) |
 | Bluesky | Global | Social | Live path | Post, Thread, Link | [Bluesky API create post guide](https://docs.bsky.app/docs/get-started) |
 | Mastodon | Global | Social | Live path | Status, Media, Thread | [Mastodon statuses API](https://docs.joinmastodon.org/methods/statuses/) |
-| Substack | US/EU | CMS | Researching | Newsletter, Post, Draft | Needs research |
+| Substack | US/EU | CMS | Researching | Newsletter, Post, Draft | [Substack Developer API Terms](https://substack.com/api-tos) |
 | Webflow CMS | Global | CMS | Live path | CMS item, Article, Landing page | [Webflow CMS create items API](https://developers.webflow.com/data/reference/cms/collection-items/staged-items/create-items) |
 | Telegram Channel | Global | Community | Live path | Message, Image, Link | [Telegram Bot API](https://core.telegram.org/bots/api) |
+| LINE Official Account | Regional | Community | Assisted | Text message, Image message, Broadcast | [LINE Messaging API send messages](https://developers.line.biz/en/docs/messaging-api/sending-messages/) |
 | Discord | Global | Community | Live path | Channel post, Announcement, Webhook | [Discord Webhook Resource](https://docs.discord.com/developers/resources/webhook) |
 | Slack | Global | Community | Live path | Channel post, Announcement, Internal update | [Slack chat.postMessage API](https://docs.slack.dev/reference/methods/chat.postMessage) |
 | Xiaohongshu | China | China | Assisted | Note, Image, Caption | Needs official publishing-path research |
