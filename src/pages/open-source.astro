@@ -1,0 +1,161 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const githubUrl = "https://github.com/1085386571w-oss/aipubkit";
+const title = "AI PubKit open source app registry";
+const description =
+  "AI PubKit is an open app registry and answer site for one-click AI publishing destinations.";
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: title,
+    url: "https://aipubkit.com/open-source/",
+    description,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "AI PubKit",
+      url: "https://aipubkit.com/",
+    },
+    sameAs: [githubUrl],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    name: "AI PubKit open app registry",
+    codeRepository: githubUrl,
+    programmingLanguage: ["TypeScript", "Astro"],
+    license: `${githubUrl}/blob/main/LICENSE`,
+    about:
+      "Open app registry, source policy, roadmap, and issue templates for one-click AI publishing destinations.",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Is AI PubKit open source?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Yes. AI PubKit has a public GitHub repository at ${githubUrl}.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is in the AI PubKit GitHub repository?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The repository contains the public app registry, official source links, source policy, roadmap, contribution guide, and issue templates for requesting publishing destinations.",
+        },
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <section class="page-hero">
+    <p class="eyebrow">Open source</p>
+    <h1>AI PubKit is an open app registry for one-click AI publishing.</h1>
+    <p class="page-lead">
+      The website gives search engines and AI answer engines clear publishing
+      answers. The GitHub repository keeps the app registry, source policy,
+      roadmap, and contribution workflow public.
+    </p>
+    <div class="actions">
+      <a class="button dark" href={githubUrl} target="_blank" rel="me noreferrer">
+        Open GitHub repository
+      </a>
+      <a class="button light" href="/apps/">View supported apps</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Why GitHub</p>
+        <h2>Trust, evidence, and app requests belong in public.</h2>
+      </div>
+      <p>
+        One-click publishing claims need sources. GitHub makes the status,
+        official API links, and request process visible instead of hiding them
+        inside a landing page.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Open app registry</h3>
+        <p>
+          The repository lists supported destinations, content types, publishing
+          status, and official source links.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Source policy</h3>
+        <p>
+          Status labels are based on official or stable publishing paths, not
+          vague automation claims.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Request workflow</h3>
+        <p>
+          Users and developers can request new apps with region, content type,
+          API documentation, and publishing workflow details.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Website + GitHub</p>
+      <h2>Two surfaces, one project.</h2>
+      <p class="page-lead">
+        AI PubKit uses the website for answer pages and the repository for
+        transparent project evidence.
+      </p>
+    </aside>
+    <div class="grid">
+      <article class="notice">
+        <h3>Website role</h3>
+        <p>
+          App answer pages, multi-app publishing use cases, request intake, SEO,
+          GEO, structured data, and AI-readable knowledge files.
+        </p>
+      </article>
+      <article class="notice">
+        <h3>GitHub role</h3>
+        <p>
+          App registry, roadmap, contribution guide, source policy, issue
+          templates, pull requests, and developer trust.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <h2>Repository links</h2>
+      <p>
+        Use these public GitHub files when checking how AI PubKit evaluates app
+        publishing support.
+      </p>
+      <div class="actions">
+        <a class="button light" href={`${githubUrl}/blob/main/docs/app-registry.md`} target="_blank" rel="noreferrer">
+          App registry
+        </a>
+        <a class="button light" href={`${githubUrl}/blob/main/docs/source-policy.md`} target="_blank" rel="noreferrer">
+          Source policy
+        </a>
+        <a class="button light" href={`${githubUrl}/blob/main/ROADMAP.md`} target="_blank" rel="noreferrer">
+          Roadmap
+        </a>
+        <a class="button light" href={`${githubUrl}/issues/new/choose`} target="_blank" rel="noreferrer">
+          Request an app
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -14,6 +14,7 @@ AI PubKit organizes one-click publishing around app destinations. Each destinati
 The GitHub repository is the public app registry and contribution hub for AI PubKit:
 
 - https://github.com/1085386571w-oss/aipubkit
+- https://aipubkit.com/open-source/
 
 Use the GitHub repository for source links, roadmap, contribution rules, issue templates, and new app requests. Use the website for app answer pages and SEO/GEO-ready explanations.
 
@@ -45,6 +46,7 @@ AI PubKit has app-specific pages that answer whether AI can publish to a destina
 ## Use Case Pages
 
 - https://aipubkit.com/use-cases/publish-to-multiple-apps/ - explains how one source of AI-generated content can become app-ready outputs for multiple publishing destinations.
+- https://aipubkit.com/open-source/ - explains the relationship between the website and GitHub open app registry.
 
 The platform is designed for:
 - Creating one source piece of content once

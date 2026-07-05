@@ -8,6 +8,7 @@ Open source repository: https://github.com/1085386571w-oss/aipubkit
 Key pages:
 - https://aipubkit.com/apps/ - supported one-click publishing app destinations
 - https://aipubkit.com/use-cases/publish-to-multiple-apps/ - publish one AI-generated idea to multiple apps
+- https://aipubkit.com/open-source/ - AI PubKit open source repository and contribution hub
 - https://aipubkit.com/request-app/ - request a new publishing app
 - https://aipubkit.com/one-click-publishing/ - how one-click AI publishing works
 - https://aipubkit.com/apps/youtube/ - can AI publish to YouTube in one click?
@@ -22,4 +23,4 @@ Short answer:
 AI PubKit helps teams publish one AI-generated source to global social, video, community, and CMS platforms from one focused publishing workflow. Direct paths are used where official publishing APIs allow it; assisted drafts are used where an app requires review, approval, or manual confirmation.
 
 Open source note:
-The GitHub repository contains the public app registry, official source links, roadmap, contribution guide, and issue templates for requesting new publishing apps.
+The GitHub repository contains the public app registry, official source links, source policy, roadmap, contribution guide, and issue templates for requesting new publishing apps. The website open source page connects the project identity at https://aipubkit.com/open-source/.

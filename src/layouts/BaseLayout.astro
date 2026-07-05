@@ -57,6 +57,18 @@ const baseSchema = [
       priceCurrency: "USD",
     },
   },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    name: `${siteName} open app registry`,
+    codeRepository: githubUrl,
+    programmingLanguage: ["TypeScript", "Astro"],
+    license: `${githubUrl}/blob/main/LICENSE`,
+    runtimePlatform: "Web",
+    about:
+      "Open app registry and source policy for one-click AI publishing destinations.",
+    sameAs: [`${siteUrl}/open-source/`, githubUrl],
+  },
 ];
 const pageSchema = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
@@ -71,6 +83,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="me" href={githubUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={title} />
@@ -110,9 +123,10 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
       <nav aria-label="Footer navigation">
         <a href="/apps/">Supported apps</a>
         <a href="/use-cases/publish-to-multiple-apps/">Multi-app publishing</a>
+        <a href="/open-source/">Open source</a>
         <a href="/request-app/">Request an app</a>
         <a href="/one-click-publishing/">How it works</a>
-        <a href={githubUrl} target="_blank" rel="noreferrer">GitHub</a>
+        <a href={githubUrl} target="_blank" rel="me noreferrer">GitHub</a>
         <a href="/contact/">Contact</a>
         <a href="/privacy/">Privacy</a>
         <a href="/terms/">Terms</a>

@@ -6,6 +6,7 @@ const pages = [
   "/apps/",
   ...connectors.map((connector) => `/apps/${appSlug(connector.name)}/`),
   "/use-cases/publish-to-multiple-apps/",
+  "/open-source/",
   "/request-app/",
   "/one-click-publishing/",
   "/contact/",
