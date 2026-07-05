@@ -7,6 +7,9 @@ Production project:
 - Current custom domains created in Cloudflare Pages:
   - `aipubkit.com`
   - `www.aipubkit.com`
+- Current status:
+  - `aipubkit.com`: active on Cloudflare Pages
+  - `www.aipubkit.com`: DNS verified; certificate validation may remain pending briefly
 
 ## Build
 
@@ -21,17 +24,14 @@ pnpm run build
 pnpm dlx wrangler pages deploy ./dist --project-name=aipubkit --branch=main
 ```
 
-## DNS Records Still Needed
+## DNS Records
 
-Add these records in the domain registrar DNS panel:
+These records were added in the domain registrar DNS panel:
 
 | Type | Host | Value |
 | --- | --- | --- |
 | CNAME | `@` | `aipubkit.pages.dev` |
 | CNAME | `www` | `aipubkit.pages.dev` |
-
-If the registrar does not allow a CNAME at `@`, move DNS hosting to Cloudflare
-or use a DNS provider that supports CNAME flattening/ALIAS/ANAME at the root.
 
 After DNS propagates, Cloudflare Pages should automatically finish certificate
 validation and activate:
