@@ -17,6 +17,7 @@ const {
 
 const siteName = "AI PubKit";
 const siteUrl = "https://aipubkit.com";
+const githubUrl = "https://github.com/1085386571w-oss/aipubkit";
 const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 const ogImageUrl = `${siteUrl}/images/ai-pubkit-hero.png`;
 const baseSchema = [
@@ -27,6 +28,7 @@ const baseSchema = [
     url: `${siteUrl}/`,
     description:
       "One-click AI publishing for creators, agencies, and teams.",
+    sameAs: [githubUrl],
     potentialAction: {
       "@type": "SearchAction",
       target: `${siteUrl}/apps/?q={search_term_string}`,
@@ -38,6 +40,7 @@ const baseSchema = [
     "@type": "Organization",
     name: siteName,
     url: `${siteUrl}/`,
+    sameAs: [githubUrl],
   },
   {
     "@context": "https://schema.org",
@@ -47,6 +50,7 @@ const baseSchema = [
     operatingSystem: "Web",
     description:
       "AI PubKit helps teams publish AI-generated content to multiple apps from one workflow.",
+    sameAs: [githubUrl],
     offers: {
       "@type": "Offer",
       price: "0",
@@ -108,6 +112,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/use-cases/publish-to-multiple-apps/">Multi-app publishing</a>
         <a href="/request-app/">Request an app</a>
         <a href="/one-click-publishing/">How it works</a>
+        <a href={githubUrl} target="_blank" rel="noreferrer">GitHub</a>
         <a href="/contact/">Contact</a>
         <a href="/privacy/">Privacy</a>
         <a href="/terms/">Terms</a>

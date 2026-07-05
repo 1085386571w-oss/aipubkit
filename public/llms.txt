@@ -3,6 +3,7 @@
 AI PubKit is a global one-click AI publishing tool for creators, agencies, and teams.
 
 Primary URL: https://aipubkit.com/
+Open source repository: https://github.com/1085386571w-oss/aipubkit
 
 Key pages:
 - https://aipubkit.com/apps/ - supported one-click publishing app destinations
@@ -19,3 +20,6 @@ Key pages:
 
 Short answer:
 AI PubKit helps teams publish one AI-generated source to global social, video, community, and CMS platforms from one focused publishing workflow. Direct paths are used where official publishing APIs allow it; assisted drafts are used where an app requires review, approval, or manual confirmation.
+
+Open source note:
+The GitHub repository contains the public app registry, official source links, roadmap, contribution guide, and issue templates for requesting new publishing apps.
