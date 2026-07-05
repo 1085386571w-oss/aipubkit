@@ -91,11 +91,15 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1672" />
+    <meta property="og:image:height" content="941" />
     <meta
       property="og:image:alt"
       content="AI PubKit dashboard connecting content to global publishing apps"
     />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
     <script type="application/ld+json" set:html={schemaJson} />
   </head>
@@ -123,9 +127,11 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
       <nav aria-label="Footer navigation">
         <a href="/apps/">Supported apps</a>
         <a href="/use-cases/publish-to-multiple-apps/">Multi-app publishing</a>
-        <a href="/open-source/">Open source</a>
         <a href="/request-app/">Request an app</a>
         <a href="/one-click-publishing/">How it works</a>
+        <a href="/open-source/">Open source</a>
+        <a href="/apps.json">App data</a>
+        <a href="/app-requests.json">Request data</a>
         <a href={githubUrl} target="_blank" rel="me noreferrer">GitHub</a>
         <a href="/contact/">Contact</a>
         <a href="/privacy/">Privacy</a>

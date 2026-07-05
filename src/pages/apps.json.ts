@@ -5,12 +5,24 @@ const siteUrl = "https://aipubkit.com";
 
 export const GET: APIRoute = () => {
   const body = {
+    schemaVersion: "1.1",
     name: "AI PubKit app registry",
     url: `${siteUrl}/apps.json`,
     homepage: siteUrl,
     repository: "https://github.com/1085386571w-oss/aipubkit",
+    license: "MIT",
+    requestUrl: `${siteUrl}/request-app/`,
     updatedAt: "2026-07-05",
     count: connectors.length,
+    statusCounts: {
+      livePath: connectors.filter((connector) => connector.status === "Live path")
+        .length,
+      assisted: connectors.filter((connector) => connector.status === "Assisted")
+        .length,
+      researching: connectors.filter(
+        (connector) => connector.status === "Researching",
+      ).length,
+    },
     apps: connectors.map((connector) => ({
       name: connector.name,
       slug: appSlug(connector.name),

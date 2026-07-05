@@ -39,6 +39,7 @@ const itemListSchema = {
         <option value="Researching">Researching</option>
       </select>
     </div>
+    <p class="muted" id="connector-count" aria-live="polite"></p>
 
     <div class="grid three" id="connector-grid">
       {connectors.map((connector) => (
@@ -79,7 +80,18 @@ const itemListSchema = {
       ))}
     </div>
 
-    <div class="notice" style="margin-top: 18px;">
+    <div class="notice app-list-cta" id="connector-empty" hidden>
+      <h3>No matching app yet</h3>
+      <p>
+        Request it and include the app website, region, content type, and any
+        official publishing documentation you already found.
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/request-app/">Request this app</a>
+      </div>
+    </div>
+
+    <div class="notice app-list-cta">
       <h3>Do not see the app you need?</h3>
       <p>
         Request an app and include the website, region, content type,
@@ -94,17 +106,30 @@ const itemListSchema = {
   <script>
     const searchInput = document.querySelector("#connector-search");
     const statusSelect = document.querySelector("#connector-status");
+    const countLabel = document.querySelector("#connector-count");
+    const emptyState = document.querySelector("#connector-empty");
     const cards = Array.from(document.querySelectorAll("[data-connector]"));
 
     function applyFilters() {
       const query = String(searchInput?.value || "").trim().toLowerCase();
       const status = String(statusSelect?.value || "");
+      let visibleCount = 0;
 
       cards.forEach((card) => {
         const matchesQuery = !query || String(card.dataset.search || "").includes(query);
         const matchesStatus = !status || card.dataset.status === status;
-        card.hidden = !(matchesQuery && matchesStatus);
+        const isVisible = matchesQuery && matchesStatus;
+        card.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
       });
+
+      if (countLabel instanceof HTMLElement) {
+        countLabel.textContent = `${visibleCount} app${visibleCount === 1 ? "" : "s"} shown`;
+      }
+
+      if (emptyState instanceof HTMLElement) {
+        emptyState.hidden = visibleCount > 0;
+      }
     }
 
     searchInput?.addEventListener("input", applyFilters);
@@ -114,7 +139,7 @@ const itemListSchema = {
     const q = params.get("q");
     if (q && searchInput) {
       searchInput.value = q;
-      applyFilters();
     }
+    applyFilters();
   </script>
 </BaseLayout>

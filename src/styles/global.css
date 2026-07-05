@@ -414,6 +414,10 @@ h3 {
   overflow-x: auto;
 }
 
+.app-list-cta {
+  margin-top: 18px;
+}
+
 table {
   border-collapse: collapse;
   min-width: 760px;

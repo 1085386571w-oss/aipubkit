@@ -15,3 +15,9 @@
 
 /llms-full.txt
   Cache-Control: public, max-age=3600
+
+/apps.json
+  Cache-Control: public, max-age=300
+
+/app-requests.json
+  Cache-Control: public, max-age=300

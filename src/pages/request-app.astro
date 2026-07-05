@@ -78,7 +78,7 @@ const schema = [
       </div>
       <div class="field">
         <label for="app-url">Website or API documentation</label>
-        <input id="app-url" name="app_url" type="url" placeholder="https://developers.example.com/" />
+        <input id="app-url" name="app_url" type="url" required placeholder="https://developers.example.com/" />
       </div>
       <div class="field">
         <label for="region">Primary region</label>
@@ -94,11 +94,11 @@ const schema = [
       </div>
       <div class="field">
         <label for="content-type">What should it publish?</label>
-        <input id="content-type" name="content_type" placeholder="Text, images, video, short video, articles, newsletters..." />
+        <input id="content-type" name="content_type" required placeholder="Text, images, video, short video, articles, newsletters..." />
       </div>
       <div class="field">
         <label for="workflow">Workflow to remove</label>
-        <input id="workflow" name="workflow" placeholder="Example: turn one AI article into a product blog post and social update" />
+        <input id="workflow" name="workflow" required placeholder="Example: turn one AI article into a product blog post and social update" />
       </div>
       <div class="field">
         <label for="involvement">How can you help?</label>
@@ -125,11 +125,13 @@ const schema = [
         </div>
         <div class="actions">
           <a class="button dark" data-github-link href={githubIssueUrl} target="_blank" rel="noreferrer">
-            Open GitHub issue
+            Open prefilled GitHub issue
           </a>
           <button class="button light" type="button" data-copy-request>Copy request</button>
         </div>
-        <p class="muted" data-copy-status></p>
+        <p class="muted" data-copy-status>
+          If GitHub does not keep the generated body, copy it here and paste it into the issue.
+        </p>
       </div>
     </form>
   </section>
@@ -229,9 +231,17 @@ const schema = [
 
     copyButton?.addEventListener("click", async () => {
       if (!(requestBody instanceof HTMLTextAreaElement)) return;
-      await navigator.clipboard.writeText(requestBody.value);
-      if (copyStatus instanceof HTMLElement) {
-        copyStatus.textContent = "Request copied.";
+      try {
+        await navigator.clipboard.writeText(requestBody.value);
+        if (copyStatus instanceof HTMLElement) {
+          copyStatus.textContent = "Request copied.";
+        }
+      } catch {
+        requestBody.focus();
+        requestBody.select();
+        if (copyStatus instanceof HTMLElement) {
+          copyStatus.textContent = "Copy blocked by the browser. Select the generated text and copy it manually.";
+        }
       }
     });
   </script>

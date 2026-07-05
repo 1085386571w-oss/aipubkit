@@ -5,10 +5,15 @@ const siteUrl = "https://aipubkit.com";
 
 export const GET: APIRoute = () => {
   const body = {
+    schemaVersion: "1.1",
     name: "AI PubKit public app request queue",
     url: `${siteUrl}/app-requests.json`,
     homepage: siteUrl,
     repository: "https://github.com/1085386571w-oss/aipubkit",
+    license: "MIT",
+    requestPage: `${siteUrl}/request-app/`,
+    issueTemplateUrl:
+      "https://github.com/1085386571w-oss/aipubkit/issues/new?template=app-request.yml",
     updatedAt: "2026-07-05",
     count: demandItems.length,
     requests: demandItems.map((item) => ({
