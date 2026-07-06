@@ -4,7 +4,7 @@ Last researched: 2026-07-05
 
 Market focus: global English search, United States keyword data where available.
 
-Implementation status: Week 1 use-case cluster shipped on 2026-07-06.
+Implementation status: Week 1 use-case cluster shipped on 2026-07-06. Week 2 comparison cluster shipped on 2026-07-06.
 
 ## Keyword Findings
 
@@ -70,11 +70,11 @@ The better wedge is:
 
 ### Week 2
 
-6. `/compare/buffer-alternative-for-ai-publishing/`
-7. `/compare/hootsuite-alternative-for-ai-publishing/`
-8. `/compare/zapier-alternative-for-ai-publishing/`
-9. `/compare/repurpose-io-alternative/`
-10. `/compare/socialbee-alternative/`
+6. Done: `/compare/buffer-alternative-for-ai-publishing/`
+7. Done: `/compare/hootsuite-alternative-for-ai-publishing/`
+8. Done: `/compare/zapier-alternative-for-ai-publishing/`
+9. Done: `/compare/repurpose-io-alternative/`
+10. Done: `/compare/socialbee-alternative/`
 
 ### Week 3
 

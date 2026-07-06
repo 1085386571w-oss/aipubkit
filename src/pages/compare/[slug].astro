@@ -1,0 +1,233 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { comparisons, type Comparison } from "../../data/comparisons";
+
+export function getStaticPaths() {
+  return comparisons.map((comparison) => ({
+    params: { slug: comparison.slug },
+    props: { comparison },
+  }));
+}
+
+const { comparison } = Astro.props as { comparison: Comparison };
+const canonicalPath = `/compare/${comparison.slug}/`;
+const url = `https://aipubkit.com${canonicalPath}`;
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: comparison.faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: `${comparison.competitor} alternative`,
+      item: url,
+    },
+  ],
+};
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `${comparison.competitor} vs AI PubKit comparison points`,
+  itemListElement: comparison.differences.map((difference, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: difference.area,
+    description: `${comparison.competitor}: ${difference.competitor} AI PubKit: ${difference.aiPubKit}`,
+  })),
+};
+---
+
+<BaseLayout
+  title={comparison.title}
+  description={comparison.description}
+  canonicalPath={canonicalPath}
+  schema={[faqSchema, breadcrumbSchema, itemListSchema]}
+>
+  <section class="page-hero">
+    <p class="eyebrow">Comparison</p>
+    <h1>{comparison.hero}</h1>
+    <p class="page-lead">
+      This page compares {comparison.competitor} and AI PubKit for a specific
+      buyer question: should the workflow be centered on social media management,
+      general automation, content repurposing, or AI-first publishing across app
+      destinations?
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/use-cases/ai-content-distribution/">
+        AI content distribution
+      </a>
+      <a class="button light" href="/apps/">Explore app destinations</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Positioning</p>
+        <h2>{comparison.competitor} and AI PubKit solve different jobs.</h2>
+      </div>
+      <p>
+        The practical choice depends on the job you need done, not on a generic
+        feature checklist.
+      </p>
+    </div>
+    <div class="grid two">
+      <article class="card">
+        <h3>What {comparison.competitor} is built around</h3>
+        <p>{comparison.officialPosition}</p>
+      </article>
+      <article class="card">
+        <h3>What AI PubKit is built around</h3>
+        <p>
+          AI PubKit is built around one-click AI publishing: create or import
+          one AI-generated source, adapt it for multiple apps, then publish,
+          stage, or request support based on each destination's capability.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Decision</p>
+        <h2>When to choose each option.</h2>
+      </div>
+      <p>
+        A credible comparison should make both sides clear. The best choice
+        depends on whether you need a mature existing category or an AI
+        publishing-specific workflow.
+      </p>
+    </div>
+    <div class="grid two">
+      <article class="card">
+        <h3>Choose {comparison.competitor} when</h3>
+        <ul class="detail-list">
+          {comparison.bestForCompetitor.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Choose AI PubKit when</h3>
+        <ul class="detail-list">
+          {comparison.bestForAiPubKit.map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Comparison table</p>
+        <h2>{comparison.competitor} vs AI PubKit.</h2>
+      </div>
+      <p>
+        AI PubKit should be judged by publishing readiness, open app capability
+        data, and whether one AI source can become destination-ready outputs.
+      </p>
+    </div>
+    <div class="table-shell">
+      <table>
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>{comparison.competitor}</th>
+            <th>AI PubKit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {comparison.differences.map((difference) => (
+            <tr>
+              <td><strong>{difference.area}</strong></td>
+              <td>{difference.competitor}</td>
+              <td>{difference.aiPubKit}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">AI PubKit workflow</p>
+      <h2>The alternative is app-first publishing.</h2>
+      <p class="page-lead">
+        AI PubKit is strongest when the customer starts from AI-generated
+        content and needs practical publishing outputs for many destinations.
+      </p>
+      <div class="actions">
+        <a class="button light" href="/answers.json">Answer data</a>
+        <a class="button light" href="/request-app/">Request an app</a>
+      </div>
+    </aside>
+    <div class="steps">
+      {comparison.workflow.map((item) => (
+        <article class="step">
+          <p>{item}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2>Direct answers for AI assistants and searchers.</h2>
+      </div>
+      <p>
+        These are the concise answers the page is designed to support in search
+        snippets and AI answer engines.
+      </p>
+    </div>
+    <div class="grid three">
+      {comparison.faq.map((item) => (
+        <article class="card">
+          <h3>{item.question}</h3>
+          <p>{item.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Reference basis</p>
+      <h2>Official positioning checked before writing this page.</h2>
+      <p>
+        This comparison avoids pricing claims and unsupported feature claims. It
+        uses the competitor's official positioning, then compares it with AI
+        PubKit's narrower AI publishing workflow.
+      </p>
+      <div class="actions">
+        {comparison.officialSources.map((source) => (
+          <a class="button light" href={source.url} target="_blank" rel="noreferrer">
+            {source.name}
+          </a>
+        ))}
+        <a class="button light" href="https://github.com/1085386571w-oss/aipubkit" target="_blank" rel="noreferrer">
+          AI PubKit GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

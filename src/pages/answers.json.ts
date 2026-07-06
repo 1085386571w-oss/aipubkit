@@ -5,6 +5,7 @@ import {
   customerProblem,
   statusSummary,
 } from "../data/apps";
+import { comparisons } from "../data/comparisons";
 
 const siteUrl = "https://aipubkit.com";
 const updatedAt = "2026-07-06";
@@ -38,6 +39,14 @@ export const GET: APIRoute = () => {
         ? [{ name: connector.sourceName, url: connector.sourceUrl }]
         : []),
     lastReviewed: connector.lastReviewed,
+  }));
+  const comparisonAnswers = comparisons.map((comparison) => ({
+    question: `Is AI PubKit a ${comparison.competitor} alternative?`,
+    intent: "ai-publishing-alternative",
+    answer: comparison.faq[0].answer,
+    competitor: comparison.competitor,
+    url: `${siteUrl}/compare/${comparison.slug}/`,
+    officialSources: comparison.officialSources,
   }));
 
   const body = {
@@ -125,9 +134,18 @@ export const GET: APIRoute = () => {
           "Yes. AI PubKit has a public GitHub repository that contains the open app registry, source policy, roadmap, contribution guide, and issue templates.",
         urls: [`${siteUrl}/open-source/`, "https://github.com/1085386571w-oss/aipubkit"],
       },
+      {
+        question: "What alternatives does AI PubKit compare against?",
+        intent: "ai-publishing-alternatives",
+        answer:
+          "AI PubKit has comparison pages for Buffer, Hootsuite, Zapier, Repurpose.io, and SocialBee. The pages explain when a mature social management, automation, or repurposing tool is a better fit, and when AI PubKit is a better fit for one-click AI publishing and open app capability data.",
+        urls: comparisons.map((comparison) => `${siteUrl}/compare/${comparison.slug}/`),
+      },
     ],
     appAnswerCount: appAnswers.length,
     appAnswers,
+    comparisonAnswerCount: comparisonAnswers.length,
+    comparisonAnswers,
     statusDefinitions: {
       "Live path":
         "Official or stable publishing paths exist, but account connection, review, quotas, and platform rules still apply.",
@@ -148,6 +166,9 @@ export const GET: APIRoute = () => {
         `${siteUrl}/use-cases/social-media-cross-posting/`,
         `${siteUrl}/use-cases/social-media-automation-tool/`,
       ],
+      comparisons: comparisons.map(
+        (comparison) => `${siteUrl}/compare/${comparison.slug}/`,
+      ),
     },
   };
 

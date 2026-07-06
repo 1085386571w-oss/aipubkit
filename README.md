@@ -55,6 +55,11 @@ See [docs/app-registry.md](docs/app-registry.md) for the current app list.
 - [Content repurposing tool](https://aipubkit.com/use-cases/content-repurposing-tool/)
 - [Social media cross-posting](https://aipubkit.com/use-cases/social-media-cross-posting/)
 - [Social media automation tool](https://aipubkit.com/use-cases/social-media-automation-tool/)
+- [Buffer alternative for AI publishing](https://aipubkit.com/compare/buffer-alternative-for-ai-publishing/)
+- [Hootsuite alternative for AI publishing](https://aipubkit.com/compare/hootsuite-alternative-for-ai-publishing/)
+- [Zapier alternative for AI publishing](https://aipubkit.com/compare/zapier-alternative-for-ai-publishing/)
+- [Repurpose.io alternative](https://aipubkit.com/compare/repurpose-io-alternative/)
+- [SocialBee alternative](https://aipubkit.com/compare/socialbee-alternative/)
 - [Request an app](https://aipubkit.com/request-app/)
 - [How one-click publishing works](https://aipubkit.com/one-click-publishing/)
 - [Machine-readable app registry](https://aipubkit.com/apps.json)
@@ -108,6 +113,8 @@ src/pages/use-cases/ai-content-distribution.astro
 src/pages/use-cases/content-repurposing-tool.astro
 src/pages/use-cases/social-media-cross-posting.astro
 src/pages/use-cases/social-media-automation-tool.astro
+src/data/comparisons.ts                  Comparison page data
+src/pages/compare/[slug].astro           Competitor alternative pages
 public/llms.txt                          Short AI answer file
 public/llms-full.txt                     Full AI answer file
 src/pages/answers.json.ts                Machine-readable AI answer map

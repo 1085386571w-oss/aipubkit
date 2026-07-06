@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { appSlug, connectorCount, topConnectors } from "../data/apps";
+import { comparisons } from "../data/comparisons";
 
 const title = "AI PubKit - One-click AI publishing for global apps";
 const description =
@@ -202,6 +203,33 @@ const faqSchema = {
           <div class="actions">
             <a class="button light" href={`/apps/${appSlug(connector.name)}/`}>
               View publishing page
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Alternatives</p>
+        <h2>Compare AI PubKit with broader social and automation tools.</h2>
+      </div>
+      <p>
+        These comparison pages help buyers decide whether they need a mature
+        social management platform, a general automation tool, or a focused
+        AI publishing workflow.
+      </p>
+    </div>
+    <div class="grid three">
+      {comparisons.map((comparison) => (
+        <article class="card">
+          <h3>{comparison.competitor} alternative</h3>
+          <p>{comparison.description}</p>
+          <div class="actions">
+            <a class="button light" href={`/compare/${comparison.slug}/`}>
+              Compare
             </a>
           </div>
         </article>

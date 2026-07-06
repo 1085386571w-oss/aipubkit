@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { appSlug, connectors } from "../data/apps";
+import { comparisons } from "../data/comparisons";
 
 const lastmod = "2026-07-06";
 const pages = [
@@ -40,6 +41,11 @@ const pages = [
     priority: "0.9",
     changefreq: "weekly",
   },
+  ...comparisons.map((comparison) => ({
+    path: `/compare/${comparison.slug}/`,
+    priority: "0.85",
+    changefreq: "weekly",
+  })),
   { path: "/open-source/", priority: "0.8", changefreq: "weekly" },
   { path: "/request-app/", priority: "0.8", changefreq: "weekly" },
   { path: "/one-click-publishing/", priority: "0.8", changefreq: "weekly" },
