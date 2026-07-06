@@ -7,3 +7,7 @@ Sitemap: https://aipubkit.com/sitemap.xml
 # https://aipubkit.com/llms.txt
 # https://aipubkit.com/llms-full.txt
 # https://aipubkit.com/answers.json
+# https://aipubkit.com/tools.json
+
+# IndexNow key:
+# https://aipubkit.com/d5efc19a72392815f9582565de0435d3.txt

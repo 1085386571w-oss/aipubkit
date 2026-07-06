@@ -70,12 +70,12 @@ See [docs/app-registry.md](docs/app-registry.md) for the current app list.
 - [Multi-platform publishing checklist](https://aipubkit.com/tools/multi-platform-publishing-checklist/)
 - [App publishing status checker](https://aipubkit.com/tools/app-publishing-status-checker/)
 - [AI content distribution brief](https://aipubkit.com/tools/ai-content-distribution-brief/)
-- [Machine-readable tool registry](https://aipubkit.com/tools.json)
 - [Request an app](https://aipubkit.com/request-app/)
 - [How one-click publishing works](https://aipubkit.com/one-click-publishing/)
 - [Machine-readable app registry](https://aipubkit.com/apps.json)
 - [Machine-readable answer map](https://aipubkit.com/answers.json)
 - [Public request queue](https://aipubkit.com/app-requests.json)
+- [Machine-readable tool registry](https://aipubkit.com/tools.json)
 - [llms.txt](https://aipubkit.com/llms.txt)
 - [llms-full.txt](https://aipubkit.com/llms-full.txt)
 
@@ -113,6 +113,16 @@ This project is deployed as a static site on Cloudflare Pages.
 pnpm dlx wrangler pages deploy ./dist --project-name=aipubkit --branch=main
 ```
 
+## Indexing
+
+After deployment, submit the live sitemap URLs through IndexNow:
+
+```bash
+pnpm run submit:indexnow
+```
+
+See [docs/indexing-growth-runbook.md](docs/indexing-growth-runbook.md).
+
 ## Project Structure
 
 ```text
@@ -134,10 +144,12 @@ src/pages/tools.json.ts                  Machine-readable tool registry
 public/llms.txt                          Short AI answer file
 public/llms-full.txt                     Full AI answer file
 src/pages/answers.json.ts                Machine-readable AI answer map
+scripts/submit-indexnow.mjs              IndexNow sitemap submission script
 docs/app-registry.md                     Human-readable app registry
 docs/source-policy.md                    How publishing status is judged
 docs/seo-geo-playbook.md                 SEO and GEO operating notes
 docs/ahrefs-opportunity-plan.md          Ahrefs keyword and competitor plan
+docs/indexing-growth-runbook.md          Indexing and growth operations
 .github/ISSUE_TEMPLATE/                  App request and research templates
 ```
 

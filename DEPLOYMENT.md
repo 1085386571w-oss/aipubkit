@@ -24,6 +24,18 @@ pnpm run build
 pnpm dlx wrangler pages deploy ./dist --project-name=aipubkit --branch=main
 ```
 
+## Submit Updated URLs
+
+After deployment, notify participating search engines with IndexNow:
+
+```bash
+pnpm run submit:indexnow
+```
+
+The hosted key file is:
+
+- `https://aipubkit.com/d5efc19a72392815f9582565de0435d3.txt`
+
 ## DNS Records
 
 These records were added in the domain registrar DNS panel:
@@ -43,5 +55,7 @@ validation and activate:
 
 - `https://aipubkit.com/sitemap.xml`
 - `https://aipubkit.com/robots.txt`
+- `https://aipubkit.com/answers.json`
+- `https://aipubkit.com/tools.json`
 - `https://aipubkit.com/llms.txt`
 - `https://aipubkit.com/llms-full.txt`
