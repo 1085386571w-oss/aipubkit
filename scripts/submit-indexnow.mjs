@@ -16,7 +16,7 @@ async function fetchSitemapUrls() {
   }
 
   const sitemap = await response.text();
-  return [...sitemap.matchAll(/<loc>(.*?)<\\/loc>/g)]
+  return [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)]
     .map((match) => match[1])
     .filter((url) => url.startsWith(siteUrl));
 }
