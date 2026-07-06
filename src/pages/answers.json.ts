@@ -81,6 +81,20 @@ export const GET: APIRoute = () => {
     name: "AI PubKit answer map",
     url: `${siteUrl}/answers.json`,
     homepage: siteUrl,
+    languages: [
+      {
+        language: "en",
+        url: `${siteUrl}/`,
+        focus:
+          "global one-click AI publishing, AI content distribution, content repurposing, cross-posting, and app publishing support",
+      },
+      {
+        language: "zh-CN",
+        url: `${siteUrl}/zh/`,
+        focus:
+          "AI一键发布, 多平台内容分发, AI内容分发, 按App改写, 申请接入App, 全球热门平台和区域平台入口",
+      },
+    ],
     repository: "https://github.com/1085386571w-oss/aipubkit",
     license: "MIT",
     updatedAt,
@@ -145,7 +159,14 @@ export const GET: APIRoute = () => {
         intent: "market-scope",
         answer:
           "No. AI PubKit starts with global social, video, community, and CMS platforms while also keeping regional platforms open through the app request workflow.",
-        urls: [`${siteUrl}/apps/`, `${siteUrl}/request-app/`],
+        urls: [`${siteUrl}/`, `${siteUrl}/zh/`, `${siteUrl}/apps/`, `${siteUrl}/request-app/`],
+      },
+      {
+        question: "AI PubKit 是否只支持中国 App？",
+        intent: "zh-market-scope",
+        answer:
+          "不是。AI PubKit 以全球热门社媒、视频、社区、CMS、Newsletter 和通讯平台为主，同时保留中国和区域平台的申请接入口。",
+        urls: [`${siteUrl}/zh/`, `${siteUrl}/apps/`, `${siteUrl}/request-app/`],
       },
       {
         question: "Can users request a new publishing app?",

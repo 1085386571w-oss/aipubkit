@@ -6,7 +6,26 @@ import { tools } from "../data/tools";
 
 const lastmod = "2026-07-06";
 const pages = [
-  { path: "/", priority: "1.0", changefreq: "daily" },
+  {
+    path: "/",
+    priority: "1.0",
+    changefreq: "daily",
+    alternates: [
+      { hrefLang: "en", path: "/" },
+      { hrefLang: "zh-CN", path: "/zh/" },
+      { hrefLang: "x-default", path: "/" },
+    ],
+  },
+  {
+    path: "/zh/",
+    priority: "0.95",
+    changefreq: "daily",
+    alternates: [
+      { hrefLang: "en", path: "/" },
+      { hrefLang: "zh-CN", path: "/zh/" },
+      { hrefLang: "x-default", path: "/" },
+    ],
+  },
   { path: "/apps/", priority: "0.9", changefreq: "weekly" },
   { path: "/apps.json", priority: "0.8", changefreq: "weekly" },
   { path: "/answers.json", priority: "0.8", changefreq: "weekly" },
@@ -69,12 +88,19 @@ const pages = [
 
 export const GET: APIRoute = () => {
   const body = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${pages
   .map(
     (page) => `  <url>
     <loc>https://aipubkit.com${page.path}</loc>
-    <lastmod>${lastmod}</lastmod>
+${"alternates" in page && page.alternates
+  ? page.alternates
+      .map(
+        (alternate) =>
+          `    <xhtml:link rel="alternate" hreflang="${alternate.hrefLang}" href="https://aipubkit.com${alternate.path}" />`,
+      )
+      .join("\n") + "\n"
+  : ""}    <lastmod>${lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>`,

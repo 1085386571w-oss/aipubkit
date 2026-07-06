@@ -5,6 +5,9 @@ type Props = {
   title: string;
   description: string;
   canonicalPath?: string;
+  lang?: "en" | "zh-CN";
+  locale?: "en" | "zh";
+  alternates?: Array<{ hrefLang: string; path: string }>;
   schema?: Record<string, unknown> | Record<string, unknown>[];
 };
 
@@ -12,6 +15,9 @@ const {
   title,
   description,
   canonicalPath = Astro.url.pathname,
+  lang = "en",
+  locale = "en",
+  alternates = [],
   schema,
 } = Astro.props;
 
@@ -26,6 +32,86 @@ const organizationId = `${siteUrl}/#organization`;
 const softwareId = `${siteUrl}/#software`;
 const sourceCodeId = `${siteUrl}/#source-code`;
 const webpageId = `${canonicalUrl}#webpage`;
+const labels = {
+  en: {
+    homeLabel: "AI PubKit home",
+    navLabel: "Primary navigation",
+    apps: "Apps",
+    useCase: "Use case",
+    tools: "Tools",
+    compare: "Compare",
+    requestApp: "Request app",
+    howItWorks: "How it works",
+    footerLabel: "Footer navigation",
+    footerSummary: "One-click AI publishing for creators and teams.",
+    supportedApps: "Supported apps",
+    multiAppPublishing: "Multi-app publishing",
+    aiContentDistribution: "AI content distribution",
+    contentRepurposing: "Content repurposing",
+    crossPosting: "Cross-posting",
+    socialAutomation: "Social automation",
+    bufferAlternative: "Buffer alternative",
+    hootsuiteAlternative: "Hootsuite alternative",
+    zapierAlternative: "Zapier alternative",
+    repurposeAlternative: "Repurpose.io alternative",
+    socialbeeAlternative: "SocialBee alternative",
+    aiPostGenerator: "AI post generator",
+    repurposingPlanner: "Repurposing planner",
+    publishingChecklist: "Publishing checklist",
+    statusChecker: "Status checker",
+    distributionBrief: "Distribution brief",
+    openSource: "Open source",
+    appData: "App data",
+    answerData: "Answer data",
+    requestData: "Request data",
+    toolData: "Tool data",
+    contact: "Contact",
+    privacy: "Privacy",
+    terms: "Terms",
+    languageLabel: "Language",
+    english: "English",
+    chinese: "中文",
+  },
+  zh: {
+    homeLabel: "AI PubKit 首页",
+    navLabel: "主导航",
+    apps: "应用",
+    useCase: "应用场景",
+    tools: "免费工具",
+    compare: "竞品对比",
+    requestApp: "申请接入 App",
+    howItWorks: "如何运作",
+    footerLabel: "页脚导航",
+    footerSummary: "面向创作者和团队的 AI 一键发布工作流。",
+    supportedApps: "支持的应用",
+    multiAppPublishing: "多平台发布",
+    aiContentDistribution: "AI 内容分发",
+    contentRepurposing: "内容再利用",
+    crossPosting: "跨平台发布",
+    socialAutomation: "社媒自动化",
+    bufferAlternative: "Buffer 对比",
+    hootsuiteAlternative: "Hootsuite 对比",
+    zapierAlternative: "Zapier 对比",
+    repurposeAlternative: "Repurpose.io 对比",
+    socialbeeAlternative: "SocialBee 对比",
+    aiPostGenerator: "AI 文案生成器",
+    repurposingPlanner: "内容再利用规划器",
+    publishingChecklist: "发布检查清单",
+    statusChecker: "发布状态查询器",
+    distributionBrief: "内容分发 Brief",
+    openSource: "开源项目",
+    appData: "应用数据",
+    answerData: "答案数据",
+    requestData: "申请数据",
+    toolData: "工具数据",
+    contact: "联系",
+    privacy: "隐私",
+    terms: "条款",
+    languageLabel: "语言",
+    english: "English",
+    chinese: "中文",
+  },
+}[locale];
 const baseSchema = [
   {
     "@context": "https://schema.org",
@@ -33,7 +119,7 @@ const baseSchema = [
     "@id": websiteId,
     name: siteName,
     url: `${siteUrl}/`,
-    inLanguage: "en",
+    inLanguage: lang,
     description:
       "One-click AI publishing for creators, agencies, and teams.",
     sameAs: [githubUrl],
@@ -105,7 +191,7 @@ const baseSchema = [
     url: canonicalUrl,
     name: title,
     description,
-    inLanguage: "en",
+    inLanguage: lang,
     dateModified,
     isPartOf: {
       "@id": websiteId,
@@ -126,7 +212,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -139,6 +225,13 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
       content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
     />
     <link rel="canonical" href={canonicalUrl} />
+    {alternates.map((alternate) => (
+      <link
+        rel="alternate"
+        hreflang={alternate.hrefLang}
+        href={new URL(alternate.path, siteUrl).toString()}
+      />
+    ))}
     <link rel="me" href={githubUrl} />
     <link rel="alternate" type="application/json" title="AI PubKit app registry" href="/apps.json" />
     <link rel="alternate" type="application/json" title="AI PubKit answer map" href="/answers.json" />
@@ -166,17 +259,21 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/" aria-label="AI PubKit home">
+      <a class="brand" href={locale === "zh" ? "/zh/" : "/"} aria-label={labels.homeLabel}>
         <span class="brand-mark" aria-hidden="true">P</span>
         <span>AI PubKit</span>
       </a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <a href="/apps/">Apps</a>
-        <a href="/use-cases/ai-content-distribution/">Use case</a>
-        <a href="/tools/ai-social-media-post-generator/">Tools</a>
-        <a href="/compare/buffer-alternative-for-ai-publishing/">Compare</a>
-        <a href="/request-app/">Request app</a>
-        <a href="/one-click-publishing/">How it works</a>
+      <nav class="site-nav" aria-label={labels.navLabel}>
+        <a href="/apps/">{labels.apps}</a>
+        <a href="/use-cases/ai-content-distribution/">{labels.useCase}</a>
+        <a href="/tools/ai-social-media-post-generator/">{labels.tools}</a>
+        <a href="/compare/buffer-alternative-for-ai-publishing/">{labels.compare}</a>
+        <a href="/request-app/">{labels.requestApp}</a>
+        <a href="/one-click-publishing/">{labels.howItWorks}</a>
+        <span class="language-switch" aria-label={labels.languageLabel}>
+          <a class={locale === "en" ? "active" : undefined} href="/">{labels.english}</a>
+          <a class={locale === "zh" ? "active" : undefined} href="/zh/">{labels.chinese}</a>
+        </span>
       </nav>
     </header>
     <main>
@@ -185,36 +282,36 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
     <footer class="site-footer">
       <div>
         <strong>AI PubKit</strong>
-        <p>One-click AI publishing for creators and teams.</p>
+        <p>{labels.footerSummary}</p>
       </div>
-      <nav aria-label="Footer navigation">
-        <a href="/apps/">Supported apps</a>
-        <a href="/use-cases/publish-to-multiple-apps/">Multi-app publishing</a>
-        <a href="/use-cases/ai-content-distribution/">AI content distribution</a>
-        <a href="/use-cases/content-repurposing-tool/">Content repurposing</a>
-        <a href="/use-cases/social-media-cross-posting/">Cross-posting</a>
-        <a href="/use-cases/social-media-automation-tool/">Social automation</a>
-        <a href="/compare/buffer-alternative-for-ai-publishing/">Buffer alternative</a>
-        <a href="/compare/hootsuite-alternative-for-ai-publishing/">Hootsuite alternative</a>
-        <a href="/compare/zapier-alternative-for-ai-publishing/">Zapier alternative</a>
-        <a href="/compare/repurpose-io-alternative/">Repurpose.io alternative</a>
-        <a href="/compare/socialbee-alternative/">SocialBee alternative</a>
-        <a href="/tools/ai-social-media-post-generator/">AI post generator</a>
-        <a href="/tools/content-repurposing-planner/">Repurposing planner</a>
-        <a href="/tools/multi-platform-publishing-checklist/">Publishing checklist</a>
-        <a href="/tools/app-publishing-status-checker/">Status checker</a>
-        <a href="/tools/ai-content-distribution-brief/">Distribution brief</a>
-        <a href="/request-app/">Request an app</a>
-        <a href="/one-click-publishing/">How it works</a>
-        <a href="/open-source/">Open source</a>
-        <a href="/apps.json">App data</a>
-        <a href="/answers.json">Answer data</a>
-        <a href="/app-requests.json">Request data</a>
-        <a href="/tools.json">Tool data</a>
+      <nav aria-label={labels.footerLabel}>
+        <a href="/apps/">{labels.supportedApps}</a>
+        <a href="/use-cases/publish-to-multiple-apps/">{labels.multiAppPublishing}</a>
+        <a href="/use-cases/ai-content-distribution/">{labels.aiContentDistribution}</a>
+        <a href="/use-cases/content-repurposing-tool/">{labels.contentRepurposing}</a>
+        <a href="/use-cases/social-media-cross-posting/">{labels.crossPosting}</a>
+        <a href="/use-cases/social-media-automation-tool/">{labels.socialAutomation}</a>
+        <a href="/compare/buffer-alternative-for-ai-publishing/">{labels.bufferAlternative}</a>
+        <a href="/compare/hootsuite-alternative-for-ai-publishing/">{labels.hootsuiteAlternative}</a>
+        <a href="/compare/zapier-alternative-for-ai-publishing/">{labels.zapierAlternative}</a>
+        <a href="/compare/repurpose-io-alternative/">{labels.repurposeAlternative}</a>
+        <a href="/compare/socialbee-alternative/">{labels.socialbeeAlternative}</a>
+        <a href="/tools/ai-social-media-post-generator/">{labels.aiPostGenerator}</a>
+        <a href="/tools/content-repurposing-planner/">{labels.repurposingPlanner}</a>
+        <a href="/tools/multi-platform-publishing-checklist/">{labels.publishingChecklist}</a>
+        <a href="/tools/app-publishing-status-checker/">{labels.statusChecker}</a>
+        <a href="/tools/ai-content-distribution-brief/">{labels.distributionBrief}</a>
+        <a href="/request-app/">{labels.requestApp}</a>
+        <a href="/one-click-publishing/">{labels.howItWorks}</a>
+        <a href="/open-source/">{labels.openSource}</a>
+        <a href="/apps.json">{labels.appData}</a>
+        <a href="/answers.json">{labels.answerData}</a>
+        <a href="/app-requests.json">{labels.requestData}</a>
+        <a href="/tools.json">{labels.toolData}</a>
         <a href={githubUrl} target="_blank" rel="me noreferrer">GitHub</a>
-        <a href="/contact/">Contact</a>
-        <a href="/privacy/">Privacy</a>
-        <a href="/terms/">Terms</a>
+        <a href="/contact/">{labels.contact}</a>
+        <a href="/privacy/">{labels.privacy}</a>
+        <a href="/terms/">{labels.terms}</a>
       </nav>
     </footer>
   </body>

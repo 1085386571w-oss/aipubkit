@@ -7,6 +7,7 @@ const endpoint = "https://api.indexnow.org/indexnow";
 async function fetchSitemapUrls() {
   const response = await fetch(`${siteUrl}/sitemap.xml`, {
     headers: {
+      "Cache-Control": "no-cache",
       "User-Agent": "AI PubKit IndexNow submitter",
     },
   });

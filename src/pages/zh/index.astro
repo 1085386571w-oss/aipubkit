@@ -1,0 +1,407 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { appSlug, connectorCount, topConnectors } from "../../data/apps";
+
+const title = "AI PubKit - AI一键发布与多平台内容分发工具";
+const description =
+  "AI PubKit 将一份 AI 内容改写成适合多个 App 的发布版本，覆盖社媒、视频、社区、CMS、通讯和区域平台。";
+const alternates = [
+  { hrefLang: "en", path: "/" },
+  { hrefLang: "zh-CN", path: "/zh/" },
+  { hrefLang: "x-default", path: "/" },
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "AI PubKit 是做什么的？",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI PubKit 面向 AI 内容的一键发布和多平台分发，将一份 AI 生成内容改写成适合不同 App 的发布稿、标题、描述、标签、短视频说明、文章草稿和社区消息。",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "AI PubKit 只面向中国 App 吗？",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "不是。AI PubKit 以全球热门平台为主，包括 YouTube、TikTok、Instagram、Facebook Pages、X、LinkedIn、Threads、Pinterest、Reddit、WordPress、Medium、Discord、Slack 等，同时保留中国和区域平台的申请接入口。",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "能不能申请新增一个 App？",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "可以。用户可以提交想接入的 App、官方 API 文档、内容类型、是否需要直接发布或草稿生成，AI PubKit 会把这些需求进入公开应用清单和路线图。",
+      },
+    },
+  ],
+};
+const zhTools = [
+  {
+    slug: "ai-social-media-post-generator",
+    name: "AI 社媒文案生成器",
+    description:
+      "把一份来源内容生成 LinkedIn、X、Threads、Instagram、Facebook Pages 等平台的专属发布稿。",
+  },
+  {
+    slug: "content-repurposing-planner",
+    name: "内容再利用规划器",
+    description:
+      "规划一篇文章、视频脚本、直播摘要或产品更新如何拆成社媒、视频、CMS、社区和 Newsletter 内容。",
+  },
+  {
+    slug: "multi-platform-publishing-checklist",
+    name: "多平台发布检查清单",
+    description:
+      "在多平台发布前检查标题、标签、素材、审核、权限、平台限制和发布状态。",
+  },
+  {
+    slug: "app-publishing-status-checker",
+    name: "App 发布状态查询器",
+    description:
+      "查询某个 App 在 AI PubKit 中属于 Direct、Assisted 还是 Researching，避免误承诺一键发布。",
+  },
+  {
+    slug: "ai-content-distribution-brief",
+    name: "AI 内容分发 Brief 生成器",
+    description:
+      "为一次活动或一份来源内容生成面向多平台发布的结构化分发 brief。",
+  },
+];
+const statusLabels = {
+  "Live path": "Direct 可直接发布",
+  Assisted: "Assisted 需审核或授权",
+  Researching: "Researching 待验证",
+};
+const categoryLabels = {
+  Video: "视频",
+  Social: "社媒",
+  Community: "社区",
+  CMS: "CMS",
+  China: "中国/区域平台",
+};
+const regionLabels = {
+  Global: "全球",
+  "US/EU": "欧美",
+  China: "中国",
+  Regional: "区域",
+};
+const contentLabels: Record<string, string> = {
+  Video: "视频",
+  Shorts: "短视频",
+  Metadata: "元数据",
+  "Short video": "短视频",
+  Caption: "文案",
+  Schedule: "排期",
+  Image: "图片",
+  Reels: "Reels",
+  Carousel: "轮播",
+  Post: "帖子",
+  Thread: "长帖",
+  Media: "素材",
+  "Article brief": "文章摘要",
+  "Company update": "公司动态",
+  Pin: "Pin",
+  Board: "画板",
+  Link: "链接",
+  "Community post": "社区帖",
+  Comment: "评论",
+  "Comment draft": "评论草稿",
+  Article: "文章",
+  Page: "页面",
+  Blog: "博客",
+  "Status update": "状态更新",
+  Message: "消息",
+  Newsletter: "Newsletter",
+  Note: "笔记",
+  "SEO fields": "SEO 字段",
+  "Blog article": "博客文章",
+  "SEO post": "SEO 文章",
+  "Product education": "产品教育内容",
+  "Database item": "数据库条目",
+  "Content calendar": "内容日历",
+  "Blog post": "博客文章",
+  "Newsletter post": "Newsletter 文章",
+  "Page draft": "页面草稿",
+  "Local post": "本地动态",
+  Event: "活动",
+  Offer: "优惠",
+  "Canonical link": "Canonical 链接",
+  Tags: "标签",
+  Status: "状态更新",
+  Draft: "草稿",
+  "CMS item": "CMS 条目",
+  "Landing page": "落地页",
+  "Text message": "文本消息",
+  "Image message": "图片消息",
+  Broadcast: "群发",
+  "Channel post": "频道消息",
+  Announcement: "公告",
+  Webhook: "Webhook",
+  "Internal update": "内部更新",
+  Title: "标题",
+  Description: "描述",
+};
+const connectorNote = (connector: (typeof topConnectors)[number]) => {
+  if (connector.status === "Live path") {
+    return `${connector.name} 已有相对稳定的官方或可用发布路径，适合优先做直接发布、草稿生成和发布前检查。`;
+  }
+
+  if (connector.status === "Assisted") {
+    return `${connector.name} 有明确发布需求，但通常涉及账号权限、官方审核、API 限制或人工确认，适合先做待审核草稿和发布清单。`;
+  }
+
+  return `${connector.name} 需求需要继续验证，适合通过申请入口收集用户场景、官方文档和测试资源。`;
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/zh/"
+  lang="zh-CN"
+  locale="zh"
+  alternates={alternates}
+  schema={faqSchema}
+>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">AI 一键发布工作流</p>
+        <h1>把一份 AI 内容变成多个 App 可发布版本。</h1>
+        <p class="lead">
+          AI PubKit 面向创作者、团队和代理商，把一份 AI 文案、脚本、
+          活动说明或文章草稿，改写成适合不同平台的标题、正文、标签、
+          视频描述、社区消息和待审核发布稿。
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="/tools/ai-social-media-post-generator/">
+            先试免费工具
+          </a>
+          <a class="button secondary" href="/apps/">查看支持的 App</a>
+          <a class="button secondary" href="/request-app/">申请接入 App</a>
+          <a class="button secondary" href="/">English</a>
+        </div>
+        <div class="job-strip" aria-label="客户要完成的任务">
+          <span>一次生成</span>
+          <span>按 App 改写</span>
+          <span>检查发布路径</span>
+          <span>直接发布或保存草稿</span>
+        </div>
+        <div class="hero-finder" aria-label="热门发布平台">
+          <div class="finder-label">热门发布目的地</div>
+          <div class="quick-apps">
+            {topConnectors.slice(0, 10).map((connector) => (
+              <a href={`/apps/${appSlug(connector.name)}/`}>
+                {connector.name}
+              </a>
+            ))}
+          </div>
+        </div>
+        <div class="metric-row">
+          <div class="metric"><strong>{connectorCount}+</strong> 已映射 App</div>
+          <div class="metric"><strong>全球</strong> 热门平台优先</div>
+          <div class="metric"><strong>开源</strong> GitHub 应用清单</div>
+          <div class="metric"><strong>可申请</strong> 新增平台</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">客户真正的问题</p>
+        <h2>不是写一篇内容，而是把每个平台的版本都做完。</h2>
+      </div>
+      <p>
+        现在很多人已经会用 AI 写内容，真正耗时间的是后面的重复动作：
+        每个平台都要改标题、改语气、改标签、改格式、检查是否能直接发布，
+        还要保留人工审核和账号权限。
+      </p>
+    </div>
+    <div class="grid four">
+      <article class="card">
+        <h3>一份内容，多种资产</h3>
+        <p>
+          从产品更新、短视频脚本、文章、活动 brief、直播摘要中生成多个平台版本。
+        </p>
+      </article>
+      <article class="card">
+        <h3>按平台生成字段</h3>
+        <p>
+          标题、正文、描述、标签、话题、封面文字、文章摘要、社区消息分开处理。
+        </p>
+      </article>
+      <article class="card">
+        <h3>不乱承诺直接发布</h3>
+        <p>
+          每个 App 标注 Direct、Assisted、Researching，避免把不能稳定发布的平台说成一键发布。
+        </p>
+      </article>
+      <article class="card">
+        <h3>用户能申请新平台</h3>
+        <p>
+          哪个 App 有需求，就把官方文档、发布场景和需求量沉淀到公开路线图里。
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">产品工作流</p>
+        <h2>围绕“发布完成”设计，而不是只生成文案。</h2>
+      </div>
+      <p>
+        行业标杆通常围绕创建、排期、发布、分析、复用来组织首页。
+        AI PubKit 的重点更窄：把 AI 内容推进到具体 App 的发布状态。
+      </p>
+    </div>
+    <div class="steps workflow-steps">
+      <article class="step">
+        <h3>输入一份来源内容</h3>
+        <p>可以是 AI 草稿、视频脚本、文章、产品更新、活动说明或长文本摘要。</p>
+      </article>
+      <article class="step">
+        <h3>选择要发布的平台</h3>
+        <p>覆盖社媒、视频、社区、CMS、Newsletter、通讯工具和区域市场平台。</p>
+      </article>
+      <article class="step">
+        <h3>生成各平台发布稿</h3>
+        <p>按平台生成标题、正文、标签、描述、格式要求、素材备注和审核清单。</p>
+      </article>
+      <article class="step">
+        <h3>按支持状态处理</h3>
+        <p>能稳定直接发布的走 Direct，需要审核或权限的走 Assisted，不确定的继续研究。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">免费工具入口</p>
+        <h2>先让用户拿到一个可用结果。</h2>
+      </div>
+      <p>
+        首页不能只是介绍概念，要让客户马上生成文案、分发计划、发布前检查清单，
+        然后再选择平台或申请接入。
+      </p>
+    </div>
+    <div class="grid three">
+      {zhTools.map((tool) => (
+        <article class="card">
+          <h3>{tool.name}</h3>
+          <p>{tool.description}</p>
+          <div class="actions">
+            <a class="button light" href={`/tools/${tool.slug}/`}>
+              打开工具
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">平台覆盖</p>
+        <h2>先覆盖全球热门平台，同时保留区域平台入口。</h2>
+      </div>
+      <a class="button light" href="/apps/">查看全部 App</a>
+    </div>
+    <div class="grid three">
+      {topConnectors.map((connector) => (
+        <article class="connector" id={appSlug(connector.name)}>
+          <div class="connector-top">
+            <div>
+              <h3>{connector.name}</h3>
+              <p>{categoryLabels[connector.category]} · {regionLabels[connector.region]}</p>
+            </div>
+            <span class={`status ${connector.status.toLowerCase().replace(" ", "-")}`}>
+              {statusLabels[connector.status]}
+            </span>
+          </div>
+          <div class="tag-row">
+            {connector.content.map((item) => <span class="tag">{contentLabels[item] ?? item}</span>)}
+          </div>
+          <p>{connectorNote(connector)}</p>
+          <div class="actions">
+            <a class="button light" href={`/apps/${appSlug(connector.name)}/`}>
+              查看发布页
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">开源和增长</p>
+        <h2>这不只是独立站，也可以接近 GitHub 的开放应用清单。</h2>
+      </div>
+      <p>
+        公开 App 支持状态、来源依据、申请队列和路线图，让搜索引擎、AI 助手、
+        开发者和潜在客户都能理解项目在解决什么问题。
+      </p>
+    </div>
+    <div class="split">
+      <div class="notice">
+        <h3>申请新增 App</h3>
+        <p>
+          用户可以提交想发布到的平台、官方文档、内容类型、是否需要直接发布、
+          是否接受草稿流程，让路线图跟真实需求走。
+        </p>
+        <div class="actions">
+          <a class="button dark" href="/request-app/">提交平台需求</a>
+        </div>
+      </div>
+      <div class="notice">
+        <h3>公开 GitHub registry</h3>
+        <p>
+          GitHub 仓库用于沉淀 app registry、source policy、roadmap、issue
+          和贡献路径，形成更适合 GEO 的公开资料库。
+        </p>
+        <div class="actions">
+          <a
+            class="button dark"
+            href="https://github.com/1085386571w-oss/aipubkit"
+            target="_blank"
+            rel="noreferrer"
+          >
+            打开 GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="callout">
+    <div class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">聚焦一件事</p>
+          <h2>AI PubKit 只做 AI 内容发布，不混成泛自动化平台。</h2>
+        </div>
+        <p>
+          我们的定位不是再做一个大而全的自动化工具，而是把 AI 内容从生成推进到
+          不同 App 的可发布状态。
+        </p>
+      </div>
+      <div class="actions">
+        <a class="button primary" href="/one-click-publishing/">了解如何运作</a>
+        <a class="button secondary" href="/request-app/">申请接入 App</a>
+        <a class="button secondary" href="/">查看英文版</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
