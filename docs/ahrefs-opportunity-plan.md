@@ -4,7 +4,7 @@ Last researched: 2026-07-05
 
 Market focus: global English search, United States keyword data where available.
 
-Implementation status: Week 1 use-case cluster shipped on 2026-07-06. Week 2 comparison cluster shipped on 2026-07-06.
+Implementation status: Week 1 use-case cluster shipped on 2026-07-06. Week 2 comparison cluster shipped on 2026-07-06. Week 3 app-specific workflow cluster shipped on 2026-07-06.
 
 ## Keyword Findings
 
@@ -78,11 +78,11 @@ The better wedge is:
 
 ### Week 3
 
-11. `/apps/facebook-pages/ai-post-generator/`
-12. `/apps/instagram/ai-post-generator/`
-13. `/apps/linkedin/ai-post-generator/`
-14. `/apps/youtube/repurpose-video-content/`
-15. `/apps/tiktok/repurpose-video-content/`
+11. Done: `/apps/facebook-pages/ai-post-generator/`
+12. Done: `/apps/instagram/ai-post-generator/`
+13. Done: `/apps/linkedin/ai-post-generator/`
+14. Done: `/apps/youtube/repurpose-video-content/`
+15. Done: `/apps/tiktok/repurpose-video-content/`
 
 ### Week 4
 

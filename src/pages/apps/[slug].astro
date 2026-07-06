@@ -7,6 +7,7 @@ import {
   statusSummary,
   type Connector,
 } from "../../data/apps";
+import { appUseCases } from "../../data/appUseCases";
 
 export function getStaticPaths() {
   return connectors.map((connector) => ({
@@ -48,6 +49,9 @@ const limits =
     "Account connection, platform approval, quotas, and content review rules still apply.",
     "AI PubKit should use official or stable publishing paths rather than brittle browser automation.",
   ];
+const relatedAppUseCases = appUseCases.filter(
+  (useCase) => useCase.appName === connector.name,
+);
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -220,6 +224,37 @@ const schema = [faqSchema, breadcrumbSchema, publishingPathSchema];
       </article>
     </div>
   </section>
+
+  {relatedAppUseCases.length > 0 && (
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">App-specific workflows</p>
+          <h2>More AI publishing pages for {connector.name}.</h2>
+        </div>
+        <p>
+          These pages answer specific long-tail questions for {connector.name}
+          instead of only the general one-click publishing question.
+        </p>
+      </div>
+      <div class="grid three">
+        {relatedAppUseCases.map((useCase) => (
+          <article class="card">
+            <h3>{useCase.keyword}</h3>
+            <p>{useCase.description}</p>
+            <div class="actions">
+              <a
+                class="button light"
+                href={`/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`}
+              >
+                View workflow
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
 
   {sources.length > 0 && (
     <section class="section">

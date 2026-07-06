@@ -1,0 +1,267 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import {
+  appSlug as toAppSlug,
+  connectors,
+  type Connector,
+} from "../../../data/apps";
+import { appUseCases, type AppUseCase } from "../../../data/appUseCases";
+
+export function getStaticPaths() {
+  return appUseCases.map((useCase) => {
+    const connector = connectors.find(
+      (item) => item.name === useCase.appName,
+    ) as Connector;
+
+    return {
+      params: {
+        appSlug: toAppSlug(useCase.appName),
+        useCaseSlug: useCase.useCaseSlug,
+      },
+      props: { connector, useCase },
+    };
+  });
+}
+
+const { connector, useCase } = Astro.props as {
+  connector: Connector;
+  useCase: AppUseCase;
+};
+const canonicalPath = `/apps/${toAppSlug(useCase.appName)}/${useCase.useCaseSlug}/`;
+const url = `https://aipubkit.com${canonicalPath}`;
+const sourceLinks =
+  connector.officialSources ??
+  (connector.sourceName && connector.sourceUrl
+    ? [{ name: connector.sourceName, url: connector.sourceUrl }]
+    : []);
+const statusText =
+  connector.status === "Live path"
+    ? `${connector.name} is mapped as a direct publishing path where official or stable platform requirements are met.`
+    : connector.status === "Assisted"
+      ? `${connector.name} is mapped as assisted because direct publishing can depend on account setup, approval, review, or platform-specific limits.`
+      : `${connector.name} is still being researched before direct one-click support should be promised.`;
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: useCase.faqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "AI PubKit",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Supported apps",
+      item: "https://aipubkit.com/apps/",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: connector.name,
+      item: `https://aipubkit.com/apps/${toAppSlug(connector.name)}/`,
+    },
+    {
+      "@type": "ListItem",
+      position: 4,
+      name: useCase.keyword,
+      item: url,
+    },
+  ],
+};
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: useCase.keyword,
+  description: useCase.description,
+  step: useCase.workflow.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: `Step ${index + 1}`,
+    text: step,
+  })),
+};
+---
+
+<BaseLayout
+  title={useCase.title}
+  description={useCase.description}
+  canonicalPath={canonicalPath}
+  schema={[faqSchema, breadcrumbSchema, howToSchema]}
+>
+  <section class="page-hero">
+    <p class="eyebrow">{connector.name} · {useCase.keyword}</p>
+    <h1>{useCase.h1}</h1>
+    <p class="page-lead">{useCase.directAnswer}</p>
+    <div class="actions">
+      <a class="button dark" href={`/apps/${toAppSlug(connector.name)}/`}>
+        {connector.name} publishing status
+      </a>
+      <a class="button light" href="/use-cases/content-repurposing-tool/">
+        Content repurposing
+      </a>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">App status</p>
+      <h2>{connector.name} publishing readiness.</h2>
+      <p class="page-lead">{statusText}</p>
+      <article class="connector">
+        <div class="connector-top">
+          <div>
+            <h3>{connector.name}</h3>
+            <p>{connector.category} · {connector.region}</p>
+          </div>
+          <span class={`status ${connector.status.toLowerCase().replace(" ", "-")}`}>
+            {connector.status}
+          </span>
+        </div>
+        <div class="tag-row">
+          {connector.content.map((item) => <span class="tag">{item}</span>)}
+        </div>
+        <p>{connector.notes}</p>
+      </article>
+    </aside>
+    <div class="steps">
+      <article class="step">
+        <h3>Start with source content</h3>
+        <p>{useCase.sourceInput}</p>
+      </article>
+      {useCase.workflow.map((step) => (
+        <article class="step">
+          <p>{step}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Outputs</p>
+        <h2>What AI PubKit should create for {connector.name}.</h2>
+      </div>
+      <p>
+        A useful app-specific generator should produce destination-ready output,
+        not only generic AI text.
+      </p>
+    </div>
+    <div class="grid three">
+      {useCase.outputs.map((output) => (
+        <article class="card">
+          <h3>{output.split(" ").slice(0, 4).join(" ")}</h3>
+          <p>{output}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Limits</p>
+        <h2>What the workflow must respect.</h2>
+      </div>
+      <p>
+        Direct publishing depends on official platform paths, account setup,
+        permissions, media rules, review, and content policy.
+      </p>
+    </div>
+    <div class="grid three">
+      {useCase.limits.map((limit) => (
+        <article class="card">
+          <h3>Requirement</h3>
+          <p>{limit}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2>Direct answers for {useCase.keyword}.</h2>
+      </div>
+      <p>
+        These concise answers are also exposed through structured data and
+        answers.json for search and AI assistants.
+      </p>
+    </div>
+    <div class="grid three">
+      {useCase.faqs.map((item) => (
+        <article class="card">
+          <h3>{item.question}</h3>
+          <p>{item.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Official references</p>
+      <h2>Source basis for {connector.name} publishing status.</h2>
+      <p>
+        AI PubKit uses official or stable platform sources to decide whether a
+        destination should be treated as direct, assisted, or researching.
+      </p>
+      <div class="actions">
+        {sourceLinks.map((source) => (
+          <a class="button light" href={source.url} target="_blank" rel="noreferrer">
+            {source.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Related</p>
+        <h2>Continue the publishing workflow.</h2>
+      </div>
+      <a class="button light" href="/apps/">View all apps</a>
+    </div>
+    <div class="grid three">
+      {useCase.relatedUseCases.map((related) => (
+        <article class="card">
+          <h3>{related.label}</h3>
+          <p>
+            Continue from {useCase.keyword} into the broader AI PubKit
+            publishing workflow.
+          </p>
+          <div class="actions">
+            <a class="button light" href={related.url}>Open page</a>
+          </div>
+        </article>
+      ))}
+      <article class="card">
+        <h3>Request another app</h3>
+        <p>
+          Ask AI PubKit to add another app, source, or destination-specific
+          publishing workflow.
+        </p>
+        <div class="actions">
+          <a class="button light" href="/request-app/">Request app</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

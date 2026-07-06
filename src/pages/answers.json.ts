@@ -5,6 +5,7 @@ import {
   customerProblem,
   statusSummary,
 } from "../data/apps";
+import { appUseCases } from "../data/appUseCases";
 import { comparisons } from "../data/comparisons";
 
 const siteUrl = "https://aipubkit.com";
@@ -48,6 +49,23 @@ export const GET: APIRoute = () => {
     url: `${siteUrl}/compare/${comparison.slug}/`,
     officialSources: comparison.officialSources,
   }));
+  const appUseCaseAnswers = appUseCases.map((useCase) => {
+    const connector = connectors.find((item) => item.name === useCase.appName);
+    return {
+      question: useCase.faqs[0].question,
+      intent: useCase.useCaseSlug,
+      answer: useCase.faqs[0].answer,
+      keyword: useCase.keyword,
+      app: useCase.appName,
+      status: connector?.status,
+      url: `${siteUrl}/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`,
+      sources:
+        connector?.officialSources ??
+        (connector?.sourceName && connector?.sourceUrl
+          ? [{ name: connector.sourceName, url: connector.sourceUrl }]
+          : []),
+    };
+  });
 
   const body = {
     schemaVersion: "1.0",
@@ -141,11 +159,23 @@ export const GET: APIRoute = () => {
           "AI PubKit has comparison pages for Buffer, Hootsuite, Zapier, Repurpose.io, and SocialBee. The pages explain when a mature social management, automation, or repurposing tool is a better fit, and when AI PubKit is a better fit for one-click AI publishing and open app capability data.",
         urls: comparisons.map((comparison) => `${siteUrl}/compare/${comparison.slug}/`),
       },
+      {
+        question: "Which app-specific AI publishing workflows does AI PubKit cover?",
+        intent: "app-specific-ai-publishing-workflows",
+        answer:
+          "AI PubKit has app-specific workflow pages for Facebook AI post generation, Instagram AI post generation, LinkedIn AI post generation, YouTube video repurposing, and TikTok video repurposing. Each page explains app-ready outputs, workflow, limits, and publishing readiness.",
+        urls: appUseCases.map(
+          (useCase) =>
+            `${siteUrl}/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`,
+        ),
+      },
     ],
     appAnswerCount: appAnswers.length,
     appAnswers,
     comparisonAnswerCount: comparisonAnswers.length,
     comparisonAnswers,
+    appUseCaseAnswerCount: appUseCaseAnswers.length,
+    appUseCaseAnswers,
     statusDefinitions: {
       "Live path":
         "Official or stable publishing paths exist, but account connection, review, quotas, and platform rules still apply.",
@@ -168,6 +198,10 @@ export const GET: APIRoute = () => {
       ],
       comparisons: comparisons.map(
         (comparison) => `${siteUrl}/compare/${comparison.slug}/`,
+      ),
+      appUseCases: appUseCases.map(
+        (useCase) =>
+          `${siteUrl}/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`,
       ),
     },
   };

@@ -60,6 +60,11 @@ See [docs/app-registry.md](docs/app-registry.md) for the current app list.
 - [Zapier alternative for AI publishing](https://aipubkit.com/compare/zapier-alternative-for-ai-publishing/)
 - [Repurpose.io alternative](https://aipubkit.com/compare/repurpose-io-alternative/)
 - [SocialBee alternative](https://aipubkit.com/compare/socialbee-alternative/)
+- [Facebook AI post generator](https://aipubkit.com/apps/facebook-pages/ai-post-generator/)
+- [Instagram AI post generator](https://aipubkit.com/apps/instagram/ai-post-generator/)
+- [LinkedIn AI post generator](https://aipubkit.com/apps/linkedin/ai-post-generator/)
+- [Repurpose video content for YouTube](https://aipubkit.com/apps/youtube/repurpose-video-content/)
+- [Repurpose video content for TikTok](https://aipubkit.com/apps/tiktok/repurpose-video-content/)
 - [Request an app](https://aipubkit.com/request-app/)
 - [How one-click publishing works](https://aipubkit.com/one-click-publishing/)
 - [Machine-readable app registry](https://aipubkit.com/apps.json)
@@ -115,6 +120,8 @@ src/pages/use-cases/social-media-cross-posting.astro
 src/pages/use-cases/social-media-automation-tool.astro
 src/data/comparisons.ts                  Comparison page data
 src/pages/compare/[slug].astro           Competitor alternative pages
+src/data/appUseCases.ts                  App-specific workflow page data
+src/pages/apps/[appSlug]/[useCaseSlug].astro
 public/llms.txt                          Short AI answer file
 public/llms-full.txt                     Full AI answer file
 src/pages/answers.json.ts                Machine-readable AI answer map

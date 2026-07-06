@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { appSlug, connectors } from "../data/apps";
+import { appUseCases } from "../data/appUseCases";
 import { comparisons } from "../data/comparisons";
 
 const lastmod = "2026-07-06";
@@ -14,6 +15,11 @@ const pages = [
   ...connectors.map((connector) => ({
     path: `/apps/${appSlug(connector.name)}/`,
     priority: "0.8",
+    changefreq: "weekly",
+  })),
+  ...appUseCases.map((useCase) => ({
+    path: `/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`,
+    priority: "0.85",
     changefreq: "weekly",
   })),
   {

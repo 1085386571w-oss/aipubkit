@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { appSlug, connectorCount, topConnectors } from "../data/apps";
+import { appUseCases } from "../data/appUseCases";
 import { comparisons } from "../data/comparisons";
 
 const title = "AI PubKit - One-click AI publishing for global apps";
@@ -230,6 +231,36 @@ const faqSchema = {
           <div class="actions">
             <a class="button light" href={`/compare/${comparison.slug}/`}>
               Compare
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">App-specific workflows</p>
+        <h2>Turn long-tail search into practical publishing pages.</h2>
+      </div>
+      <p>
+        These app pages answer specific questions such as Facebook AI post
+        generation, LinkedIn B2B posts, and repurposing video content for
+        YouTube or TikTok.
+      </p>
+    </div>
+    <div class="grid three">
+      {appUseCases.map((useCase) => (
+        <article class="card">
+          <h3>{useCase.keyword}</h3>
+          <p>{useCase.description}</p>
+          <div class="actions">
+            <a
+              class="button light"
+              href={`/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`}
+            >
+              View workflow
             </a>
           </div>
         </article>
