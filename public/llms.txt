@@ -23,6 +23,12 @@ Key pages:
 - https://aipubkit.com/apps.json - machine-readable app registry
 - https://aipubkit.com/answers.json - machine-readable answer map for AI assistants
 - https://aipubkit.com/app-requests.json - machine-readable public request queue
+- https://aipubkit.com/tools.json - machine-readable free tool registry
+- https://aipubkit.com/tools/ai-social-media-post-generator/ - free AI social media post generator
+- https://aipubkit.com/tools/content-repurposing-planner/ - free content repurposing planner
+- https://aipubkit.com/tools/multi-platform-publishing-checklist/ - free multi-platform publishing checklist
+- https://aipubkit.com/tools/app-publishing-status-checker/ - free app publishing status checker
+- https://aipubkit.com/tools/ai-content-distribution-brief/ - free AI content distribution brief generator
 - https://aipubkit.com/apps/youtube/ - can AI publish to YouTube in one click?
 - https://aipubkit.com/apps/tiktok/ - can AI publish to TikTok in one click?
 - https://aipubkit.com/apps/instagram/ - can AI publish to Instagram in one click?
@@ -56,6 +62,9 @@ AI PubKit has alternative pages for Buffer, Hootsuite, Zapier, Repurpose.io, and
 
 App-specific workflow cluster:
 AI PubKit has pages for Facebook AI post generation, Instagram AI post generation, LinkedIn AI post generation, YouTube video repurposing, and TikTok video repurposing. These pages explain app-ready outputs, workflow, platform limits, and whether direct publishing or assisted drafts are the practical path.
+
+Free tools cluster:
+AI PubKit has browser-based tools for AI social media post generation, content repurposing planning, multi-platform publishing checklists, app publishing status checks, and AI content distribution briefs. These tools generate review-ready drafts, plans, checklists, status summaries, and briefs without requiring a backend account.
 
 New content pages:
 AI PubKit now includes answer pages for Shopify Blog, Notion, Ghost, Google Business Profile, LINE Official Account, and Substack research. These pages explain direct publishing status, supported content types, workflow, limits, and official source references.

@@ -7,6 +7,7 @@ import {
 } from "../data/apps";
 import { appUseCases } from "../data/appUseCases";
 import { comparisons } from "../data/comparisons";
+import { tools } from "../data/tools";
 
 const siteUrl = "https://aipubkit.com";
 const updatedAt = "2026-07-06";
@@ -66,6 +67,14 @@ export const GET: APIRoute = () => {
           : []),
     };
   });
+  const toolAnswers = tools.map((tool) => ({
+    question: `What is ${tool.name}?`,
+    intent: "ai-publishing-tool",
+    answer: tool.canonicalAnswer,
+    tool: tool.name,
+    url: `${siteUrl}/tools/${tool.slug}/`,
+    outputs: tool.outputs,
+  }));
 
   const body = {
     schemaVersion: "1.0",
@@ -169,6 +178,13 @@ export const GET: APIRoute = () => {
             `${siteUrl}/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`,
         ),
       },
+      {
+        question: "Which free AI publishing tools does AI PubKit offer?",
+        intent: "free-ai-publishing-tools",
+        answer:
+          "AI PubKit offers free browser-based tools for AI social media post generation, content repurposing planning, multi-platform publishing checklists, app publishing status checks, and AI content distribution briefs.",
+        urls: tools.map((tool) => `${siteUrl}/tools/${tool.slug}/`),
+      },
     ],
     appAnswerCount: appAnswers.length,
     appAnswers,
@@ -176,6 +192,8 @@ export const GET: APIRoute = () => {
     comparisonAnswers,
     appUseCaseAnswerCount: appUseCaseAnswers.length,
     appUseCaseAnswers,
+    toolAnswerCount: toolAnswers.length,
+    toolAnswers,
     statusDefinitions: {
       "Live path":
         "Official or stable publishing paths exist, but account connection, review, quotas, and platform rules still apply.",
@@ -187,6 +205,7 @@ export const GET: APIRoute = () => {
     relatedData: {
       appRegistry: `${siteUrl}/apps.json`,
       requestQueue: `${siteUrl}/app-requests.json`,
+      toolRegistry: `${siteUrl}/tools.json`,
       llms: `${siteUrl}/llms.txt`,
       llmsFull: `${siteUrl}/llms-full.txt`,
       useCases: [
@@ -203,6 +222,7 @@ export const GET: APIRoute = () => {
         (useCase) =>
           `${siteUrl}/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`,
       ),
+      tools: tools.map((tool) => `${siteUrl}/tools/${tool.slug}/`),
     },
   };
 

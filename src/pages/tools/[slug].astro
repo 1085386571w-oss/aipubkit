@@ -1,0 +1,492 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { appSlug, connectors } from "../../data/apps";
+import { tools, type ToolPage } from "../../data/tools";
+
+export function getStaticPaths() {
+  return tools.map((tool) => ({
+    params: { slug: tool.slug },
+    props: { tool },
+  }));
+}
+
+const { tool } = Astro.props as { tool: ToolPage };
+const canonicalPath = `/tools/${tool.slug}/`;
+const url = `https://aipubkit.com${canonicalPath}`;
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: tool.faqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "AI PubKit",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: tool.name,
+      item: url,
+    },
+  ],
+};
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: tool.name,
+  description: tool.description,
+  step: tool.steps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: `Step ${index + 1}`,
+    text: step,
+  })),
+};
+const webAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: tool.name,
+  url,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  isAccessibleForFree: true,
+  description: tool.description,
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+};
+const toolData = {
+  toolSlug: tool.slug,
+  connectors: connectors.map((connector) => ({
+    name: connector.name,
+    slug: appSlug(connector.name),
+    status: connector.status,
+    category: connector.category,
+    region: connector.region,
+    content: connector.content,
+    notes: connector.notes,
+    sourceName: connector.sourceName,
+    sourceUrl: connector.sourceUrl,
+  })),
+};
+---
+
+<BaseLayout
+  title={tool.title}
+  description={tool.description}
+  canonicalPath={canonicalPath}
+  schema={[faqSchema, breadcrumbSchema, howToSchema, webAppSchema]}
+>
+  <section class="page-hero">
+    <p class="eyebrow">Free tool</p>
+    <h1>{tool.h1}</h1>
+    <p class="page-lead">{tool.lead}</p>
+    <div class="actions">
+      <a class="button dark" href="/apps/">View app registry</a>
+      <a class="button light" href="/answers.json">View answer data</a>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Tool workflow</p>
+      <h2>Generate a useful first draft before publishing.</h2>
+      <p class="page-lead">
+        This tool runs in the browser. It creates structured output you can
+        copy into an AI prompt, editorial workflow, or AI PubKit publishing
+        destination.
+      </p>
+      <div class="steps">
+        {tool.steps.map((step) => (
+          <article class="step">
+            <p>{step}</p>
+          </article>
+        ))}
+      </div>
+    </aside>
+
+    <form class="form-panel form-grid" data-tool-form data-tool-slug={tool.slug}>
+      {tool.fields.map((field) => (
+        <div class="field">
+          <label for={field.id}>{field.label}</label>
+          {field.type === "textarea" && (
+            <textarea
+              id={field.id}
+              name={field.id}
+              required={field.required}
+              placeholder={field.placeholder}
+            ></textarea>
+          )}
+          {field.type === "text" && (
+            <input
+              id={field.id}
+              name={field.id}
+              required={field.required}
+              placeholder={field.placeholder}
+            />
+          )}
+          {field.type === "select" && (
+            <select id={field.id} name={field.id} required={field.required}>
+              {(field.id === "app_name"
+                ? connectors.map((connector) => connector.name)
+                : field.options
+              ).map((option) => (
+                <option value={option}>{option}</option>
+              ))}
+            </select>
+          )}
+          {field.type === "checkboxes" && (
+            <div class="option-list" role="group" aria-label={field.label}>
+              {field.options.map((option) => (
+                <label>
+                  <input type="checkbox" name={field.id} value={option} />
+                  <span>{option}</span>
+                </label>
+              ))}
+            </div>
+          )}
+          {field.help && <p class="muted">{field.help}</p>}
+        </div>
+      ))}
+      <button class="button dark" type="submit">Generate output</button>
+
+      <div class="request-output" data-tool-output-shell hidden>
+        <div class="field">
+          <label for={`${tool.slug}-output`}>{tool.outputLabel}</label>
+          <textarea id={`${tool.slug}-output`} data-tool-output readonly></textarea>
+        </div>
+        <div class="actions">
+          <button class="button light" type="button" data-copy-tool-output>
+            Copy output
+          </button>
+          <a class="button light" href="/request-app/">Request another app</a>
+        </div>
+        <p class="muted" data-tool-copy-status>
+          Review the output before publishing. Platform rules, permissions, and
+          account status still apply.
+        </p>
+      </div>
+    </form>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Outputs</p>
+        <h2>What this tool gives you.</h2>
+      </div>
+      <p>
+        The goal is to move from a blank page to a structured, review-ready
+        publishing artifact.
+      </p>
+    </div>
+    <div class="grid three">
+      {tool.outputs.map((output) => (
+        <article class="card">
+          <h3>{output.split(" ").slice(0, 4).join(" ")}</h3>
+          <p>{output}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Direct answer</p>
+      <h2>What is {tool.name}?</h2>
+      <p>{tool.canonicalAnswer}</p>
+      <div class="actions">
+        <a class="button dark" href="/use-cases/ai-content-distribution/">
+          AI content distribution
+        </a>
+        <a class="button light" href="/use-cases/content-repurposing-tool/">
+          Content repurposing
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2>Answers for search and AI assistants.</h2>
+      </div>
+      <p>
+        These answers are exposed through structured data and AI PubKit's
+        machine-readable answer map.
+      </p>
+    </div>
+    <div class="grid three">
+      {tool.faqs.map((item) => (
+        <article class="card">
+          <h3>{item.question}</h3>
+          <p>{item.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <script type="application/json" id="tool-data" set:html={JSON.stringify(toolData)} />
+  <script>
+    const form = document.querySelector("[data-tool-form]");
+    const outputShell = document.querySelector("[data-tool-output-shell]");
+    const outputArea = document.querySelector("[data-tool-output]");
+    const copyButton = document.querySelector("[data-copy-tool-output]");
+    const copyStatus = document.querySelector("[data-tool-copy-status]");
+    const toolDataElement = document.getElementById("tool-data");
+    const toolData = toolDataElement?.textContent
+      ? JSON.parse(toolDataElement.textContent)
+      : { toolSlug: "", connectors: [] };
+
+    function value(data, key, fallback = "") {
+      const raw = String(data.get(key) || "").trim();
+      return raw || fallback;
+    }
+
+    function checked(data, key, fallback = []) {
+      const values = data.getAll(key).map((item) => String(item));
+      return values.length > 0 ? values : fallback;
+    }
+
+    function slugify(name) {
+      return String(name).toLowerCase().replaceAll(" ", "-");
+    }
+
+    function section(title, lines) {
+      return [`## ${title}`, ...lines.filter(Boolean), ""].join("\n");
+    }
+
+    function list(items) {
+      return items.map((item) => `- ${item}`);
+    }
+
+    function generateSocialPosts(data) {
+      const source = value(data, "source", "Source idea");
+      const audience = value(data, "audience", "the target audience");
+      const goal = value(data, "goal", "Educate the audience");
+      const tone = value(data, "tone", "Clear");
+      const platforms = checked(data, "destinations", ["LinkedIn", "X", "Threads"]);
+      const platformNotes = {
+        LinkedIn: "Use a professional hook, short paragraphs, and a clear B2B takeaway.",
+        X: "Use a concise hook, one main point, and an optional thread follow-up.",
+        Threads: "Use conversational copy that invites replies.",
+        Instagram: "Use a caption with a visual cue, CTA, and hashtag review.",
+        "Facebook Pages": "Use Page-ready copy with local or business context when relevant.",
+      };
+      const drafts = platforms.flatMap((platform) => [
+        `### ${platform}`,
+        `Hook: ${tone} angle for ${audience}.`,
+        `Draft: ${source}`,
+        `Goal: ${goal}.`,
+        `Format note: ${platformNotes[platform] || "Adapt length, CTA, and media notes for this destination."}`,
+        "Review: check claims, links, media, brand voice, and publishing status.",
+        "",
+      ]);
+      return [
+        section("AI social media post generator output", [
+          `Source: ${source}`,
+          `Audience: ${audience}`,
+          `Goal: ${goal}`,
+          `Tone: ${tone}`,
+        ]),
+        drafts.join("\n"),
+        section("Next step", [
+          "Move each draft into the matching AI PubKit app workflow.",
+          "Use direct publishing only where the destination allows it; otherwise keep a review-ready draft.",
+        ]),
+      ].join("\n");
+    }
+
+    function generateRepurposingPlan(data) {
+      const source = value(data, "source", "Source asset");
+      const sourceFormat = value(data, "source_format", "Source");
+      const audience = value(data, "audience", "the target audience");
+      const destinations = checked(data, "destinations", ["Social posts", "Video metadata", "CMS article"]);
+      const timeframe = value(data, "timeframe", "This week");
+      const deliverables = destinations.flatMap((destination) => [
+        `${destination}: create one primary version, one short variant, and one review note for ${audience}.`,
+      ]);
+      return [
+        section("Content repurposing plan", [
+          `Source format: ${sourceFormat}`,
+          `Source: ${source}`,
+          `Audience: ${audience}`,
+          `Publishing window: ${timeframe}`,
+        ]),
+        section("Deliverables", list(deliverables)),
+        section("Sequence", list([
+          "Extract the core promise, proof, and call to action.",
+          "Create the highest-value long-form or video output first.",
+          "Split the source into social, community, CMS, and newsletter variants.",
+          "Check each app's direct or assisted publishing status before final handoff.",
+        ])),
+      ].join("\n");
+    }
+
+    function generateChecklist(data) {
+      const source = value(data, "source", "Content summary");
+      const teamType = value(data, "team_type", "Team");
+      const destinations = checked(data, "destinations", ["Social", "Video", "CMS"]);
+      const riskLevel = value(data, "risk_level", "Standard review");
+      const deadline = value(data, "deadline", "No deadline provided");
+      return [
+        section("Multi-platform publishing checklist", [
+          `Team: ${teamType}`,
+          `Content: ${source}`,
+          `Destinations: ${destinations.join(", ")}`,
+          `Review level: ${riskLevel}`,
+          `Deadline: ${deadline}`,
+        ]),
+        section("Source checks", list([
+          "Confirm the core message, audience, offer, and call to action.",
+          "Remove unsupported claims, missing citations, and stale facts.",
+          "Confirm links, UTM tags, landing pages, and media ownership.",
+        ])),
+        section("Destination checks", list(destinations.map((destination) =>
+          `${destination}: confirm format, media rules, caption length, metadata, and direct or assisted status.`
+        ))),
+        section("Approval checks", list([
+          "Assign one final reviewer.",
+          "Confirm client, brand, legal, or regulated review if needed.",
+          "Save fallback drafts for apps that cannot publish directly.",
+        ])),
+      ].join("\n");
+    }
+
+    function generateStatus(data) {
+      const appName = value(data, "app_name");
+      const contentType = value(data, "content_type", "Post");
+      const desiredAction = value(data, "desired_action", "Check feasibility");
+      const docsUrl = value(data, "docs_url");
+      const app = toolData.connectors.find((connector) => connector.name === appName);
+      if (!app) {
+        return section("App publishing status", [
+          `App: ${appName || "Unknown app"}`,
+          "Status: Not listed in AI PubKit yet.",
+          "Next step: request the app and include official developer documentation.",
+          docsUrl ? `Provided docs: ${docsUrl}` : "",
+        ]);
+      }
+      const appUrl = `https://aipubkit.com/apps/${slugify(app.name)}/`;
+      const statusLine =
+        app.status === "Live path"
+          ? "Direct path exists where account connection, permissions, quotas, and review requirements are met."
+          : app.status === "Assisted"
+            ? "Assisted path is safer: prepare a draft first, then publish only when platform requirements allow it."
+            : "Researching: do not promise direct publishing until official sources are verified.";
+      return [
+        section("App publishing status", [
+          `App: ${app.name}`,
+          `Status: ${app.status}`,
+          `Content type: ${contentType}`,
+          `Desired action: ${desiredAction}`,
+          `Answer: ${statusLine}`,
+          `Registry page: ${appUrl}`,
+        ]),
+        section("Fit notes", list([
+          `Tracked content types: ${app.content.join(", ")}.`,
+          app.notes,
+          app.sourceUrl ? `Official source: ${app.sourceName} - ${app.sourceUrl}` : "Official source needs review.",
+          docsUrl ? `User-provided docs: ${docsUrl}` : "",
+        ])),
+        section("Next step", list([
+          app.status === "Live path"
+            ? "Prepare direct publishing after account and permission checks."
+            : "Prepare a review-ready draft and keep human confirmation in the workflow.",
+          "Open the app page for full limits and source links.",
+        ])),
+      ].join("\n");
+    }
+
+    function generateBrief(data) {
+      const source = value(data, "source", "Source content");
+      const audience = value(data, "audience", "the target audience");
+      const goal = value(data, "goal", "Awareness");
+      const destinations = checked(data, "destinations", ["Social", "Video", "CMS"]);
+      const reviewLevel = value(data, "review_level", "Light review");
+      return [
+        section("AI content distribution brief", [
+          `Source: ${source}`,
+          `Audience: ${audience}`,
+          `Goal: ${goal}`,
+          `Channel mix: ${destinations.join(", ")}`,
+          `Review level: ${reviewLevel}`,
+        ]),
+        section("Required outputs", list(destinations.map((destination) =>
+          `${destination}: create destination-ready copy, metadata, media notes, CTA, and review status.`
+        ))),
+        section("Publishing rules", list([
+          "Use direct publishing only where official or stable paths allow it.",
+          "Use assisted drafts where account approval, platform review, or human confirmation is required.",
+          "Keep source claims, links, media rights, and brand voice under review.",
+        ])),
+        section("Next actions", list([
+          "Map each output to an AI PubKit app page.",
+          "Generate app-specific drafts or check publishing status.",
+          "Request missing apps with official documentation links.",
+        ])),
+      ].join("\n");
+    }
+
+    function generateOutput(data) {
+      switch (toolData.toolSlug) {
+        case "ai-social-media-post-generator":
+          return generateSocialPosts(data);
+        case "content-repurposing-planner":
+          return generateRepurposingPlan(data);
+        case "multi-platform-publishing-checklist":
+          return generateChecklist(data);
+        case "app-publishing-status-checker":
+          return generateStatus(data);
+        case "ai-content-distribution-brief":
+          return generateBrief(data);
+        default:
+          return "Tool output is not configured.";
+      }
+    }
+
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const generated = generateOutput(data);
+      if (outputArea instanceof HTMLTextAreaElement) {
+        outputArea.value = generated;
+      }
+      if (outputShell instanceof HTMLElement) {
+        outputShell.hidden = false;
+      }
+    });
+
+    copyButton?.addEventListener("click", async () => {
+      if (!(outputArea instanceof HTMLTextAreaElement)) return;
+      try {
+        await navigator.clipboard.writeText(outputArea.value);
+        if (copyStatus instanceof HTMLElement) {
+          copyStatus.textContent = "Output copied.";
+        }
+      } catch {
+        outputArea.focus();
+        outputArea.select();
+        if (copyStatus instanceof HTMLElement) {
+          copyStatus.textContent = "Copy blocked by the browser. Select the output and copy it manually.";
+        }
+      }
+    });
+  </script>
+</BaseLayout>

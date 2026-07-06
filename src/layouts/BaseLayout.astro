@@ -142,6 +142,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
     <link rel="me" href={githubUrl} />
     <link rel="alternate" type="application/json" title="AI PubKit app registry" href="/apps.json" />
     <link rel="alternate" type="application/json" title="AI PubKit answer map" href="/answers.json" />
+    <link rel="alternate" type="application/json" title="AI PubKit tool registry" href="/tools.json" />
     <link rel="alternate" type="text/plain" title="AI PubKit llms.txt" href="/llms.txt" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -172,6 +173,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="/apps/">Apps</a>
         <a href="/use-cases/ai-content-distribution/">Use case</a>
+        <a href="/tools/ai-social-media-post-generator/">Tools</a>
         <a href="/compare/buffer-alternative-for-ai-publishing/">Compare</a>
         <a href="/request-app/">Request app</a>
         <a href="/one-click-publishing/">How it works</a>
@@ -197,12 +199,18 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/compare/zapier-alternative-for-ai-publishing/">Zapier alternative</a>
         <a href="/compare/repurpose-io-alternative/">Repurpose.io alternative</a>
         <a href="/compare/socialbee-alternative/">SocialBee alternative</a>
+        <a href="/tools/ai-social-media-post-generator/">AI post generator</a>
+        <a href="/tools/content-repurposing-planner/">Repurposing planner</a>
+        <a href="/tools/multi-platform-publishing-checklist/">Publishing checklist</a>
+        <a href="/tools/app-publishing-status-checker/">Status checker</a>
+        <a href="/tools/ai-content-distribution-brief/">Distribution brief</a>
         <a href="/request-app/">Request an app</a>
         <a href="/one-click-publishing/">How it works</a>
         <a href="/open-source/">Open source</a>
         <a href="/apps.json">App data</a>
         <a href="/answers.json">Answer data</a>
         <a href="/app-requests.json">Request data</a>
+        <a href="/tools.json">Tool data</a>
         <a href={githubUrl} target="_blank" rel="me noreferrer">GitHub</a>
         <a href="/contact/">Contact</a>
         <a href="/privacy/">Privacy</a>

@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { appSlug, connectorCount, topConnectors } from "../data/apps";
 import { appUseCases } from "../data/appUseCases";
 import { comparisons } from "../data/comparisons";
+import { tools } from "../data/tools";
 
 const title = "AI PubKit - One-click AI publishing for global apps";
 const description =
@@ -51,6 +52,9 @@ const faqSchema = {
         </p>
         <div class="hero-actions">
           <a class="button primary" href="/apps/">Explore apps</a>
+          <a class="button secondary" href="/tools/ai-social-media-post-generator/">
+            Free tools
+          </a>
           <a class="button secondary" href="/use-cases/ai-content-distribution/">
             AI content distribution
           </a>
@@ -261,6 +265,32 @@ const faqSchema = {
               href={`/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`}
             >
               View workflow
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Free tools</p>
+        <h2>Generate drafts, plans, checklists, and distribution briefs.</h2>
+      </div>
+      <p>
+        These browser-based tools give visitors a practical output before they
+        choose a publishing destination or request another app.
+      </p>
+    </div>
+    <div class="grid three">
+      {tools.map((tool) => (
+        <article class="card">
+          <h3>{tool.name}</h3>
+          <p>{tool.description}</p>
+          <div class="actions">
+            <a class="button light" href={`/tools/${tool.slug}/`}>
+              Open tool
             </a>
           </div>
         </article>

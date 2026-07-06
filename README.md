@@ -65,6 +65,12 @@ See [docs/app-registry.md](docs/app-registry.md) for the current app list.
 - [LinkedIn AI post generator](https://aipubkit.com/apps/linkedin/ai-post-generator/)
 - [Repurpose video content for YouTube](https://aipubkit.com/apps/youtube/repurpose-video-content/)
 - [Repurpose video content for TikTok](https://aipubkit.com/apps/tiktok/repurpose-video-content/)
+- [AI social media post generator](https://aipubkit.com/tools/ai-social-media-post-generator/)
+- [Content repurposing planner](https://aipubkit.com/tools/content-repurposing-planner/)
+- [Multi-platform publishing checklist](https://aipubkit.com/tools/multi-platform-publishing-checklist/)
+- [App publishing status checker](https://aipubkit.com/tools/app-publishing-status-checker/)
+- [AI content distribution brief](https://aipubkit.com/tools/ai-content-distribution-brief/)
+- [Machine-readable tool registry](https://aipubkit.com/tools.json)
 - [Request an app](https://aipubkit.com/request-app/)
 - [How one-click publishing works](https://aipubkit.com/one-click-publishing/)
 - [Machine-readable app registry](https://aipubkit.com/apps.json)
@@ -122,6 +128,9 @@ src/data/comparisons.ts                  Comparison page data
 src/pages/compare/[slug].astro           Competitor alternative pages
 src/data/appUseCases.ts                  App-specific workflow page data
 src/pages/apps/[appSlug]/[useCaseSlug].astro
+src/data/tools.ts                        Free tool page data
+src/pages/tools/[slug].astro             Interactive browser tool pages
+src/pages/tools.json.ts                  Machine-readable tool registry
 public/llms.txt                          Short AI answer file
 public/llms-full.txt                     Full AI answer file
 src/pages/answers.json.ts                Machine-readable AI answer map

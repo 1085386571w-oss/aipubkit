@@ -4,7 +4,7 @@ Last researched: 2026-07-05
 
 Market focus: global English search, United States keyword data where available.
 
-Implementation status: Week 1 use-case cluster shipped on 2026-07-06. Week 2 comparison cluster shipped on 2026-07-06. Week 3 app-specific workflow cluster shipped on 2026-07-06.
+Implementation status: Week 1 use-case cluster shipped on 2026-07-06. Week 2 comparison cluster shipped on 2026-07-06. Week 3 app-specific workflow cluster shipped on 2026-07-06. Week 4 free tool cluster shipped on 2026-07-06.
 
 ## Keyword Findings
 
@@ -86,11 +86,11 @@ The better wedge is:
 
 ### Week 4
 
-16. `/tools/ai-social-media-post-generator/`
-17. `/tools/content-repurposing-planner/`
-18. `/tools/multi-platform-publishing-checklist/`
-19. `/tools/app-publishing-status-checker/`
-20. `/tools/ai-content-distribution-brief/`
+16. Done: `/tools/ai-social-media-post-generator/`
+17. Done: `/tools/content-repurposing-planner/`
+18. Done: `/tools/multi-platform-publishing-checklist/`
+19. Done: `/tools/app-publishing-status-checker/`
+20. Done: `/tools/ai-content-distribution-brief/`
 
 ## Product Implication
 

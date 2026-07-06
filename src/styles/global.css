@@ -486,6 +486,32 @@ th {
   font-weight: 720;
 }
 
+.option-list {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.option-list label {
+  align-items: center;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 10px;
+}
+
+.option-list input {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.request-output textarea {
+  min-height: 260px;
+}
+
 .muted {
   color: var(--muted);
 }
@@ -565,7 +591,8 @@ pre {
   .grid.two,
   .metric-row,
   .split,
-  .filter-bar {
+  .filter-bar,
+  .option-list {
     grid-template-columns: 1fr;
   }
 

@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import { appSlug, connectors } from "../data/apps";
 import { appUseCases } from "../data/appUseCases";
 import { comparisons } from "../data/comparisons";
+import { tools } from "../data/tools";
 
 const lastmod = "2026-07-06";
 const pages = [
@@ -10,6 +11,7 @@ const pages = [
   { path: "/apps.json", priority: "0.8", changefreq: "weekly" },
   { path: "/answers.json", priority: "0.8", changefreq: "weekly" },
   { path: "/app-requests.json", priority: "0.7", changefreq: "weekly" },
+  { path: "/tools.json", priority: "0.7", changefreq: "weekly" },
   { path: "/llms.txt", priority: "0.7", changefreq: "weekly" },
   { path: "/llms-full.txt", priority: "0.7", changefreq: "weekly" },
   ...connectors.map((connector) => ({
@@ -49,6 +51,11 @@ const pages = [
   },
   ...comparisons.map((comparison) => ({
     path: `/compare/${comparison.slug}/`,
+    priority: "0.85",
+    changefreq: "weekly",
+  })),
+  ...tools.map((tool) => ({
+    path: `/tools/${tool.slug}/`,
     priority: "0.85",
     changefreq: "weekly",
   })),
