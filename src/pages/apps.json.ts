@@ -13,7 +13,7 @@ export const GET: APIRoute = () => {
     repository: "https://github.com/1085386571w-oss/aipubkit",
     license: "MIT",
     requestUrl: `${siteUrl}/request-app/`,
-    updatedAt: "2026-07-05",
+    updatedAt: "2026-07-06",
     count: connectors.length,
     statusCounts: {
       livePath: connectors.filter((connector) => connector.status === "Live path")

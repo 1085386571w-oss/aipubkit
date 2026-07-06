@@ -51,6 +51,10 @@ See [docs/app-registry.md](docs/app-registry.md) for the current app list.
 
 - [Supported apps](https://aipubkit.com/apps/)
 - [Publish to multiple apps](https://aipubkit.com/use-cases/publish-to-multiple-apps/)
+- [AI content distribution](https://aipubkit.com/use-cases/ai-content-distribution/)
+- [Content repurposing tool](https://aipubkit.com/use-cases/content-repurposing-tool/)
+- [Social media cross-posting](https://aipubkit.com/use-cases/social-media-cross-posting/)
+- [Social media automation tool](https://aipubkit.com/use-cases/social-media-automation-tool/)
 - [Request an app](https://aipubkit.com/request-app/)
 - [How one-click publishing works](https://aipubkit.com/one-click-publishing/)
 - [Machine-readable app registry](https://aipubkit.com/apps.json)
@@ -100,6 +104,10 @@ src/data/apps.ts                         App registry data
 src/pages/apps.astro                     App directory
 src/pages/apps/[slug].astro              App-specific answer pages
 src/pages/use-cases/publish-to-multiple-apps.astro
+src/pages/use-cases/ai-content-distribution.astro
+src/pages/use-cases/content-repurposing-tool.astro
+src/pages/use-cases/social-media-cross-posting.astro
+src/pages/use-cases/social-media-automation-tool.astro
 public/llms.txt                          Short AI answer file
 public/llms-full.txt                     Full AI answer file
 src/pages/answers.json.ts                Machine-readable AI answer map

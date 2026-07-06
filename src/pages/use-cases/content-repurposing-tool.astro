@@ -1,0 +1,215 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Content repurposing tool for AI publishing - AI PubKit";
+const description =
+  "AI PubKit is a content repurposing tool for turning one AI-generated source into posts, videos, articles, community updates, and app-ready drafts.";
+const steps = [
+  {
+    name: "Start from the strongest source",
+    text: "Use a blog post, video script, podcast notes, product update, launch brief, or long-form AI draft as the source.",
+  },
+  {
+    name: "Select output formats",
+    text: "Choose short posts, threads, captions, video descriptions, article drafts, community messages, or newsletter teasers.",
+  },
+  {
+    name: "Adapt by platform",
+    text: "Rewrite the source into destination-ready copy with the right structure, tags, links, media notes, and review state.",
+  },
+  {
+    name: "Send to the publishing workflow",
+    text: "Publish directly where official paths allow it, or save a ready-to-review draft when manual approval is required.",
+  },
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is a content repurposing tool?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A content repurposing tool turns one source asset into multiple platform-specific versions. AI PubKit focuses on repurposing AI-generated content into app-ready publishing outputs for social, video, community, and CMS destinations.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can AI PubKit repurpose video content?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. AI PubKit can treat a video script, transcript, or upload brief as the source and create titles, descriptions, captions, short posts, article drafts, and community updates for selected destinations.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How is content repurposing different from cross-posting?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Cross-posting sends a message across multiple social apps. Content repurposing changes the content format, length, angle, metadata, and destination fields so the same idea can work across social, video, CMS, and community channels.",
+      },
+    },
+  ],
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Content repurposing tool",
+      item: "https://aipubkit.com/use-cases/content-repurposing-tool/",
+    },
+  ],
+};
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to repurpose AI content for publishing apps",
+  description,
+  step: steps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step.name,
+    text: step.text,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={[faqSchema, breadcrumbSchema, howToSchema]}>
+  <section class="page-hero">
+    <p class="eyebrow">Use case</p>
+    <h1>Repurpose one AI source into app-ready content.</h1>
+    <p class="page-lead">
+      A useful content repurposing tool does more than summarize. It converts a
+      source idea into the formats each publishing destination actually needs:
+      posts, captions, articles, video metadata, messages, and drafts.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/use-cases/ai-content-distribution/">
+        AI content distribution
+      </a>
+      <a class="button light" href="/apps/">Explore destinations</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Customer problem</p>
+        <h2>Good ideas are trapped in one format.</h2>
+      </div>
+      <p>
+        Most teams already have source material. The hard part is turning that
+        source into enough high-quality variations to publish everywhere it
+        should go.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Long-form to short-form</h3>
+        <p>
+          Turn a blog post, transcript, or product note into LinkedIn posts, X
+          threads, Threads updates, TikTok captions, and Instagram copy.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Video to written channels</h3>
+        <p>
+          Repurpose video scripts and transcripts into YouTube descriptions,
+          article drafts, newsletter teasers, community posts, and FAQs.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Campaign to app fields</h3>
+        <p>
+          Convert one launch brief into titles, descriptions, tags, excerpts,
+          links, media notes, and review checklists for each destination.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Workflow</p>
+      <h2>Repurposing should end in a publishable destination.</h2>
+      <p class="page-lead">
+        AI PubKit connects repurposing to the practical publishing question:
+        can this app receive the output directly, or should the system prepare a
+        draft for human review?
+      </p>
+    </aside>
+    <div class="steps">
+      {steps.map((step) => (
+        <article class="step">
+          <h3>{step.name}</h3>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Output examples</p>
+        <h2>One source can produce many publishing assets.</h2>
+      </div>
+      <p>
+        The result should be specific enough that a creator, agency, or team can
+        review it and publish without rebuilding the content by hand.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>From article to social</h3>
+        <p>
+          Generate a LinkedIn educational post, X summary thread, Facebook Page
+          update, Pinterest pin copy, and Slack internal announcement.
+        </p>
+      </article>
+      <article class="card">
+        <h3>From video to SEO</h3>
+        <p>
+          Create YouTube metadata, a WordPress article, a Shopify Blog buying
+          guide, a Ghost newsletter draft, and Notion planning notes.
+        </p>
+      </article>
+      <article class="card">
+        <h3>From launch brief to community</h3>
+        <p>
+          Prepare Reddit review copy, Discord announcement text, Telegram
+          channel posts, and regional app drafts with platform-specific cautions.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Direct answer</p>
+      <h2>What makes AI PubKit different from a generic repurposer?</h2>
+      <p>
+        AI PubKit ties repurposing to app capability data. It is not only
+        creating more copy; it is preparing content for the destination where
+        that copy needs to be published, including direct, assisted, or
+        researching status.
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/use-cases/social-media-cross-posting/">
+          Social media cross-posting
+        </a>
+        <a class="button light" href="/answers.json">Canonical answers</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

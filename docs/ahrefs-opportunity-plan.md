@@ -4,6 +4,8 @@ Last researched: 2026-07-05
 
 Market focus: global English search, United States keyword data where available.
 
+Implementation status: Week 1 use-case cluster shipped on 2026-07-06.
+
 ## Keyword Findings
 
 | Keyword / cluster | US SV | KD | Signal | Priority |
@@ -60,11 +62,11 @@ The better wedge is:
 
 ### Week 1
 
-1. `/use-cases/ai-content-distribution/`
-2. `/use-cases/content-repurposing-tool/`
-3. `/use-cases/social-media-cross-posting/`
-4. `/use-cases/social-media-automation-tool/`
-5. Update homepage copy to reference AI content distribution and content repurposing.
+1. Done: `/use-cases/ai-content-distribution/`
+2. Done: `/use-cases/content-repurposing-tool/`
+3. Done: `/use-cases/social-media-cross-posting/`
+4. Done: `/use-cases/social-media-automation-tool/`
+5. Done: update homepage copy to reference AI content distribution and content repurposing.
 
 ### Week 2
 

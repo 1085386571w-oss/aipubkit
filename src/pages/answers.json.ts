@@ -7,7 +7,7 @@ import {
 } from "../data/apps";
 
 const siteUrl = "https://aipubkit.com";
-const updatedAt = "2026-07-05";
+const updatedAt = "2026-07-06";
 
 function directAnswer(status: string, appName: string) {
   if (status === "Live path") {
@@ -63,6 +63,48 @@ export const GET: APIRoute = () => {
         ],
       },
       {
+        question: "What is AI content distribution?",
+        intent: "ai-content-distribution",
+        answer:
+          "AI content distribution means turning one AI-generated source into ready-to-publish versions for multiple apps, channels, and formats. AI PubKit maps each destination by publishing capability so content can be published directly where possible or prepared as an assisted draft where review is required.",
+        urls: [
+          `${siteUrl}/use-cases/ai-content-distribution/`,
+          `${siteUrl}/apps/`,
+          `${siteUrl}/apps.json`,
+        ],
+      },
+      {
+        question: "What is a content repurposing tool?",
+        intent: "content-repurposing-tool",
+        answer:
+          "A content repurposing tool converts one source asset into multiple platform-specific versions. AI PubKit repurposes AI-generated articles, scripts, transcripts, launch notes, and briefs into posts, captions, video metadata, articles, messages, and app-ready drafts.",
+        urls: [
+          `${siteUrl}/use-cases/content-repurposing-tool/`,
+          `${siteUrl}/use-cases/ai-content-distribution/`,
+        ],
+      },
+      {
+        question: "What is social media cross-posting?",
+        intent: "social-media-cross-posting",
+        answer:
+          "Social media cross-posting means publishing one message across multiple social apps. AI PubKit treats cross-posting as platform-specific adaptation, not simple copy-paste, because each app has different formats, media rules, permissions, and audience expectations.",
+        urls: [
+          `${siteUrl}/use-cases/social-media-cross-posting/`,
+          `${siteUrl}/use-cases/social-media-automation-tool/`,
+        ],
+      },
+      {
+        question: "What is a social media automation tool for AI content?",
+        intent: "social-media-automation-tool",
+        answer:
+          "A social media automation tool for AI content helps generate or import a source, adapt it into app-specific posts, check platform capability status, and publish or stage drafts with review control. AI PubKit focuses on AI publishing automation rather than generic engagement automation.",
+        urls: [
+          `${siteUrl}/use-cases/social-media-automation-tool/`,
+          `${siteUrl}/use-cases/social-media-cross-posting/`,
+          `${siteUrl}/one-click-publishing/`,
+        ],
+      },
+      {
         question: "Is AI PubKit only for China-market apps?",
         intent: "market-scope",
         answer:
@@ -99,6 +141,13 @@ export const GET: APIRoute = () => {
       requestQueue: `${siteUrl}/app-requests.json`,
       llms: `${siteUrl}/llms.txt`,
       llmsFull: `${siteUrl}/llms-full.txt`,
+      useCases: [
+        `${siteUrl}/use-cases/publish-to-multiple-apps/`,
+        `${siteUrl}/use-cases/ai-content-distribution/`,
+        `${siteUrl}/use-cases/content-repurposing-tool/`,
+        `${siteUrl}/use-cases/social-media-cross-posting/`,
+        `${siteUrl}/use-cases/social-media-automation-tool/`,
+      ],
     },
   };
 

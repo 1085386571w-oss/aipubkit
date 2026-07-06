@@ -1,0 +1,212 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Social media automation tool for AI content - AI PubKit";
+const description =
+  "AI PubKit is a social media automation tool for preparing, adapting, and publishing AI-generated content across global app destinations.";
+const steps = [
+  {
+    name: "Generate or import content",
+    text: "Start from an AI draft, campaign brief, article, video script, or product update.",
+  },
+  {
+    name: "Create app-specific outputs",
+    text: "Generate posts, captions, threads, descriptions, media notes, tags, links, and review checklists for each destination.",
+  },
+  {
+    name: "Check capability status",
+    text: "Use the app registry to decide whether the destination is direct, assisted, or still under research.",
+  },
+  {
+    name: "Publish with control",
+    text: "Send content through official paths where possible, and keep human review where platform rules or brand risk require it.",
+  },
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is a social media automation tool?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "A social media automation tool helps prepare, adapt, schedule, or publish content across social platforms. AI PubKit focuses on AI-generated content and app-specific publishing readiness rather than generic engagement automation.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can AI PubKit automate social media publishing?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI PubKit can automate parts of social media publishing by creating app-ready outputs and using direct publishing paths where official platform rules allow it. Some apps still require assisted drafts, review, approval, or manual confirmation.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is AI PubKit a scheduling tool?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI PubKit is broader than a scheduler. Scheduling may be added around supported destinations, but the core value is turning one AI source into platform-ready posts and routing them based on app capability status.",
+      },
+    },
+  ],
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Social media automation tool",
+      item: "https://aipubkit.com/use-cases/social-media-automation-tool/",
+    },
+  ],
+};
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How AI PubKit automates AI social publishing",
+  description,
+  step: steps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step.name,
+    text: step.text,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={[faqSchema, breadcrumbSchema, howToSchema]}>
+  <section class="page-hero">
+    <p class="eyebrow">Use case</p>
+    <h1>Social media automation built around AI publishing.</h1>
+    <p class="page-lead">
+      AI PubKit is not trying to automate every social media activity. It
+      focuses on the workflow users repeatedly ask for: create content with AI,
+      adapt it to each app, then publish or stage it from one place.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/use-cases/social-media-cross-posting/">
+        Cross-posting workflow
+      </a>
+      <a class="button light" href="/apps/">Supported apps</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Customer problem</p>
+        <h2>Automation is useful only when it respects platform reality.</h2>
+      </div>
+      <p>
+        Users want speed, but they also need to avoid broken posts, rejected API
+        calls, account risk, and low-quality copy-paste across every app.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Content creation is only step one</h3>
+        <p>
+          AI can create the draft quickly, but users still need versions for
+          each channel, each audience, and each publishing format.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Posting rules are different</h3>
+        <p>
+          Social platforms use different API permissions, account types,
+          approval flows, rate limits, media rules, and content policies.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Teams need review control</h3>
+        <p>
+          Human approval still matters for brand safety, community rules, client
+          workflows, regulated topics, and important launches.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Workflow</p>
+      <h2>A practical automation flow has direct and assisted paths.</h2>
+      <p class="page-lead">
+        AI PubKit separates content preparation from platform delivery. That
+        makes the product useful even before every app has a complete direct
+        publishing integration.
+      </p>
+    </aside>
+    <div class="steps">
+      {steps.map((step) => (
+        <article class="step">
+          <h3>{step.name}</h3>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Scope</p>
+        <h2>What AI PubKit should automate first.</h2>
+      </div>
+      <p>
+        Early automation should focus on repeatable publishing work with clear
+        customer value and official or stable platform paths.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>AI post adaptation</h3>
+        <p>
+          Turn one source into platform-specific LinkedIn posts, X threads,
+          Threads updates, Facebook Page posts, Instagram captions, and TikTok
+          captions.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Publishing readiness</h3>
+        <p>
+          Prepare links, image notes, video descriptions, hashtags, categories,
+          tags, content warnings, and review reminders before the user posts.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Destination routing</h3>
+        <p>
+          Route content to direct publishing paths, assisted drafts, or a public
+          app request queue based on platform capability status.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Direct answer</p>
+      <h2>What kind of social media automation tool is AI PubKit?</h2>
+      <p>
+        AI PubKit is an AI publishing automation project. It helps users create
+        app-ready social content from one source, then move that content toward
+        direct publishing or assisted review depending on the platform.
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/one-click-publishing/">How one-click works</a>
+        <a class="button light" href="/request-app/">Request an integration</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

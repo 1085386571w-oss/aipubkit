@@ -1,0 +1,218 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Social media cross-posting for AI content - AI PubKit";
+const description =
+  "AI PubKit helps teams cross-post AI-generated content across social apps by preparing platform-specific posts, captions, media notes, and drafts.";
+const steps = [
+  {
+    name: "Write once",
+    text: "Create one source message, campaign idea, article summary, product update, or announcement.",
+  },
+  {
+    name: "Select social apps",
+    text: "Choose destinations such as LinkedIn, X, Threads, Instagram, Facebook Pages, Pinterest, Reddit, TikTok, and regional social apps.",
+  },
+  {
+    name: "Adapt the post",
+    text: "Create the right copy length, hook, hashtags, links, media instructions, and review notes for each selected app.",
+  },
+  {
+    name: "Post or stage",
+    text: "Use direct paths where the platform allows posting, and stage drafts where account review or manual confirmation is required.",
+  },
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is social media cross-posting?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Social media cross-posting means publishing one message across multiple social apps. AI PubKit treats cross-posting as platform-specific adaptation, not simple copy-paste, because each app has different formats, permissions, and audience expectations.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can AI PubKit cross-post to multiple social media apps?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. AI PubKit can prepare social media posts for multiple apps from one source. Some destinations may support direct publishing, while others require assisted drafts, review, approval, or platform-specific setup.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Should cross-posting use the same caption on every platform?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Usually no. A useful cross-posting workflow adapts the caption, length, links, hashtags, media notes, and call to action for each platform instead of sending the exact same text everywhere.",
+      },
+    },
+  ],
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Social media cross-posting",
+      item: "https://aipubkit.com/use-cases/social-media-cross-posting/",
+    },
+  ],
+};
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to cross-post AI content to social media apps",
+  description,
+  step: steps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step.name,
+    text: step.text,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={[faqSchema, breadcrumbSchema, howToSchema]}>
+  <section class="page-hero">
+    <p class="eyebrow">Use case</p>
+    <h1>Cross-post AI content without copy-pasting everywhere.</h1>
+    <p class="page-lead">
+      Social media cross-posting is valuable when it saves time without making
+      every post feel identical. AI PubKit prepares app-specific social posts
+      from one source, then respects the publishing rules of each destination.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/apps/">View social destinations</a>
+      <a class="button light" href="/use-cases/social-media-automation-tool/">
+        Automation workflow
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Customer problem</p>
+        <h2>Cross-posting fails when every platform gets the same post.</h2>
+      </div>
+      <p>
+        Teams need speed, but they also need the message to fit each platform's
+        content format, audience behavior, and publishing limits.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Different copy patterns</h3>
+        <p>
+          A LinkedIn post may need a professional angle, while X needs a tighter
+          thread, Threads needs a conversational version, and Pinterest needs a
+          durable description.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Different media rules</h3>
+        <p>
+          Images, carousels, short videos, links, alt text, and thumbnails need
+          to be prepared according to the destination.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Different automation limits</h3>
+        <p>
+          Some social apps can receive posts through official APIs. Others need
+          account approval, manual review, or assisted draft handling.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Workflow</p>
+      <h2>Cross-posting should be a controlled publishing flow.</h2>
+      <p class="page-lead">
+        AI PubKit keeps the user in control by showing whether a destination is
+        direct, assisted, or still being researched before a post is promised as
+        one-click publishing.
+      </p>
+      <div class="actions">
+        <a class="button light" href="/apps.json">Machine-readable app list</a>
+      </div>
+    </aside>
+    <div class="steps">
+      {steps.map((step) => (
+        <article class="step">
+          <h3>{step.name}</h3>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Use cases</p>
+        <h2>Where social cross-posting saves real work.</h2>
+      </div>
+      <p>
+        The strongest early users are creators, agencies, founders, local
+        businesses, ecommerce teams, and content teams with repeated updates.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Product launches</h3>
+        <p>
+          Turn one launch brief into channel-specific posts for LinkedIn, X,
+          Threads, Facebook Pages, Instagram, and community channels.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Creator publishing</h3>
+        <p>
+          Convert one video idea into captions, short descriptions, teaser
+          posts, and community prompts for the platforms where the audience is.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Agency reporting</h3>
+        <p>
+          Prepare repeatable cross-posting packages for many clients without
+          manually rewriting every destination from scratch.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Direct answer</p>
+      <h2>What makes AI PubKit useful for social media cross-posting?</h2>
+      <p>
+        AI PubKit connects cross-posting with app capability status. It can
+        prepare content for multiple social apps from one source, but it avoids
+        overpromising direct automation where a platform requires review,
+        approval, or human confirmation.
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/use-cases/ai-content-distribution/">
+          AI content distribution
+        </a>
+        <a class="button light" href="/request-app/">Request a social app</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

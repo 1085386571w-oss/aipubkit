@@ -1,0 +1,218 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "AI content distribution tool for global apps - AI PubKit";
+const description =
+  "AI PubKit is an AI content distribution tool that turns one source into app-ready posts, articles, videos, messages, and drafts for global publishing destinations.";
+const steps = [
+  {
+    name: "Create one source",
+    text: "Start with an AI-generated article, video script, campaign brief, launch note, or social post.",
+  },
+  {
+    name: "Choose distribution channels",
+    text: "Select the apps where the content needs to appear, including social, video, community, newsletter, and CMS destinations.",
+  },
+  {
+    name: "Adapt each version",
+    text: "Generate titles, captions, descriptions, tags, links, thumbnails notes, message text, and article fields for each app.",
+  },
+  {
+    name: "Publish or prepare drafts",
+    text: "Use direct publishing paths where platform rules allow it, and create review-ready drafts where approval or manual confirmation is required.",
+  },
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is AI content distribution?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI content distribution means turning one AI-generated source into ready-to-publish versions for multiple apps, channels, and formats. AI PubKit focuses on app-specific publishing status, content adaptation, and draft or direct publishing workflows.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can AI PubKit distribute content to multiple apps?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. AI PubKit is built to distribute AI-generated content across global social, video, community, and CMS apps. Direct publishing is used where official paths allow it; assisted drafts are used where a platform needs review or approval.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is AI content distribution the same as social media scheduling?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. Scheduling is only one part of distribution. AI content distribution also includes repurposing, platform formatting, metadata, app support status, approval checks, and channel-specific drafts.",
+      },
+    },
+  ],
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "AI content distribution",
+      item: "https://aipubkit.com/use-cases/ai-content-distribution/",
+    },
+  ],
+};
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to distribute AI content to multiple apps",
+  description,
+  step: steps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step.name,
+    text: step.text,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={[faqSchema, breadcrumbSchema, howToSchema]}>
+  <section class="page-hero">
+    <p class="eyebrow">Use case</p>
+    <h1>AI content distribution from one source to many apps.</h1>
+    <p class="page-lead">
+      AI content distribution should remove the repeated work after content is
+      generated: rewriting, resizing, metadata, posting rules, and destination
+      checks. AI PubKit makes the app destination the center of the workflow.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/apps/">Explore app destinations</a>
+      <a class="button light" href="/answers.json">View answer data</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Customer problem</p>
+        <h2>AI creates the source, but distribution still takes time.</h2>
+      </div>
+      <p>
+        Teams already use AI to write faster. The bottleneck moves to the
+        publishing layer, where every destination has different requirements.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>One draft becomes many tasks</h3>
+        <p>
+          A launch note may need a LinkedIn post, X thread, YouTube description,
+          email teaser, WordPress article, Slack message, and community update.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Each app has different fields</h3>
+        <p>
+          The same idea needs different captions, title lengths, tags, links,
+          media notes, audience settings, and review states.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Automation is uneven</h3>
+        <p>
+          Some apps support stable publishing paths. Others require approval,
+          human review, or account-specific setup before content can be sent.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Workflow</p>
+      <h2>A content distribution tool should know each destination.</h2>
+      <p class="page-lead">
+        AI PubKit keeps a public app registry so users and AI assistants can see
+        what can be published directly, what needs assisted drafts, and what is
+        still being researched.
+      </p>
+      <div class="actions">
+        <a class="button light" href="/apps.json">App registry</a>
+        <a class="button light" href="/request-app/">Request an app</a>
+      </div>
+    </aside>
+    <div class="steps">
+      {steps.map((step) => (
+        <article class="step">
+          <h3>{step.name}</h3>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Channel coverage</p>
+        <h2>Distribution is broader than posting to one social app.</h2>
+      </div>
+      <p>
+        The practical opportunity is to connect social, video, community, CMS,
+        newsletter, and regional channels from one workflow.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Social and short-form</h3>
+        <p>
+          Prepare platform-specific posts for LinkedIn, X, Threads, Instagram,
+          Facebook Pages, Pinterest, TikTok, and regional social apps.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Video and media</h3>
+        <p>
+          Turn scripts and uploads into YouTube titles, descriptions, Shorts
+          metadata, TikTok captions, and review notes.
+        </p>
+      </article>
+      <article class="card">
+        <h3>CMS and communities</h3>
+        <p>
+          Move the same idea into WordPress, Shopify Blog, Ghost, Notion,
+          Discord, Slack, Telegram, Reddit, and other publishing destinations.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Direct answer</p>
+      <h2>What is AI PubKit for AI content distribution?</h2>
+      <p>
+        AI PubKit is an open-source, app-first AI content distribution project.
+        It helps map one AI-generated source to global publishing destinations,
+        then explains whether each destination can be published directly,
+        prepared as a draft, or requested for future support.
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/use-cases/content-repurposing-tool/">
+          Content repurposing
+        </a>
+        <a class="button light" href="/use-cases/social-media-cross-posting/">
+          Cross-posting workflow
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

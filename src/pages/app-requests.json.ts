@@ -14,7 +14,7 @@ export const GET: APIRoute = () => {
     requestPage: `${siteUrl}/request-app/`,
     issueTemplateUrl:
       "https://github.com/1085386571w-oss/aipubkit/issues/new?template=app-request.yml",
-    updatedAt: "2026-07-05",
+    updatedAt: "2026-07-06",
     count: demandItems.length,
     requests: demandItems.map((item) => ({
       ...item,

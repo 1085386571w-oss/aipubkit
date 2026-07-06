@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { appSlug, connectors } from "../data/apps";
 
-const lastmod = "2026-07-05";
+const lastmod = "2026-07-06";
 const pages = [
   { path: "/", priority: "1.0", changefreq: "daily" },
   { path: "/apps/", priority: "0.9", changefreq: "weekly" },
@@ -17,6 +17,26 @@ const pages = [
   })),
   {
     path: "/use-cases/publish-to-multiple-apps/",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/use-cases/ai-content-distribution/",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/use-cases/content-repurposing-tool/",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/use-cases/social-media-cross-posting/",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/use-cases/social-media-automation-tool/",
     priority: "0.9",
     changefreq: "weekly",
   },
