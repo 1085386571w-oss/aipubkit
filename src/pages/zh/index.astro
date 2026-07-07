@@ -32,6 +32,14 @@ const faqSchema = {
     },
     {
       "@type": "Question",
+      name: "AI PubKit 能直接生成图片、视频或文案吗？",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI PubKit 可以生成多平台发布文案和发布包，包括标题、描述、标签、封面文字、alt text 和发布检查项。图片和视频的第一阶段是接入已有 AI 生成素材或媒体链接，再围绕素材生成各平台发布内容。",
+      },
+    },
+    {
+      "@type": "Question",
       name: "能不能申请新增一个 App？",
       acceptedAnswer: {
         "@type": "Answer",
@@ -41,6 +49,12 @@ const faqSchema = {
   ],
 };
 const zhTools = [
+  {
+    slug: "ai-publishing-composer",
+    name: "AI 发布包生成器",
+    description:
+      "从文案、图片链接、视频链接、产品更新或文章摘要生成各平台发布所需的标题、描述、标签、封面文字和检查项。",
+  },
   {
     slug: "ai-social-media-post-generator",
     name: "AI 社媒文案生成器",
@@ -179,15 +193,15 @@ const connectorNote = (connector: (typeof topConnectors)[number]) => {
           视频描述、社区消息和待审核发布稿。
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="/tools/ai-social-media-post-generator/">
-            先试免费工具
+          <a class="button primary" href="/tools/ai-publishing-composer/">
+            生成发布包
           </a>
           <a class="button secondary" href="/apps/">查看支持的 App</a>
           <a class="button secondary" href="/request-app/">申请接入 App</a>
           <a class="button secondary" href="/">English</a>
         </div>
         <div class="job-strip" aria-label="客户要完成的任务">
-          <span>一次生成</span>
+          <span>生成文案和发布包</span>
           <span>按 App 改写</span>
           <span>检查发布路径</span>
           <span>直接发布或保存草稿</span>
@@ -249,6 +263,44 @@ const connectorNote = (connector: (typeof topConnectors)[number]) => {
           哪个 App 有需求，就把官方文档、发布场景和需求量沉淀到公开路线图里。
         </p>
       </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">生成能力边界</p>
+        <h2>先把发布层做完整，图片和视频先做素材接入。</h2>
+      </div>
+      <p>
+        客户可能从一个想法、一张 AI 图片、一段短视频、一个产品更新或一篇文章开始。
+        AI PubKit 的核心不是替代所有图片/视频模型，而是把这些来源内容变成各平台可发布版本。
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>文案生成现在就做</h3>
+        <p>
+          生成标题、正文、描述、标签、CTA、CMS 草稿备注、视频说明和平台审核检查项。
+        </p>
+      </article>
+      <article class="card">
+        <h3>图片视频先接入</h3>
+        <p>
+          用户或外部 AI 工具提供图片、视频、封面、prompt 和媒体链接，
+          AI PubKit 围绕素材生成发布包。
+        </p>
+      </article>
+      <article class="card">
+        <h3>模型生成后续接</h3>
+        <p>
+          等发布流程清楚后，再接入图片/视频生成 API，避免一开始变成泛 AI 生成平台。
+        </p>
+      </article>
+    </div>
+    <div class="actions">
+      <a class="button dark" href="/tools/ai-publishing-composer/">打开发布包生成器</a>
+      <a class="button light" href="/developers/">查看开发者接入</a>
     </div>
   </section>
 

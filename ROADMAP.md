@@ -31,6 +31,7 @@ AI PubKit is focused on one-click AI publishing.
 
 ## Phase 4: Connector Prototypes
 
+- Keep improving the browser-based AI publishing composer.
 - Build small proof-of-concept publishing flows for direct-path apps.
 - Start with destinations that have stable APIs and clear documentation.
 - Keep human confirmation in the workflow before final publishing.
@@ -50,10 +51,19 @@ Candidate direct-path apps:
 
 - One source content item.
 - Select destination apps.
-- Generate platform-ready content.
+- Generate platform-ready copy, metadata, media notes, and review checks.
+- Accept image and video assets from source apps or external generation tools.
 - Publish directly where allowed.
 - Save review-ready drafts where required.
 - Keep review, approval, and account-safety steps visible to users.
+
+## Phase 6: Generation Integrations
+
+- Add native copy generation behind the publishing composer.
+- Add external image or video model integrations only after the publishing
+  package workflow is stable.
+- Keep AI PubKit positioned as the publishing layer, not a generic replacement
+  for every image, video, or design generation product.
 
 ## Prioritization Rules
 
@@ -72,4 +82,5 @@ Candidate direct-path apps:
 - API gateway.
 - AI cost calculator.
 - Generic agent marketplace.
+- Full image or video model platform as the starting product.
 - Unofficial spam automation.

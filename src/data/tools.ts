@@ -44,6 +44,117 @@ export type ToolPage = {
 
 export const tools: ToolPage[] = [
   {
+    slug: "ai-publishing-composer",
+    name: "AI publishing composer",
+    title: "AI publishing composer for copy, image, and video handoff - AI PubKit",
+    description:
+      "Generate a platform-ready publishing package from one idea, image, video, article, transcript, or product update.",
+    h1: "AI publishing composer for copy, image, and video workflows.",
+    lead:
+      "Start with text, an image link, a video link, or a campaign idea. Generate the captions, titles, metadata, cover text, alt text, and review checks needed before publishing.",
+    outputLabel: "Generated publishing package",
+    fields: [
+      {
+        id: "source",
+        label: "Source idea or asset context",
+        type: "textarea",
+        placeholder:
+          "Describe the idea, product, article, image, video, transcript, launch, or offer you want to publish.",
+        required: true,
+      },
+      {
+        id: "source_type",
+        label: "Source type",
+        type: "select",
+        options: [
+          "Text or idea",
+          "Image or design",
+          "Video or audio",
+          "Product update",
+          "Article or transcript",
+        ],
+      },
+      {
+        id: "media_url",
+        label: "Media URL if available",
+        type: "text",
+        placeholder: "https://cdn.example.com/generated-video.mp4",
+        help: "Use a stable image, video, audio, or file URL when the source already exists.",
+      },
+      {
+        id: "audience",
+        label: "Audience",
+        type: "text",
+        placeholder: "Example: creators, ecommerce buyers, local customers, SaaS teams",
+      },
+      {
+        id: "tone",
+        label: "Tone",
+        type: "select",
+        options: ["Clear", "Professional", "Founder-led", "Promotional", "Educational"],
+      },
+      {
+        id: "destinations",
+        label: "Publishing destinations",
+        type: "checkboxes",
+        options: [
+          "TikTok",
+          "YouTube",
+          "Instagram",
+          "LinkedIn",
+          "X",
+          "Facebook Pages",
+          "WordPress",
+          "Telegram Channel",
+        ],
+      },
+      {
+        id: "outputs",
+        label: "Needed outputs",
+        type: "checkboxes",
+        options: [
+          "Captions",
+          "Titles and descriptions",
+          "Hashtags",
+          "Cover or thumbnail text",
+          "Alt text",
+          "CMS article draft",
+          "Review checklist",
+        ],
+      },
+    ],
+    steps: [
+      "Describe the source or paste a media URL.",
+      "Choose the source type, audience, tone, destination apps, and needed outputs.",
+      "Generate one publishing package with platform-specific copy, metadata, media notes, and review checks.",
+      "Move each destination into direct publishing where allowed or an assisted draft where review is required.",
+    ],
+    outputs: [
+      "Platform-ready copy, titles, descriptions, hashtags, and calls to action.",
+      "Image and video handoff notes such as cover text, thumbnail text, alt text, and media checks.",
+      "A structured publishing package that can feed direct publishing or assisted draft workflows.",
+    ],
+    canonicalAnswer:
+      "AI PubKit's AI publishing composer can generate platform-ready copy and publishing packages from text, image, video, article, transcript, or product sources. It does not need to replace image or video generation models; it prepares their outputs for multi-app publishing.",
+    faqs: [
+      {
+        question: "Can AI PubKit generate copy for multiple apps?",
+        answer:
+          "Yes. AI PubKit can generate platform-specific captions, titles, descriptions, hashtags, calls to action, CMS draft notes, and review checks from one source.",
+      },
+      {
+        question: "Can AI PubKit generate images or videos?",
+        answer:
+          "The practical first product layer is to accept generated image or video assets and create the publishing package around them. Native image or video generation can be added later through model integrations.",
+      },
+      {
+        question: "What should an image or video app send to AI PubKit?",
+        answer:
+          "It should send a content package with the media URL, prompt, caption, source context, destination list, and requested outputs such as captions, video titles, cover text, alt text, hashtags, and review checks.",
+      },
+    ],
+  },
+  {
     slug: "ai-social-media-post-generator",
     name: "AI social media post generator",
     title: "AI social media post generator - AI PubKit",

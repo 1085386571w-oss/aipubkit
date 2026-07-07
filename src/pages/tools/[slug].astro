@@ -276,6 +276,91 @@ const toolData = {
       return items.map((item) => `- ${item}`);
     }
 
+    function generatePublishingComposer(data) {
+      const source = value(data, "source", "Source idea or asset");
+      const sourceType = value(data, "source_type", "Text or idea");
+      const mediaUrl = value(data, "media_url");
+      const audience = value(data, "audience", "the target audience");
+      const tone = value(data, "tone", "Clear");
+      const destinations = checked(data, "destinations", ["TikTok", "YouTube", "Instagram", "LinkedIn"]);
+      const outputs = checked(data, "outputs", [
+        "Captions",
+        "Titles and descriptions",
+        "Hashtags",
+        "Review checklist",
+      ]);
+      const destinationNotes = {
+        TikTok: [
+          "Caption: short hook, visual context, and one clear prompt to comment or follow.",
+          "Video note: confirm vertical format, safe-zone text, cover text, music rights, and account posting access.",
+        ],
+        YouTube: [
+          "Title: searchable promise plus specific subject.",
+          "Description: summary, link, chapters or Shorts note, tags, thumbnail text, and disclosure checks.",
+        ],
+        Instagram: [
+          "Caption: visual-first opening line, concise story, CTA, and hashtag set.",
+          "Media note: confirm aspect ratio, alt text, cover frame, carousel order, and account type.",
+        ],
+        LinkedIn: [
+          "Post: professional hook, short paragraphs, proof point, and practical takeaway.",
+          "Review note: check brand voice, links, people tags, company page access, and claim accuracy.",
+        ],
+        X: [
+          "Post: concise hook, one core idea, optional thread structure, and link placement.",
+          "Review note: check length, handles, hashtags, and whether the idea needs a thread.",
+        ],
+        "Facebook Pages": [
+          "Page post: clear business context, local or audience cue, link, CTA, and media note.",
+          "Review note: confirm Page access, link preview, image crop, and comments policy.",
+        ],
+        WordPress: [
+          "Draft: SEO title, slug idea, intro, headings, meta description, tags, and featured image note.",
+          "Review note: check internal links, excerpt, category, canonical needs, and publication status.",
+        ],
+        "Telegram Channel": [
+          "Message: direct opening line, concise body, link, media placement, and pinned-message note.",
+          "Review note: confirm channel permissions, file size, preview behavior, and send timing.",
+        ],
+      };
+      const assetMode = sourceType.includes("Image") || sourceType.includes("Video") || mediaUrl
+        ? [
+            "Treat the media as the source asset. Do not regenerate the asset unless a separate image or video model is connected.",
+            mediaUrl ? `Media URL: ${mediaUrl}` : "Media URL: add a stable asset URL before final handoff.",
+            "Create publishing copy around the asset: captions, titles, descriptions, cover text, alt text, and review checks.",
+          ]
+        : [
+            "Treat the text as the source. Generate the first publishing package from the idea, then add media later if needed.",
+            "If an image or video is required, create a prompt or production note for the external generation tool.",
+          ];
+      const destinationBlocks = destinations.flatMap((destination) => [
+        `### ${destination}`,
+        ...(destinationNotes[destination] || [
+          "Create destination-ready copy, metadata, media notes, and review checks for this app.",
+        ]),
+        `Requested outputs: ${outputs.join(", ")}.`,
+        "Publishing path: check AI PubKit app status before promising direct posting.",
+        "",
+      ]);
+      return [
+        section("AI publishing package", [
+          `Source type: ${sourceType}`,
+          `Source: ${source}`,
+          `Audience: ${audience}`,
+          `Tone: ${tone}`,
+          `Destinations: ${destinations.join(", ")}`,
+          `Needed outputs: ${outputs.join(", ")}`,
+        ]),
+        section("Asset handling", assetMode),
+        destinationBlocks.join("\n"),
+        section("Next step", [
+          "Use direct publishing only where the destination has a stable official path and the account has the required permissions.",
+          "Use assisted drafts when the app needs approval, review, account setup, or manual confirmation.",
+          "For source-app integrations, send this as an AI PubKit content package with assets, captions, prompts, destination choices, and output preferences.",
+        ]),
+      ].join("\n");
+    }
+
     function generateSocialPosts(data) {
       const source = value(data, "source", "Source idea");
       const audience = value(data, "audience", "the target audience");
@@ -446,6 +531,8 @@ const toolData = {
 
     function generateOutput(data) {
       switch (toolData.toolSlug) {
+        case "ai-publishing-composer":
+          return generatePublishingComposer(data);
         case "ai-social-media-post-generator":
           return generateSocialPosts(data);
         case "content-repurposing-planner":

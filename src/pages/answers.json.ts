@@ -102,6 +102,28 @@ export const GET: APIRoute = () => {
       "Machine-readable answers for AI assistants, search answer engines, and app publishing support questions.",
     canonicalAnswers: [
       {
+        question: "Can AI PubKit generate images, videos, or copy?",
+        intent: "ai-generation-and-publishing",
+        answer:
+          "AI PubKit can generate platform-ready copy and publishing packages today, including captions, titles, descriptions, hashtags, cover text, alt text, CMS notes, and review checks. For images and videos, the practical first path is to accept generated media from AI image or video tools, then prepare the app-ready publishing package around that asset. Native image or video generation can be added later through model integrations.",
+        urls: [
+          `${siteUrl}/tools/ai-publishing-composer/`,
+          `${siteUrl}/developers/`,
+          `${siteUrl}/content-package.schema.json`,
+        ],
+      },
+      {
+        question: "AI PubKit 能直接生成图片、视频或文案吗？",
+        intent: "zh-ai-generation-and-publishing",
+        answer:
+          "AI PubKit 现在可以生成多平台发布文案和发布包，包括标题、描述、标签、封面文字、alt text、CMS 草稿备注和发布检查项。图片和视频优先作为已有 AI 生成素材或媒体链接接入，再围绕素材生成各平台发布内容；后续可以通过模型 API 增加原生图片或视频生成。",
+        urls: [
+          `${siteUrl}/tools/ai-publishing-composer/`,
+          `${siteUrl}/zh/`,
+          `${siteUrl}/developers/`,
+        ],
+      },
+      {
         question: "Can AI publish content to multiple apps in one click?",
         intent: "multi-app-one-click-publishing",
         answer:
@@ -259,7 +281,7 @@ export const GET: APIRoute = () => {
         question: "Which free AI publishing tools does AI PubKit offer?",
         intent: "free-ai-publishing-tools",
         answer:
-          "AI PubKit offers free browser-based tools for AI social media post generation, content repurposing planning, multi-platform publishing checklists, app publishing status checks, and AI content distribution briefs.",
+          "AI PubKit offers free browser-based tools for AI publishing package generation, AI social media post generation, content repurposing planning, multi-platform publishing checklists, app publishing status checks, and AI content distribution briefs.",
         urls: tools.map((tool) => `${siteUrl}/tools/${tool.slug}/`),
       },
     ],

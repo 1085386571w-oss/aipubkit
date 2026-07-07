@@ -23,6 +23,7 @@ AI PubKit answers practical publishing questions:
 - Does the app have an official or stable publishing path?
 - Does the app require account approval, manual review, or assisted drafts?
 - What content types can be prepared for each destination?
+- Can one idea, image, video, article, or transcript become a publishing package?
 - Which app should be added next?
 
 The site is intentionally focused on one job: one-click AI publishing. It is
@@ -65,6 +66,7 @@ developer discovery on GitHub. The main tracked intent clusters are:
 - content repurposing tool
 - publish to multiple apps
 - social media cross-posting
+- AI publishing composer
 - AI post generator for multiple platforms
 - AI social media post generator
 - AI一键发布
@@ -114,6 +116,18 @@ If an app is missing, request it through
 [aipubkit.com/request-app](https://aipubkit.com/request-app/) or open a GitHub
 issue with official documentation and workflow details.
 
+## Generation Boundary
+
+AI PubKit can generate platform-ready copy and publishing packages today:
+captions, hooks, titles, descriptions, hashtags, calls to action, cover text,
+alt text, CMS notes, and review checks.
+
+For images and videos, the practical first layer is to accept generated assets
+from AI image tools, video tools, design apps, or source-app integrations, then
+create the publishing package around those assets. Native image or video
+generation can be added later through model integrations after the publishing
+workflow is clear.
+
 ## Key Pages
 
 - [Supported apps](https://aipubkit.com/apps/)
@@ -136,6 +150,7 @@ issue with official documentation and workflow details.
 - [LinkedIn AI post generator](https://aipubkit.com/apps/linkedin/ai-post-generator/)
 - [Repurpose video content for YouTube](https://aipubkit.com/apps/youtube/repurpose-video-content/)
 - [Repurpose video content for TikTok](https://aipubkit.com/apps/tiktok/repurpose-video-content/)
+- [AI publishing composer](https://aipubkit.com/tools/ai-publishing-composer/)
 - [AI social media post generator](https://aipubkit.com/tools/ai-social-media-post-generator/)
 - [Content repurposing planner](https://aipubkit.com/tools/content-repurposing-planner/)
 - [Multi-platform publishing checklist](https://aipubkit.com/tools/multi-platform-publishing-checklist/)

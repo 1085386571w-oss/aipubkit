@@ -35,6 +35,14 @@ const faqSchema = {
     },
     {
       "@type": "Question",
+      name: "Can AI PubKit generate images, videos, or copy?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI PubKit can generate platform-ready copy and publishing packages. For images and videos, the first product path is to accept generated assets from AI image or video tools, then create captions, titles, descriptions, cover text, alt text, hashtags, and publishing checks around those assets.",
+      },
+    },
+    {
+      "@type": "Question",
       name: "Can users request new publishing apps?",
       acceptedAnswer: {
         "@type": "Answer",
@@ -57,8 +65,8 @@ const faqSchema = {
           community updates, and review-ready drafts.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="/tools/ai-social-media-post-generator/">
-            Try free AI tools
+          <a class="button primary" href="/tools/ai-publishing-composer/">
+            Generate publishing package
           </a>
           <a class="button secondary" href="/apps/">Check app support</a>
           <a class="button secondary" href="/use-cases/publish-to-multiple-apps/">
@@ -68,7 +76,7 @@ const faqSchema = {
           <a class="button secondary" href="/request-app/">Request an app</a>
         </div>
         <div class="job-strip" aria-label="Customer jobs">
-          <span>Generate once</span>
+          <span>Generate copy and package</span>
           <span>Adapt by app</span>
           <span>Check publishing path</span>
           <span>Publish or stage for review</span>
@@ -135,6 +143,52 @@ const faqSchema = {
           demand into the roadmap.
         </p>
       </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Generation boundary</p>
+        <h2>Generate the publishing layer, connect the media layer.</h2>
+      </div>
+      <p>
+        Customers may start with a blank idea, an AI image, a short video, a
+        transcript, or a product update. AI PubKit should make that source
+        ready for publishing, while keeping image and video generation
+        integrations open instead of trying to replace every model.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Copy generation now</h3>
+        <p>
+          Generate captions, hooks, titles, descriptions, hashtags, calls to
+          action, CMS draft notes, and platform-specific review checks.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Image and video handoff</h3>
+        <p>
+          Accept generated media URLs, prompts, cover images, thumbnails, and
+          asset context, then create the publishing package around them.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Model integrations later</h3>
+        <p>
+          Add image or video model APIs after the publishing workflow is clear:
+          source asset, destination outputs, review state, and route to each app.
+        </p>
+      </article>
+    </div>
+    <div class="actions">
+      <a class="button dark" href="/tools/ai-publishing-composer/">
+        Open publishing composer
+      </a>
+      <a class="button light" href="/developers/">
+        Connect a source app
+      </a>
     </div>
   </section>
 

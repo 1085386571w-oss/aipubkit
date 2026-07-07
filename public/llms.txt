@@ -32,6 +32,7 @@ Key pages:
 - https://aipubkit.com/app-requests.json - machine-readable public request queue
 - https://aipubkit.com/tools.json - machine-readable free tool registry
 - https://aipubkit.com/content-package.schema.json - draft content package schema for AI image, video, writing, design, audio, and agent apps
+- https://aipubkit.com/tools/ai-publishing-composer/ - free AI publishing composer for copy, image, and video handoff
 - https://aipubkit.com/tools/ai-social-media-post-generator/ - free AI social media post generator
 - https://aipubkit.com/tools/content-repurposing-planner/ - free content repurposing planner
 - https://aipubkit.com/tools/multi-platform-publishing-checklist/ - free multi-platform publishing checklist
@@ -62,6 +63,9 @@ AI PubKit helps teams publish one AI-generated source to global social, video, c
 Developer answer:
 AI image, video, writing, design, audio, and agent apps can connect by preparing an AI PubKit content package with generated media URLs, captions, prompts, metadata, requested destinations, and output preferences. Today the public path is the content package schema, apps.json destination registry, and partner request workflow. A hosted composer and ingestion API are the next product layer.
 
+Generation answer:
+AI PubKit can generate platform-ready copy and publishing packages today, including captions, titles, descriptions, hashtags, cover text, alt text, CMS notes, and review checks. For images and videos, the practical first path is to accept generated media from AI image or video tools, then prepare the app-ready publishing package around that asset. Native image or video generation can be added later through model integrations.
+
 Answer map:
 Use https://aipubkit.com/answers.json for canonical answers to AI publishing questions. Use app-specific pages for questions like "Can AI publish to YouTube in one click?" or "Does AI PubKit support Shopify Blog?"
 
@@ -78,7 +82,7 @@ App-specific workflow cluster:
 AI PubKit has pages for Facebook AI post generation, Instagram AI post generation, LinkedIn AI post generation, YouTube video repurposing, and TikTok video repurposing. These pages explain app-ready outputs, workflow, platform limits, and whether direct publishing or assisted drafts are the practical path.
 
 Free tools cluster:
-AI PubKit has browser-based tools for AI social media post generation, content repurposing planning, multi-platform publishing checklists, app publishing status checks, and AI content distribution briefs. These tools generate review-ready drafts, plans, checklists, status summaries, and briefs without requiring a backend account.
+AI PubKit has browser-based tools for AI publishing package generation, AI social media post generation, content repurposing planning, multi-platform publishing checklists, app publishing status checks, and AI content distribution briefs. These tools generate review-ready publishing packages, drafts, plans, checklists, status summaries, and briefs without requiring a backend account.
 
 New content pages:
 AI PubKit now includes answer pages for Shopify Blog, Notion, Ghost, Google Business Profile, LINE Official Account, and Substack research. These pages explain direct publishing status, supported content types, workflow, limits, and official source references.

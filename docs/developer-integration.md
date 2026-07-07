@@ -19,9 +19,14 @@ path is:
 
 1. Create an AI PubKit content package.
 2. Check destination support in `apps.json`.
-3. Submit a source-app integration request through the website or GitHub.
-4. Use AI PubKit's destination model to create direct publishing paths or
+3. Generate or preview a publishing package in the browser composer.
+4. Submit a source-app integration request through the website or GitHub.
+5. Use AI PubKit's destination model to create direct publishing paths or
    assisted drafts.
+
+The live composer is:
+
+https://aipubkit.com/tools/ai-publishing-composer/
 
 ## Content Package
 
@@ -44,9 +49,21 @@ Minimum package fields:
 1. Source app generates content.
 2. Source app prepares a content package.
 3. AI PubKit maps destinations to `Live path`, `Assisted`, or `Researching`.
-4. AI PubKit creates app-ready outputs.
+4. AI PubKit creates app-ready outputs: captions, titles, descriptions,
+   hashtags, cover text, alt text, CMS notes, media checks, and review status.
 5. User reviews output.
 6. Direct publishing or assisted draft creation happens by destination.
+
+## Generation Boundary
+
+AI PubKit should generate the publishing layer first. It can create platform
+copy and metadata from a text idea, product update, article, transcript, image
+context, or video context.
+
+For images and videos, the preferred first integration is source-app handoff:
+the source app generates the media and sends AI PubKit a stable URL plus prompt,
+caption, context, destination list, and requested outputs. Native image or video
+generation can be added later through external model APIs.
 
 ## Next Product Layer
 

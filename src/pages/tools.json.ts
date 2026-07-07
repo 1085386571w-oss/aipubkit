@@ -11,7 +11,7 @@ export const GET: APIRoute = () => {
     homepage: siteUrl,
     repository: "https://github.com/1085386571w-oss/aipubkit",
     license: "MIT",
-    updatedAt: "2026-07-06",
+    updatedAt: "2026-07-07",
     count: tools.length,
     tools: tools.map((tool) => ({
       name: tool.name,
