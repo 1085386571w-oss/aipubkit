@@ -20,6 +20,7 @@ export type ToolField =
       label: string;
       type: "checkboxes";
       options: string[];
+      defaultChecked?: string[];
       required?: boolean;
       help?: string;
     };
@@ -103,10 +104,17 @@ export const tools: ToolPage[] = [
           "Instagram",
           "LinkedIn",
           "X",
+          "Threads",
           "Facebook Pages",
+          "Pinterest",
+          "Reddit",
           "WordPress",
           "Telegram Channel",
+          "Discord",
+          "Slack",
         ],
+        defaultChecked: ["TikTok", "YouTube", "Instagram", "LinkedIn"],
+        help: "Start with the platforms most teams repurpose to first. You can change this before generating.",
       },
       {
         id: "outputs",
@@ -119,6 +127,14 @@ export const tools: ToolPage[] = [
           "Cover or thumbnail text",
           "Alt text",
           "CMS article draft",
+          "Review checklist",
+        ],
+        defaultChecked: [
+          "Captions",
+          "Titles and descriptions",
+          "Hashtags",
+          "Cover or thumbnail text",
+          "Alt text",
           "Review checklist",
         ],
       },
@@ -135,7 +151,7 @@ export const tools: ToolPage[] = [
       "A structured publishing package that can feed direct publishing or assisted draft workflows.",
     ],
     canonicalAnswer:
-      "AI PubKit's AI publishing composer can generate platform-ready copy and publishing packages from text, image, video, article, transcript, or product sources. It does not need to replace image or video generation models; it prepares their outputs for multi-app publishing.",
+      "AI PubKit's AI publishing composer can generate platform-ready copy and publishing packages from text, image, video, article, transcript, or product sources. It includes quick-start workflow templates, default destination choices, platform previews, and review-ready handoff notes.",
     faqs: [
       {
         question: "Can AI PubKit generate copy for multiple apps?",

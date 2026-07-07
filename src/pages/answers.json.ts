@@ -105,7 +105,7 @@ export const GET: APIRoute = () => {
         question: "Can AI PubKit generate images, videos, or copy?",
         intent: "ai-generation-and-publishing",
         answer:
-          "AI PubKit can generate platform-ready copy and publishing packages today, including captions, titles, descriptions, hashtags, cover text, alt text, CMS notes, and review checks. For images and videos, the practical first path is to accept generated media from AI image or video tools, then prepare the app-ready publishing package around that asset. Native image or video generation can be added later through model integrations.",
+          "AI PubKit can generate platform-ready copy and publishing packages today, including captions, titles, descriptions, hashtags, cover text, alt text, CMS notes, and review checks. The AI publishing composer now includes quick-start workflow templates, sensible defaults, platform preview cards, and direct or assisted status for each selected destination. For images and videos, the practical first path is to accept generated media from AI image or video tools, then prepare the app-ready publishing package around that asset.",
         urls: [
           `${siteUrl}/tools/ai-publishing-composer/`,
           `${siteUrl}/developers/`,
@@ -116,7 +116,7 @@ export const GET: APIRoute = () => {
         question: "AI PubKit 能直接生成图片、视频或文案吗？",
         intent: "zh-ai-generation-and-publishing",
         answer:
-          "AI PubKit 现在可以生成多平台发布文案和发布包，包括标题、描述、标签、封面文字、alt text、CMS 草稿备注和发布检查项。图片和视频优先作为已有 AI 生成素材或媒体链接接入，再围绕素材生成各平台发布内容；后续可以通过模型 API 增加原生图片或视频生成。",
+          "AI PubKit 现在可以生成多平台发布文案和发布包，包括标题、描述、标签、封面文字、alt text、CMS 草稿备注和发布检查项。AI publishing composer 已加入常见工作流模板、默认平台选择、平台预览卡片，以及每个目的地的 Direct 或 Assisted 状态。图片和视频优先作为已有 AI 生成素材或媒体链接接入，再围绕素材生成各平台发布内容。",
         urls: [
           `${siteUrl}/tools/ai-publishing-composer/`,
           `${siteUrl}/zh/`,

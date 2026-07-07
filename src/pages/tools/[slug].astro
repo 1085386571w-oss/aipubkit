@@ -13,6 +13,94 @@ export function getStaticPaths() {
 const { tool } = Astro.props as { tool: ToolPage };
 const canonicalPath = `/tools/${tool.slug}/`;
 const url = `https://aipubkit.com${canonicalPath}`;
+const isComposer = tool.slug === "ai-publishing-composer";
+const composerPresets = [
+  {
+    id: "short-video-launch",
+    label: "Short video launch",
+    description: "AI video to TikTok, YouTube Shorts, Instagram, and LinkedIn.",
+    data: {
+      source:
+        "A 15-second AI-generated vertical product teaser for a new skincare serum. The brand wants global launch traffic and a polished but energetic message.",
+      source_type: "Video or audio",
+      media_url: "https://cdn.example.com/serum-launch-video.mp4",
+      audience: "beauty creators and ecommerce buyers",
+      tone: "Promotional",
+      destinations: ["TikTok", "YouTube", "Instagram", "LinkedIn"],
+      outputs: [
+        "Captions",
+        "Titles and descriptions",
+        "Hashtags",
+        "Cover or thumbnail text",
+        "Alt text",
+        "Review checklist",
+      ],
+    },
+  },
+  {
+    id: "product-update",
+    label: "Product update",
+    description: "One launch note to LinkedIn, X, Facebook, WordPress, and Slack.",
+    data: {
+      source:
+        "We are launching a faster AI publishing workflow that turns one source into platform-ready drafts, metadata, and review checks.",
+      source_type: "Product update",
+      media_url: "",
+      audience: "SaaS founders, marketers, and content teams",
+      tone: "Professional",
+      destinations: ["LinkedIn", "X", "Facebook Pages", "WordPress", "Slack"],
+      outputs: [
+        "Captions",
+        "Titles and descriptions",
+        "Hashtags",
+        "CMS article draft",
+        "Review checklist",
+      ],
+    },
+  },
+  {
+    id: "blog-repurpose",
+    label: "Article repurpose",
+    description: "Turn a long article into social, CMS, and community drafts.",
+    data: {
+      source:
+        "A 1,500-word article explains how small teams can repurpose one webinar into social posts, a blog article, newsletter notes, and community updates.",
+      source_type: "Article or transcript",
+      media_url: "",
+      audience: "agency operators and lean marketing teams",
+      tone: "Educational",
+      destinations: ["LinkedIn", "X", "Threads", "WordPress", "Telegram Channel"],
+      outputs: [
+        "Captions",
+        "Titles and descriptions",
+        "Hashtags",
+        "CMS article draft",
+        "Review checklist",
+      ],
+    },
+  },
+  {
+    id: "image-campaign",
+    label: "Image campaign",
+    description: "AI image or design to Instagram, Pinterest, Facebook, and Telegram.",
+    data: {
+      source:
+        "An AI-generated campaign image shows a new cafe menu board with seasonal drinks, warm lighting, and a limited-time weekend offer.",
+      source_type: "Image or design",
+      media_url: "https://cdn.example.com/cafe-weekend-offer.jpg",
+      audience: "local cafe customers and food creators",
+      tone: "Friendly",
+      destinations: ["Instagram", "Pinterest", "Facebook Pages", "Telegram Channel"],
+      outputs: [
+        "Captions",
+        "Hashtags",
+        "Cover or thumbnail text",
+        "Alt text",
+        "Review checklist",
+      ],
+    },
+  },
+];
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -72,6 +160,7 @@ const webAppSchema = {
 };
 const toolData = {
   toolSlug: tool.slug,
+  presets: isComposer ? composerPresets : [],
   connectors: connectors.map((connector) => ({
     name: connector.name,
     slug: appSlug(connector.name),
@@ -101,6 +190,30 @@ const toolData = {
       <a class="button light" href="/answers.json">View answer data</a>
     </div>
   </section>
+
+  {isComposer && (
+    <section class="section compact-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Quick start</p>
+          <h2>Start from a customer workflow, not a blank form.</h2>
+        </div>
+        <p>
+          Top publishing tools reduce setup friction with templates, defaults,
+          previews, and review status. Pick the closest workflow, then adjust
+          the fields before generating.
+        </p>
+      </div>
+      <div class="preset-grid" data-tool-presets>
+        {composerPresets.map((preset) => (
+          <button class="preset-card" type="button" data-tool-preset={preset.id}>
+            <strong>{preset.label}</strong>
+            <span>{preset.description}</span>
+          </button>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="section split">
     <aside>
@@ -154,7 +267,12 @@ const toolData = {
             <div class="option-list" role="group" aria-label={field.label}>
               {field.options.map((option) => (
                 <label>
-                  <input type="checkbox" name={field.id} value={option} />
+                  <input
+                    type="checkbox"
+                    name={field.id}
+                    value={option}
+                    checked={field.defaultChecked?.includes(option)}
+                  />
                   <span>{option}</span>
                 </label>
               ))}
@@ -175,6 +293,15 @@ const toolData = {
             Copy output
           </button>
           <a class="button light" href="/request-app/">Request another app</a>
+        </div>
+        <div class="generated-preview" data-tool-preview hidden>
+          <div class="preview-heading">
+            <div>
+              <strong>Platform preview</strong>
+              <p>Scan the draft cards before copying the full package.</p>
+            </div>
+          </div>
+          <div class="preview-grid" data-tool-preview-grid></div>
         </div>
         <p class="muted" data-tool-copy-status>
           Review the output before publishing. Platform rules, permissions, and
@@ -249,10 +376,13 @@ const toolData = {
     const outputArea = document.querySelector("[data-tool-output]");
     const copyButton = document.querySelector("[data-copy-tool-output]");
     const copyStatus = document.querySelector("[data-tool-copy-status]");
+    const previewShell = document.querySelector("[data-tool-preview]");
+    const previewGrid = document.querySelector("[data-tool-preview-grid]");
     const toolDataElement = document.getElementById("tool-data");
     const toolData = toolDataElement?.textContent
       ? JSON.parse(toolDataElement.textContent)
       : { toolSlug: "", connectors: [] };
+    let currentComposerPackage = null;
 
     function value(data, key, fallback = "") {
       const raw = String(data.get(key) || "").trim();
@@ -276,7 +406,160 @@ const toolData = {
       return items.map((item) => `- ${item}`);
     }
 
-    function generatePublishingComposer(data) {
+    function sourceSummary(source) {
+      const compact = String(source).replace(/\s+/g, " ").trim();
+      if (compact.length <= 150) return compact;
+      return `${compact.slice(0, 147)}...`;
+    }
+
+    function appStatus(destination) {
+      const connector = toolData.connectors.find((item) => item.name === destination);
+      return {
+        status: connector?.status || "Check status",
+        notes: connector?.notes || "Check AI PubKit app support before final publishing.",
+        url: connector ? `https://aipubkit.com/apps/${connector.slug}/` : "https://aipubkit.com/apps/",
+      };
+    }
+
+    function statusAction(status) {
+      if (status === "Live path") {
+        return "Ready for direct-path review after account, permission, media, and quota checks.";
+      }
+
+      if (status === "Assisted") {
+        return "Create a draft first, then publish after account approval or manual review.";
+      }
+
+      if (status === "Researching") {
+        return "Use the draft package, but do not promise direct publishing until official support is verified.";
+      }
+
+      return "Check support status before final publishing.";
+    }
+
+    function hashtagSet(source, destination) {
+      const text = source.toLowerCase();
+      const tags = [];
+      if (text.includes("skincare") || text.includes("beauty")) tags.push("#Skincare", "#BeautyTok");
+      if (text.includes("saas") || text.includes("workflow")) tags.push("#SaaS", "#ContentWorkflow");
+      if (text.includes("cafe") || text.includes("local")) tags.push("#LocalBusiness", "#WeekendOffer");
+      if (text.includes("webinar") || text.includes("article")) tags.push("#ContentMarketing", "#RepurposeContent");
+      if (destination === "YouTube") tags.push("#Shorts");
+      if (destination === "LinkedIn") tags.push("#MarketingOps");
+      if (destination === "Pinterest") tags.push("#Inspiration");
+      tags.push("#AIPublishing");
+      return [...new Set(tags)].slice(0, 5).join(" ");
+    }
+
+    function destinationDraft(destination, packageData) {
+      const summary = sourceSummary(packageData.source);
+      const tags = hashtagSet(packageData.source, destination);
+      const commonReview = "Check claims, links, media rights, brand voice, and final account permissions.";
+      const map = {
+        TikTok: {
+          primary: `Caption: ${summary} Watch the key moment, then tap through for details. ${tags}`,
+          secondary: "Cover text: New launch in 15 seconds",
+          checks: [
+            "Confirm vertical format, safe-zone text, music rights, and account posting access.",
+            "Keep the first line short enough for mobile preview.",
+          ],
+        },
+        YouTube: {
+          primary: `Title: ${summary.includes("...") ? "Short launch teaser with a clear product hook" : summary}`,
+          secondary: `Description: ${summary} Add launch link, Shorts note, tags, and thumbnail text. ${tags}`,
+          checks: [
+            "Confirm title length, thumbnail text, description links, and disclosure needs.",
+            "Use chapters only for long-form output.",
+          ],
+        },
+        Instagram: {
+          primary: `Caption: ${summary} Save this for later, share it with a teammate, and follow for the full launch. ${tags}`,
+          secondary: "Alt text: Describe the visible product, scene, text, and key visual action.",
+          checks: [
+            "Confirm aspect ratio, cover frame, carousel order, alt text, and account type.",
+            "Keep the CTA visible before the caption is truncated.",
+          ],
+        },
+        LinkedIn: {
+          primary: `Post: ${summary}\n\nWhy it matters: one source should become platform-ready content without copy-paste busywork.\n\nTakeaway: publish only after status and review checks are clear.`,
+          secondary: `Hashtags: ${tags}`,
+          checks: [
+            "Check professional tone, links, company page access, people tags, and proof points.",
+            "Add a stronger business outcome if this is a launch post.",
+          ],
+        },
+        X: {
+          primary: `Post: ${summary}\n\nOne source. Platform-specific output. Clear publishing status. ${tags}`,
+          secondary: "Thread idea: problem, workflow, destination status, final checklist.",
+          checks: [
+            "Check length, handles, link placement, and whether the idea needs a thread.",
+          ],
+        },
+        Threads: {
+          primary: `Post: ${summary}\n\nWhat would you publish first: short video, social post, or CMS draft?`,
+          secondary: `Conversation tags: ${tags}`,
+          checks: [
+            "Keep the tone conversational and avoid overloading with links.",
+          ],
+        },
+        "Facebook Pages": {
+          primary: `Page post: ${summary}\n\nSee the full update and tell us what you want next. ${tags}`,
+          secondary: "CTA: Learn more / Send message / Shop now depending on the campaign.",
+          checks: [
+            "Confirm Page access, link preview, image crop, and comments policy.",
+          ],
+        },
+        Pinterest: {
+          primary: `Pin title: ${summary.includes("...") ? "Fresh visual idea for your next campaign" : summary}`,
+          secondary: `Pin description: Save this idea and use it as a reference for your next launch. ${tags}`,
+          checks: [
+            "Confirm vertical image, destination URL, board fit, and evergreen keywords.",
+          ],
+        },
+        Reddit: {
+          primary: `Draft: ${summary}\n\nQuestion for the community: what would you improve before publishing this across channels?`,
+          secondary: "Community note: adapt to subreddit rules before posting.",
+          checks: [
+            "Check subreddit rules, self-promotion limits, flair, and whether a human should rewrite the post.",
+          ],
+        },
+        WordPress: {
+          primary: `SEO title: ${summary.includes("...") ? "How to turn one source into a multi-platform publishing package" : summary}`,
+          secondary: "Draft structure: intro, problem, workflow, platform outputs, review checklist, CTA.",
+          checks: [
+            "Check slug, excerpt, internal links, featured image, categories, and publish status.",
+          ],
+        },
+        "Telegram Channel": {
+          primary: `Message: ${summary}\n\nOpen the full asset, review the draft, then publish when the campaign is ready.`,
+          secondary: "Formatting: short opener, media first, link second, one CTA.",
+          checks: [
+            "Confirm channel permissions, file size, preview behavior, and send timing.",
+          ],
+        },
+        Discord: {
+          primary: `Announcement: ${summary}\n\nTeam check: react when captions, media, links, and platform status are approved.`,
+          secondary: "Use a channel-specific mention only if the update is high priority.",
+          checks: [
+            "Confirm webhook or bot permissions, channel fit, mentions, and moderation expectations.",
+          ],
+        },
+        Slack: {
+          primary: `Internal update: ${summary}\n\nNext: review platform drafts, approve claims, and assign the final publisher.`,
+          secondary: "Use this as the approval handoff before external publishing.",
+          checks: [
+            "Confirm channel, stakeholders, thread ownership, and final approver.",
+          ],
+        },
+      };
+      return map[destination] || {
+        primary: `Draft: ${summary}`,
+        secondary: `Metadata: ${tags}`,
+        checks: [commonReview],
+      };
+    }
+
+    function buildPublishingPackage(data) {
       const source = value(data, "source", "Source idea or asset");
       const sourceType = value(data, "source_type", "Text or idea");
       const mediaUrl = value(data, "media_url");
@@ -289,40 +572,6 @@ const toolData = {
         "Hashtags",
         "Review checklist",
       ]);
-      const destinationNotes = {
-        TikTok: [
-          "Caption: short hook, visual context, and one clear prompt to comment or follow.",
-          "Video note: confirm vertical format, safe-zone text, cover text, music rights, and account posting access.",
-        ],
-        YouTube: [
-          "Title: searchable promise plus specific subject.",
-          "Description: summary, link, chapters or Shorts note, tags, thumbnail text, and disclosure checks.",
-        ],
-        Instagram: [
-          "Caption: visual-first opening line, concise story, CTA, and hashtag set.",
-          "Media note: confirm aspect ratio, alt text, cover frame, carousel order, and account type.",
-        ],
-        LinkedIn: [
-          "Post: professional hook, short paragraphs, proof point, and practical takeaway.",
-          "Review note: check brand voice, links, people tags, company page access, and claim accuracy.",
-        ],
-        X: [
-          "Post: concise hook, one core idea, optional thread structure, and link placement.",
-          "Review note: check length, handles, hashtags, and whether the idea needs a thread.",
-        ],
-        "Facebook Pages": [
-          "Page post: clear business context, local or audience cue, link, CTA, and media note.",
-          "Review note: confirm Page access, link preview, image crop, and comments policy.",
-        ],
-        WordPress: [
-          "Draft: SEO title, slug idea, intro, headings, meta description, tags, and featured image note.",
-          "Review note: check internal links, excerpt, category, canonical needs, and publication status.",
-        ],
-        "Telegram Channel": [
-          "Message: direct opening line, concise body, link, media placement, and pinned-message note.",
-          "Review note: confirm channel permissions, file size, preview behavior, and send timing.",
-        ],
-      };
       const assetMode = sourceType.includes("Image") || sourceType.includes("Video") || mediaUrl
         ? [
             "Treat the media as the source asset. Do not regenerate the asset unless a separate image or video model is connected.",
@@ -333,33 +582,158 @@ const toolData = {
             "Treat the text as the source. Generate the first publishing package from the idea, then add media later if needed.",
             "If an image or video is required, create a prompt or production note for the external generation tool.",
           ];
-      const destinationBlocks = destinations.flatMap((destination) => [
-        `### ${destination}`,
-        ...(destinationNotes[destination] || [
-          "Create destination-ready copy, metadata, media notes, and review checks for this app.",
-        ]),
-        `Requested outputs: ${outputs.join(", ")}.`,
-        "Publishing path: check AI PubKit app status before promising direct posting.",
+      return {
+        source,
+        sourceType,
+        mediaUrl,
+        audience,
+        tone,
+        destinations: destinations.map((destination) => {
+          const status = appStatus(destination);
+          return {
+            name: destination,
+            ...status,
+            ...destinationDraft(destination, { source, sourceType, mediaUrl, audience, tone, outputs }),
+            action: statusAction(status.status),
+          };
+        }),
+        outputs,
+        assetMode,
+      };
+    }
+
+    function composerMarkdown(packageData) {
+      const destinationBlocks = packageData.destinations.flatMap((destination) => [
+        `### ${destination.name}`,
+        `Status: ${destination.status}`,
+        `Draft: ${destination.primary}`,
+        destination.secondary,
+        `Requested outputs: ${packageData.outputs.join(", ")}.`,
+        `Next action: ${destination.action}`,
+        ...list(destination.checks),
+        `App page: ${destination.url}`,
         "",
       ]);
       return [
         section("AI publishing package", [
-          `Source type: ${sourceType}`,
-          `Source: ${source}`,
-          `Audience: ${audience}`,
-          `Tone: ${tone}`,
-          `Destinations: ${destinations.join(", ")}`,
-          `Needed outputs: ${outputs.join(", ")}`,
+          `Source type: ${packageData.sourceType}`,
+          `Source: ${packageData.source}`,
+          packageData.mediaUrl ? `Media URL: ${packageData.mediaUrl}` : "",
+          `Audience: ${packageData.audience}`,
+          `Tone: ${packageData.tone}`,
+          `Destinations: ${packageData.destinations.map((destination) => destination.name).join(", ")}`,
+          `Needed outputs: ${packageData.outputs.join(", ")}`,
         ]),
-        section("Asset handling", assetMode),
+        section("Asset handling", packageData.assetMode),
         destinationBlocks.join("\n"),
-        section("Next step", [
+        section("Approval and handoff", [
+          "Review the preview cards first, then copy the full package into your editorial workflow.",
           "Use direct publishing only where the destination has a stable official path and the account has the required permissions.",
           "Use assisted drafts when the app needs approval, review, account setup, or manual confirmation.",
           "For source-app integrations, send this as an AI PubKit content package with assets, captions, prompts, destination choices, and output preferences.",
         ]),
       ].join("\n");
     }
+
+    function generatePublishingComposer(data) {
+      currentComposerPackage = buildPublishingPackage(data);
+      return composerMarkdown(currentComposerPackage);
+    }
+
+    function renderComposerPreview(packageData) {
+      if (!(previewShell instanceof HTMLElement) || !(previewGrid instanceof HTMLElement)) return;
+      previewGrid.replaceChildren();
+      packageData.destinations.forEach((destination) => {
+        const card = document.createElement("article");
+        card.className = "preview-card";
+
+        const top = document.createElement("div");
+        top.className = "preview-card-top";
+
+        const title = document.createElement("h3");
+        title.textContent = destination.name;
+
+        const status = document.createElement("span");
+        status.className = `status ${destination.status.toLowerCase().replaceAll(" ", "-")}`;
+        status.textContent = destination.status;
+
+        top.append(title, status);
+
+        const primary = document.createElement("p");
+        primary.textContent = destination.primary;
+
+        const secondary = document.createElement("p");
+        secondary.className = "muted";
+        secondary.textContent = destination.secondary;
+
+        const action = document.createElement("p");
+        action.className = "preview-action";
+        action.textContent = destination.action;
+
+        const checks = document.createElement("ul");
+        checks.className = "detail-list";
+        destination.checks.forEach((check) => {
+          const item = document.createElement("li");
+          item.textContent = check;
+          checks.append(item);
+        });
+
+        card.append(top, primary, secondary, action, checks);
+        previewGrid.append(card);
+      });
+      previewShell.hidden = false;
+    }
+
+    function hidePreview() {
+      if (previewShell instanceof HTMLElement) {
+        previewShell.hidden = true;
+      }
+      if (previewGrid instanceof HTMLElement) {
+        previewGrid.replaceChildren();
+      }
+    }
+
+    function applyPreset(preset) {
+      if (!(form instanceof HTMLFormElement)) return;
+      const data = preset.data || {};
+      Object.entries(data).forEach(([key, rawValue]) => {
+        const values = Array.isArray(rawValue) ? rawValue.map(String) : [String(rawValue)];
+        const controls = Array.from(form.elements).filter((element) =>
+          element instanceof HTMLInputElement ||
+          element instanceof HTMLTextAreaElement ||
+          element instanceof HTMLSelectElement
+            ? element.name === key
+            : false
+        );
+        controls.forEach((control) => {
+          if (control instanceof HTMLInputElement && control.type === "checkbox") {
+            control.checked = values.includes(control.value);
+            return;
+          }
+          if (
+            control instanceof HTMLInputElement ||
+            control instanceof HTMLTextAreaElement ||
+            control instanceof HTMLSelectElement
+          ) {
+            control.value = values[0] || "";
+          }
+        });
+      });
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.querySelectorAll("[data-tool-preset]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const id = button.getAttribute("data-tool-preset");
+        const preset = toolData.presets?.find((item) => item.id === id);
+        if (preset) {
+          applyPreset(preset);
+          if (copyStatus instanceof HTMLElement) {
+            copyStatus.textContent = `${preset.label} template loaded. Adjust anything, then generate.`;
+          }
+        }
+      });
+    });
 
     function generateSocialPosts(data) {
       const source = value(data, "source", "Source idea");
@@ -551,12 +925,18 @@ const toolData = {
     form?.addEventListener("submit", (event) => {
       event.preventDefault();
       const data = new FormData(form);
+      currentComposerPackage = null;
       const generated = generateOutput(data);
       if (outputArea instanceof HTMLTextAreaElement) {
         outputArea.value = generated;
       }
       if (outputShell instanceof HTMLElement) {
         outputShell.hidden = false;
+      }
+      if (toolData.toolSlug === "ai-publishing-composer" && currentComposerPackage) {
+        renderComposerPreview(currentComposerPackage);
+      } else {
+        hidePreview();
       }
     });
 

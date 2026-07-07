@@ -128,6 +128,18 @@ create the publishing package around those assets. Native image or video
 generation can be added later through model integrations after the publishing
 workflow is clear.
 
+## Customer UX Principles
+
+AI PubKit should reduce customer decisions before it asks for more data:
+
+- start from common publishing templates
+- preselect sensible destinations and output types
+- show platform-specific previews
+- keep direct, assisted, and researching status visible
+- make review and approval the next action, not an afterthought
+
+See [docs/customer-ux-benchmark.md](docs/customer-ux-benchmark.md).
+
 ## Key Pages
 
 - [Supported apps](https://aipubkit.com/apps/)
@@ -238,6 +250,7 @@ docs/source-policy.md                    How publishing status is judged
 docs/seo-geo-playbook.md                 SEO and GEO operating notes
 docs/ahrefs-opportunity-plan.md          Ahrefs keyword and competitor plan
 docs/indexing-growth-runbook.md          Indexing and growth operations
+docs/customer-ux-benchmark.md            Customer UX patterns from market leaders
 .github/ISSUE_TEMPLATE/                  App request and research templates
 ```
 

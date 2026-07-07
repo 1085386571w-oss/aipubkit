@@ -1,0 +1,60 @@
+# Customer UX Benchmark
+
+Last reviewed: 2026-07-07
+
+AI PubKit should be optimized from the customer's publishing job, not from the
+site's internal data model.
+
+## Sources Reviewed
+
+- Buffer AI Assistant: https://buffer.com/ai-assistant
+- Canva Content Planner: https://www.canva.com/pro/content-planner/
+- Later content calendar: https://later.com/social-media-content-calendar/
+- SocialBee Copilot: https://help.socialbee.com/hc/en-us/articles/29979132682391-Social-Media-Copilot-All-You-Need-to-Know
+- Repurpose.io content distribution tool: https://repurpose.io/content-distribution-tool/
+- Hootsuite social media management: https://www.hootsuite.com/
+- Hootsuite approval workflow guide: https://blog.hootsuite.com/social-media-approval-workflow/
+- Zapier Forms: https://zapier.com/forms
+
+## Patterns Worth Copying
+
+1. Start from a user job or template.
+   - Buffer emphasizes brainstorming, rewriting, and platform-specific posts.
+   - SocialBee Copilot starts from a strategy flow and generates platform
+     recommendations, plans, and ready-to-edit posts.
+   - AI PubKit should show quick-start templates before asking for manual input.
+
+2. Give customers defaults.
+   - Later and Canva reduce planning friction by centering the calendar and
+     common social destinations.
+   - AI PubKit should preselect common destinations and outputs for the
+     composer while still letting users change them.
+
+3. Show platform-specific previews.
+   - Later emphasizes visual planning and previews.
+   - Hootsuite and Buffer emphasize customized captions per platform.
+   - AI PubKit should show scan-friendly destination cards, not only a long
+     textarea.
+
+4. Keep review and approval visible.
+   - Hootsuite treats approval as a process before posts go live.
+   - SocialBee lets users approve, draft, tag teammates, and leave notes.
+   - AI PubKit should show direct, assisted, or researching status with the next
+     action for each destination.
+
+5. Treat media as a workflow input.
+   - Repurpose.io makes video/audio distribution easier with workflow planning,
+     resizing, templates, and automatic distribution.
+   - AI PubKit should accept media URLs and generate the publishing package
+     around those assets before building native media generation.
+
+## Implemented In This Iteration
+
+- Quick-start workflow templates for short video launches, product updates,
+  article repurposing, and image campaigns.
+- Default destination and output selections in the AI publishing composer.
+- Platform preview cards with app status, draft copy, metadata, checks, and
+  next action.
+- Expanded destination options for Threads, Pinterest, Reddit, Discord, and
+  Slack.
+- More concrete generated copy instead of only generic publishing advice.

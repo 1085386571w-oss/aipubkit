@@ -299,6 +299,10 @@ h3 {
   padding: 46px 0;
 }
 
+.compact-section {
+  padding-bottom: 12px;
+}
+
 .page-hero {
   padding: 38px 0 18px;
 }
@@ -583,6 +587,88 @@ th {
   min-height: 260px;
 }
 
+.preset-grid,
+.preview-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.preset-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  gap: 8px;
+  min-height: 132px;
+  padding: 16px;
+  text-align: left;
+}
+
+.preset-card:hover,
+.preset-card:focus-visible {
+  border-color: var(--teal);
+  outline: none;
+}
+
+.preset-card strong {
+  font-size: 1rem;
+}
+
+.preset-card span {
+  color: var(--muted);
+}
+
+.generated-preview {
+  display: grid;
+  gap: 14px;
+}
+
+.preview-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.preview-heading p {
+  color: var(--muted);
+  margin: 2px 0 0;
+}
+
+.preview-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.preview-card {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+}
+
+.preview-card-top {
+  align-items: start;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.preview-card p {
+  margin: 0;
+}
+
+.preview-action {
+  border-left: 4px solid var(--teal);
+  color: var(--ink);
+  font-weight: 720;
+  padding-left: 10px;
+}
+
 .muted {
   color: var(--muted);
 }
@@ -670,7 +756,9 @@ pre {
   .workflow-steps,
   .split,
   .filter-bar,
-  .option-list {
+  .option-list,
+  .preset-grid,
+  .preview-grid {
     grid-template-columns: 1fr;
   }
 
