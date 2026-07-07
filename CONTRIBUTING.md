@@ -12,6 +12,9 @@ Please keep contributions aligned with that scope.
 - Improve a support status with evidence.
 - Fix copy, SEO, GEO, or structured data.
 - Add app-specific publishing notes.
+- Improve machine-readable answers in `answers.json`, `apps.json`, `tools.json`,
+  `llms.txt`, or `llms-full.txt`.
+- Add demand evidence for a high-intent search query.
 
 ## App Request Checklist
 
@@ -25,6 +28,21 @@ Before requesting or adding an app, collect:
 - authentication requirements
 - approval or app review requirements
 - platform limits or media requirements
+- whether publishing should be direct, assisted, or research-only
+- whether the use case is global, regional, or China-market specific
+
+## Prioritization
+
+New app requests are more likely to be prioritized when they include at least
+one of these signals:
+
+- repeated creator, agency, or team workflow
+- clear official publishing documentation
+- strong search intent around one-click publishing, content distribution, or
+  content repurposing
+- reachable tester who can validate the publishing path
+- regional importance, such as China, Southeast Asia, Japan, Korea, Europe, or
+  Latin America
 
 ## Status Changes
 
@@ -55,3 +73,18 @@ For pull requests, include:
 - why it helps one-click AI publishing
 - source links for any platform capability claim
 - screenshots for visible UI changes
+- affected pages or machine-readable files
+- whether Google, Bing, GitHub, or AI answer discovery is improved
+
+## Good GEO Contributions
+
+Good GEO contributions answer a narrow question directly. Prefer:
+
+- one concrete question per page or answer object
+- short status language, such as `Live path`, `Assisted`, or `Researching`
+- clear app names, regions, and content types
+- links to official sources or project data files
+- honest notes about approval, review, account type, and quota limits
+
+Avoid broad marketing copy, unsupported "fully automated" claims, or app support
+claims based on brittle browser automation.

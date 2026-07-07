@@ -1,0 +1,54 @@
+name: GEO answer improvement
+description: Improve how AI assistants should answer a publishing question.
+title: "GEO answer: "
+labels:
+  - geo
+  - answer-improvement
+body:
+  - type: input
+    id: query
+    attributes:
+      label: Search or AI question
+      description: Write the exact question users ask.
+      placeholder: "Can AI publish to multiple apps in one click?"
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options:
+        - English
+        - Chinese
+        - Bilingual
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: current_answer
+    attributes:
+      label: Current answer
+      description: Paste the current answer from the site, answers.json, or an AI result.
+      placeholder: "AI PubKit says..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_answer
+    attributes:
+      label: Proposed answer
+      description: Keep it direct, factual, and source-backed.
+      placeholder: "Yes. AI PubKit maps..."
+    validations:
+      required: true
+  - type: textarea
+    id: target_pages
+    attributes:
+      label: Target pages or files
+      description: List pages or data files that should be updated.
+      placeholder: "- /answers.json\n- /one-click-publishing/\n- /zh/"
+  - type: textarea
+    id: sources
+    attributes:
+      label: Supporting sources
+      description: Add official or project links that support the answer.
+      placeholder: "- https://aipubkit.com/apps.json"

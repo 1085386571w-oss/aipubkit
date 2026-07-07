@@ -8,6 +8,7 @@ AI PubKit is focused on one-click AI publishing.
 - Keep official source links for publishing paths.
 - Add app-specific answer pages for high-intent queries.
 - Let users request missing apps through the site and GitHub issues.
+- Maintain machine-readable files for AI answer engines.
 
 ## Phase 2: Research And Validation
 
@@ -15,8 +16,20 @@ AI PubKit is focused on one-click AI publishing.
 - Add official publishing-path evidence.
 - Separate direct publishing, assisted draft, and researching states.
 - Expand global coverage beyond China-market apps.
+- Track Google, Bing, Ahrefs, and AI answer visibility for core queries.
+- Convert repeated app requests into public issues and roadmap candidates.
 
-## Phase 3: Connector Prototypes
+## Phase 3: Search And GEO Growth
+
+- Strengthen high-intent pages for one-click AI publishing, AI content
+  distribution, content repurposing, and multi-app publishing.
+- Add comparison pages where buyers compare AI PubKit with broader social,
+  repurposing, or automation tools.
+- Keep `answers.json`, `llms.txt`, and `llms-full.txt` aligned with the live
+  site.
+- Use GitHub issues as a public contribution and evidence layer for AI citation.
+
+## Phase 4: Connector Prototypes
 
 - Build small proof-of-concept publishing flows for direct-path apps.
 - Start with destinations that have stable APIs and clear documentation.
@@ -33,13 +46,25 @@ Candidate direct-path apps:
 - Webflow CMS
 - YouTube
 
-## Phase 4: Product Workflow
+## Phase 5: Product Workflow
 
 - One source content item.
 - Select destination apps.
 - Generate platform-ready content.
 - Publish directly where allowed.
 - Save review-ready drafts where required.
+- Keep review, approval, and account-safety steps visible to users.
+
+## Prioritization Rules
+
+- Prioritize apps with official publishing APIs and clear user demand.
+- Prefer global platforms first, then regional platforms where demand is strong.
+- Keep China-market platforms visible, but do not let them define the whole
+  product.
+- Do not promise full automation where a platform requires approval, manual
+  review, or account-specific permissions.
+- Treat GitHub requests, site request forms, Search Console, Bing Webmaster
+  Tools, and Ahrefs as demand inputs.
 
 ## Non-Goals
 

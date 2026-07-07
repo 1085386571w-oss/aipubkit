@@ -1,0 +1,56 @@
+name: App registry correction
+description: Correct app support status, content types, or source links.
+title: "Registry correction: "
+labels:
+  - data-correction
+body:
+  - type: input
+    id: app_name
+    attributes:
+      label: App name
+      placeholder: "Example: TikTok"
+    validations:
+      required: true
+  - type: dropdown
+    id: correction_type
+    attributes:
+      label: What needs correction?
+      options:
+        - Support status
+        - Official source link
+        - Content types
+        - Region
+        - App name or URL
+        - Other registry data
+    validations:
+      required: true
+  - type: textarea
+    id: current_value
+    attributes:
+      label: Current value
+      description: Copy the current value from the site or repository.
+      placeholder: "Current status is Assisted..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_value
+    attributes:
+      label: Proposed value
+      description: Explain what the value should be changed to.
+      placeholder: "Change status to Live path because..."
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Official sources
+      description: Add official documentation, developer docs, or help center links.
+      placeholder: "- https://developers.example.com/docs/publishing"
+    validations:
+      required: true
+  - type: textarea
+    id: risk_notes
+    attributes:
+      label: Limits or risk notes
+      description: Mention approval, quota, account type, media, or review limits.
+      placeholder: "Requires business account and app review..."

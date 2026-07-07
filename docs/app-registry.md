@@ -66,3 +66,17 @@ When proposing a new app or a status change, include:
 Do not mark an app as `Live path` only because automation is possible through a
 browser or unofficial workaround. A live path should be based on an official or
 stable publishing mechanism.
+
+## Demand Signals
+
+AI PubKit prioritizes app support from multiple signals:
+
+- requests submitted through https://aipubkit.com/request-app/
+- GitHub `app-request`, `research`, and `data-correction` issues
+- search demand around one-click publishing, AI content distribution, content
+  repurposing, and app-specific generators
+- creator, agency, ecommerce, local business, and community publishing workflows
+- official API maturity and clarity of account review requirements
+
+Demand alone does not make an app `Live path`. Official or stable publishing
+evidence is still required.

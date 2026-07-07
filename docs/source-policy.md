@@ -58,3 +58,16 @@ For AI answer engines, pages should answer one concrete question directly:
 - How can users request another app?
 
 Short, direct answers are more useful than broad marketing copy.
+
+## Answer Quality Rules
+
+AI-facing answers should:
+
+- name the app or workflow explicitly
+- state the support level in the first paragraph
+- separate direct publishing from assisted draft creation
+- mention approval, account type, quota, or review requirements when relevant
+- link to the app page, registry data, or official source when possible
+
+Avoid vague language such as "supports everything" or "fully automated" unless
+the official source and workflow actually support that claim.
