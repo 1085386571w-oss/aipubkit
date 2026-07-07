@@ -37,6 +37,7 @@ const labels = {
     homeLabel: "AI PubKit home",
     navLabel: "Primary navigation",
     apps: "Apps",
+    sourceApps: "Source apps",
     useCase: "Use case",
     tools: "Tools",
     developers: "Developers",
@@ -71,6 +72,7 @@ const labels = {
     answerData: "Answer data",
     requestData: "Request data",
     toolData: "Tool data",
+    sourceAppData: "Source app data",
     contentPackageSchema: "Content package schema",
     contact: "Contact",
     privacy: "Privacy",
@@ -83,6 +85,7 @@ const labels = {
     homeLabel: "AI PubKit 首页",
     navLabel: "主导航",
     apps: "应用",
+    sourceApps: "源 App",
     useCase: "应用场景",
     tools: "免费工具",
     developers: "开发者",
@@ -117,6 +120,7 @@ const labels = {
     answerData: "答案数据",
     requestData: "申请数据",
     toolData: "工具数据",
+    sourceAppData: "源 App 数据",
     contentPackageSchema: "内容包 Schema",
     contact: "联系",
     privacy: "隐私",
@@ -249,6 +253,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
     ))}
     <link rel="me" href={githubUrl} />
     <link rel="alternate" type="application/json" title="AI PubKit app registry" href="/apps.json" />
+    <link rel="alternate" type="application/json" title="AI PubKit source app registry" href="/source-apps.json" />
     <link rel="alternate" type="application/json" title="AI PubKit answer map" href="/answers.json" />
     <link rel="alternate" type="application/json" title="AI PubKit tool registry" href="/tools.json" />
     <link rel="alternate" type="text/plain" title="AI PubKit llms.txt" href="/llms.txt" />
@@ -279,13 +284,10 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <span>AI PubKit</span>
       </a>
       <nav class="site-nav" aria-label={labels.navLabel}>
+        <a href="/source-apps/">{labels.sourceApps}</a>
         <a href="/apps/">{labels.apps}</a>
-        <a href="/use-cases/ai-content-distribution/">{labels.useCase}</a>
         <a href="/tools/ai-publishing-composer/">{labels.tools}</a>
-        <a href="/developers/">{labels.developers}</a>
-        <a href="/compare/buffer-alternative-for-ai-publishing/">{labels.compare}</a>
         <a href="/request-app/">{labels.requestApp}</a>
-        <a href="/one-click-publishing/">{labels.howItWorks}</a>
         <span class="language-switch" aria-label={labels.languageLabel}>
           <a class={locale === "en" ? "active" : undefined} href="/">{labels.english}</a>
           <a class={locale === "zh" ? "active" : undefined} href="/zh/">{labels.chinese}</a>
@@ -302,6 +304,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
       </div>
       <nav aria-label={labels.footerLabel}>
         <a href="/apps/">{labels.supportedApps}</a>
+        <a href="/source-apps/">{labels.sourceApps}</a>
         <a href="/use-cases/publish-to-multiple-apps/">{labels.multiAppPublishing}</a>
         <a href="/use-cases/ai-content-distribution/">{labels.aiContentDistribution}</a>
         <a href="/use-cases/ai-one-click-publishing/">{labels.aiOneClickPublishing}</a>
@@ -326,6 +329,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/one-click-publishing/">{labels.howItWorks}</a>
         <a href="/open-source/">{labels.openSource}</a>
         <a href="/apps.json">{labels.appData}</a>
+        <a href="/source-apps.json">{labels.sourceAppData}</a>
         <a href="/answers.json">{labels.answerData}</a>
         <a href="/app-requests.json">{labels.requestData}</a>
         <a href="/tools.json">{labels.toolData}</a>

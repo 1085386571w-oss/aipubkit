@@ -1,0 +1,250 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { appSlug } from "../../data/apps";
+import { sourceApps, type SourceApp } from "../../data/sourceApps";
+
+export function getStaticPaths() {
+  return sourceApps.map((app) => ({
+    params: { slug: app.slug },
+    props: { app },
+  }));
+}
+
+type Props = {
+  app: SourceApp;
+};
+
+const { app } = Astro.props;
+const relatedApps = sourceApps.filter((item) => item.slug !== app.slug).slice(0, 5);
+const examplePackage = JSON.stringify(app.examplePackage, null, 2);
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Source apps",
+        item: "https://aipubkit.com/source-apps/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: app.name,
+        item: `https://aipubkit.com/source-apps/${app.slug}/`,
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: app.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: `How to publish ${app.name} content with AI PubKit`,
+    step: [
+      {
+        "@type": "HowToStep",
+        name: "Export or reference the generated asset",
+        text: `Send the ${app.sourceType.toLowerCase()} asset, media URL, prompt, and campaign context from ${app.name}.`,
+      },
+      {
+        "@type": "HowToStep",
+        name: "Select destination apps",
+        text: "Choose the platforms where the content should be published or staged for review.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Generate the publishing package",
+        text: "AI PubKit creates destination-ready copy, metadata, tags, alt text, cover text, and review checks.",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={app.title}
+  description={app.description}
+  canonicalPath={`/source-apps/${app.slug}/`}
+  schema={schema}
+>
+  <section class="page-hero">
+    <p class="eyebrow">{app.category} source app · {app.region}</p>
+    <h1>{app.h1}</h1>
+    <p class="page-lead">{app.lead}</p>
+    <div class="actions">
+      <a class="button dark" href="/tools/ai-publishing-composer/">Generate package</a>
+      <a class="button light" href="/apps/">Check destinations</a>
+      <a class="button light" href="/request-app/">Request another app</a>
+    </div>
+  </section>
+
+  <section class="section compact-section">
+    <div class="split">
+      <article class="notice">
+        <p class="eyebrow">Customer problem</p>
+        <h2>What the page answers.</h2>
+        <p>{app.customerProblem}</p>
+      </article>
+      <article class="notice">
+        <p class="eyebrow">Creates</p>
+        <h2>{app.sourceType}</h2>
+        <div class="tag-row surface-tags">
+          {app.creates.map((item) => <span class="tag">{item}</span>)}
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Handoff fields</p>
+        <h2>What {app.name} should send to AI PubKit.</h2>
+      </div>
+      <p>
+        The source app does not need to understand every destination API. It
+        should send a clean content package so AI PubKit can create the right
+        publishing versions.
+      </p>
+    </div>
+    <div class="grid two">
+      <article class="card">
+        <h3>Required or useful fields</h3>
+        <ul class="detail-list">
+          {app.handoffFields.map((field) => <li>{field}</li>)}
+        </ul>
+      </article>
+      <article class="card">
+        <h3>AI PubKit creates</h3>
+        <ul class="detail-list">
+          {app.aiPubKitOutputs.map((output) => <li>{output}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section compact-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Publishing destinations</p>
+        <h2>Where {app.name} content can go.</h2>
+      </div>
+      <p>
+        Direct means a stable publishing path can be mapped. Assisted means
+        AI PubKit should prepare drafts, copy, or review notes before final
+        posting.
+      </p>
+    </div>
+    <div class="grid three">
+      {app.destinations.map((destination) => (
+        <article class="connector">
+          <div class="connector-top">
+            <div>
+              <h3>{destination.app}</h3>
+              <p>{destination.useCase}</p>
+            </div>
+            <span class={`status ${destination.status.toLowerCase().replaceAll(" ", "-")}`}>
+              {destination.status}
+            </span>
+          </div>
+          <div class="actions">
+            <a class="button light" href={`/apps/${appSlug(destination.app)}/`}>
+              View destination
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="handoff-board">
+      <div>
+        <p class="eyebrow">Example package</p>
+        <h2>A concrete handoff for {app.name}.</h2>
+        <p class="page-lead">
+          This is the kind of structured payload a customer, source app, or
+          future API can pass into AI PubKit before generating destination
+          outputs.
+        </p>
+      </div>
+      <div class="package-panel">
+        <div class="panel-header">
+          <strong>{app.name} package</strong>
+          <span>{app.sourceType}</span>
+        </div>
+        <pre><code>{examplePackage}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">SEO and GEO questions</p>
+        <h2>Short answers AI assistants can cite.</h2>
+      </div>
+    </div>
+    <div class="grid two">
+      {app.faqs.map((faq) => (
+        <article class="card">
+          <h3>{faq.question}</h3>
+          <p>{faq.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section compact-section">
+    <div class="split">
+      <article class="notice">
+        <p class="eyebrow">Keywords covered</p>
+        <h2>Search demand this page targets.</h2>
+        <div class="tag-row surface-tags">
+          {app.keywords.map((keyword) => <span class="tag">{keyword}</span>)}
+        </div>
+      </article>
+      <article class="notice">
+        <p class="eyebrow">Official sources</p>
+        <h2>Reference basis.</h2>
+        <ul class="detail-list">
+          {app.officialSources.map((source) => (
+            <li>
+              <a href={source.url} target="_blank" rel="noreferrer">{source.name}</a>
+            </li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section compact-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Other source apps</p>
+        <h2>Continue the workflow map.</h2>
+      </div>
+      <a class="button light" href="/source-apps/">All source apps</a>
+    </div>
+    <div class="destination-strip">
+      {relatedApps.map((related) => (
+        <a href={`/source-apps/${related.slug}/`}>
+          <strong>{related.name}</strong>
+          <span>{related.sourceType}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

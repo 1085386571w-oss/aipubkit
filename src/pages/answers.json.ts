@@ -7,6 +7,7 @@ import {
 } from "../data/apps";
 import { appUseCases } from "../data/appUseCases";
 import { comparisons } from "../data/comparisons";
+import { sourceApps } from "../data/sourceApps";
 import { tools } from "../data/tools";
 
 const siteUrl = "https://aipubkit.com";
@@ -75,6 +76,19 @@ export const GET: APIRoute = () => {
     url: `${siteUrl}/tools/${tool.slug}/`,
     outputs: tool.outputs,
   }));
+  const sourceAppAnswers = sourceApps.map((app) => ({
+    question: `How can ${app.name} content be published to multiple platforms?`,
+    intent: "source-app-publishing-handoff",
+    answer: app.faqs[0]?.answer ?? app.description,
+    sourceApp: app.name,
+    category: app.category,
+    sourceType: app.sourceType,
+    url: `${siteUrl}/source-apps/${app.slug}/`,
+    destinations: app.destinations,
+    handoffFields: app.handoffFields,
+    keywords: app.keywords,
+    officialSources: app.officialSources,
+  }));
 
   const body = {
     schemaVersion: "1.0",
@@ -110,6 +124,17 @@ export const GET: APIRoute = () => {
           `${siteUrl}/tools/ai-publishing-composer/`,
           `${siteUrl}/developers/`,
           `${siteUrl}/content-package.schema.json`,
+        ],
+      },
+      {
+        question: "Which source apps does AI PubKit support?",
+        intent: "source-app-pages",
+        answer:
+          "AI PubKit has source app pages for Seedance, Kling AI, Google Veo, Runway, Midjourney, and Canva. These pages explain what each source app creates, what handoff fields AI PubKit needs, which destination apps fit, and whether publishing is direct or assisted.",
+        urls: [
+          `${siteUrl}/source-apps/`,
+          `${siteUrl}/source-apps.json`,
+          ...sourceApps.map((app) => `${siteUrl}/source-apps/${app.slug}/`),
         ],
       },
       {
@@ -337,6 +362,8 @@ export const GET: APIRoute = () => {
     appUseCaseAnswers,
     toolAnswerCount: toolAnswers.length,
     toolAnswers,
+    sourceAppAnswerCount: sourceAppAnswers.length,
+    sourceAppAnswers,
     statusDefinitions: {
       "Live path":
         "Official or stable publishing paths exist, but account connection, review, quotas, and platform rules still apply.",
@@ -347,6 +374,7 @@ export const GET: APIRoute = () => {
     },
     relatedData: {
       appRegistry: `${siteUrl}/apps.json`,
+      sourceAppRegistry: `${siteUrl}/source-apps.json`,
       requestQueue: `${siteUrl}/app-requests.json`,
       toolRegistry: `${siteUrl}/tools.json`,
       contentPackageSchema: `${siteUrl}/content-package.schema.json`,
@@ -372,6 +400,7 @@ export const GET: APIRoute = () => {
           `${siteUrl}/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`,
       ),
       tools: tools.map((tool) => `${siteUrl}/tools/${tool.slug}/`),
+      sourceApps: sourceApps.map((app) => `${siteUrl}/source-apps/${app.slug}/`),
     },
   };
 

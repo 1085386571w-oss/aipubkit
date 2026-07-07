@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { sourceApps } from "../../data/sourceApps";
+
+const title = "Source apps for AI publishing - AI PubKit";
+const description =
+  "Browse source apps such as Seedance, Kling AI, Google Veo, Runway, Midjourney, and Canva, then create publishing packages for global destination apps.";
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "AI PubKit source apps",
+  itemListElement: sourceApps.map((app, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: app.name,
+    url: `https://aipubkit.com/source-apps/${app.slug}/`,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/source-apps/" schema={itemListSchema}>
+  <section class="page-hero">
+    <p class="eyebrow">Source apps</p>
+    <h1>Start with the app that created the AI content.</h1>
+    <p class="page-lead">
+      Customers do not usually search for a brand first. They search for
+      practical workflows like Seedance to TikTok, Kling AI to YouTube Shorts,
+      Veo to Instagram Reels, Midjourney to Pinterest, or Canva to multiple
+      social platforms.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/tools/ai-publishing-composer/">Generate package</a>
+      <a class="button light" href="/apps/">Browse destination apps</a>
+    </div>
+  </section>
+
+  <section class="section compact-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Choose source</p>
+        <h2>AI video, image, and design tools that need publishing handoff.</h2>
+      </div>
+      <p>
+        Each page explains what the source app creates, what AI PubKit needs,
+        where the content can go, which routes are direct or assisted, and an
+        example publishing package.
+      </p>
+    </div>
+    <div class="source-card-grid">
+      {sourceApps.map((app) => (
+        <a class="source-card" href={`/source-apps/${app.slug}/`}>
+          <span>{app.category} · {app.region}</span>
+          <strong>{app.name}</strong>
+          <p>{app.customerProblem}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="handoff-board">
+      <div>
+        <p class="eyebrow">Source app vs destination app</p>
+        <h2>Keep the workflow simple.</h2>
+        <p class="page-lead">
+          A source app creates the content. A destination app is where the
+          content gets published. AI PubKit sits between them and creates the
+          app-ready package.
+        </p>
+      </div>
+      <div class="mini-table">
+        <div>
+          <strong>Source app</strong>
+          <span>Seedance, Kling AI, Google Veo, Runway, Midjourney, Canva</span>
+        </div>
+        <div>
+          <strong>Destination app</strong>
+          <span>TikTok, YouTube, Instagram, Pinterest, LinkedIn, WordPress</span>
+        </div>
+        <div>
+          <strong>AI PubKit</strong>
+          <span>Captions, titles, metadata, hashtags, alt text, review checks</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

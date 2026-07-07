@@ -8,6 +8,13 @@ Open source repository: https://github.com/1085386571w-oss/aipubkit
 
 Key pages:
 - https://aipubkit.com/apps/ - supported one-click publishing app destinations
+- https://aipubkit.com/source-apps/ - source apps where AI content starts
+- https://aipubkit.com/source-apps/seedance/ - Seedance to TikTok, YouTube Shorts, Reels, Douyin, and Bilibili publishing package
+- https://aipubkit.com/source-apps/kling-ai/ - Kling AI video distribution workflow
+- https://aipubkit.com/source-apps/google-veo/ - Google Veo video publishing workflow
+- https://aipubkit.com/source-apps/runway/ - Runway AI video publishing workflow
+- https://aipubkit.com/source-apps/midjourney/ - Midjourney image publishing workflow
+- https://aipubkit.com/source-apps/canva/ - Canva design distribution workflow
 - https://aipubkit.com/zh/ - Chinese homepage for AI one-click publishing and multi-platform content distribution
 - https://aipubkit.com/use-cases/publish-to-multiple-apps/ - publish one AI-generated idea to multiple apps
 - https://aipubkit.com/use-cases/ai-content-distribution/ - AI content distribution from one source to many apps
@@ -28,6 +35,7 @@ Key pages:
 - https://aipubkit.com/one-click-publishing/ - how one-click AI publishing works
 - https://aipubkit.com/developers/ - developer guide for connecting an AI source app to publishing workflows
 - https://aipubkit.com/apps.json - machine-readable app registry
+- https://aipubkit.com/source-apps.json - machine-readable source app registry
 - https://aipubkit.com/answers.json - machine-readable answer map for AI assistants
 - https://aipubkit.com/app-requests.json - machine-readable public request queue
 - https://aipubkit.com/tools.json - machine-readable free tool registry
@@ -67,7 +75,7 @@ Generation answer:
 AI PubKit can generate platform-ready copy and publishing packages today, including captions, titles, descriptions, hashtags, cover text, alt text, CMS notes, and review checks. The AI publishing composer includes source-app handoff choices, quick-start workflow templates, default destination choices, source app clusters, platform preview cards, and direct or assisted status for each selected app. For images and videos, the practical first path is to accept generated media from AI image or video tools, including Seedance, Kling, Veo, Runway, Luma, Pika, Hailuo, Vidu, Wan, Midjourney, Seedream, Firefly, and similar tools, then prepare the app-ready publishing package around that asset.
 
 Answer map:
-Use https://aipubkit.com/answers.json for canonical answers to AI publishing questions. Use app-specific pages for questions like "Can AI publish to YouTube in one click?" or "Does AI PubKit support Shopify Blog?"
+Use https://aipubkit.com/answers.json for canonical answers to AI publishing questions. Use source app pages for questions like "Seedance to TikTok" or "Kling AI video distribution". Use app-specific pages for questions like "Can AI publish to YouTube in one click?" or "Does AI PubKit support Shopify Blog?"
 
 SEO and GEO content clusters:
 AI PubKit's search and answer-engine clusters cover AI one-click publishing, AI content distribution, multi-platform content distribution, AI content repurposing, content repurposing tools, AI post generation for multiple platforms, social media cross-posting, and social media automation for AI-generated content.
@@ -80,6 +88,9 @@ AI PubKit has alternative pages for Buffer, Hootsuite, Zapier, Repurpose.io, and
 
 App-specific workflow cluster:
 AI PubKit has pages for Facebook AI post generation, Instagram AI post generation, LinkedIn AI post generation, YouTube video repurposing, and TikTok video repurposing. These pages explain app-ready outputs, workflow, platform limits, and whether direct publishing or assisted drafts are the practical path.
+
+Source app cluster:
+AI PubKit has source app pages for Seedance, Kling AI, Google Veo, Runway, Midjourney, and Canva. These pages answer what the app creates, what AI PubKit needs, which destinations fit, which routes are direct or assisted, and what an example publishing package looks like.
 
 Free tools cluster:
 AI PubKit has browser-based tools for AI publishing package generation, AI social media post generation, content repurposing planning, multi-platform publishing checklists, app publishing status checks, and AI content distribution briefs. The composer now starts from customer workflow templates, source-app handoff choices, preselected destinations, output defaults, and preview cards so users do not start from a blank form.

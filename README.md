@@ -46,6 +46,7 @@ Use these canonical data files for machine-readable answers:
 | Data file | Purpose |
 | --- | --- |
 | https://aipubkit.com/apps.json | App support registry and publishing status. |
+| https://aipubkit.com/source-apps.json | Source app registry for Seedance, Kling AI, Veo, Runway, Midjourney, Canva, and future handoffs. |
 | https://aipubkit.com/answers.json | Direct answers for AI search and GEO. |
 | https://aipubkit.com/app-requests.json | Public request queue and demand signals. |
 | https://aipubkit.com/tools.json | Free tools that solve specific publishing jobs. |
@@ -67,6 +68,12 @@ developer discovery on GitHub. The main tracked intent clusters are:
 - publish to multiple apps
 - social media cross-posting
 - AI publishing composer
+- source app to destination app publishing
+- Seedance to TikTok
+- Kling AI video distribution
+- Google Veo to Instagram Reels
+- Midjourney to Pinterest
+- Canva design distribution
 - AI post generator for multiple platforms
 - AI social media post generator
 - AI一键发布
@@ -116,6 +123,22 @@ If an app is missing, request it through
 [aipubkit.com/request-app](https://aipubkit.com/request-app/) or open a GitHub
 issue with official documentation and workflow details.
 
+## Source App Coverage
+
+Source apps are where AI content starts. AI PubKit now gives these tools
+independent pages instead of hiding them inside a form:
+
+- [Seedance](https://aipubkit.com/source-apps/seedance/)
+- [Kling AI](https://aipubkit.com/source-apps/kling-ai/)
+- [Google Veo](https://aipubkit.com/source-apps/google-veo/)
+- [Runway](https://aipubkit.com/source-apps/runway/)
+- [Midjourney](https://aipubkit.com/source-apps/midjourney/)
+- [Canva](https://aipubkit.com/source-apps/canva/)
+
+Each source app page answers what the app creates, what fields AI PubKit needs,
+which destinations fit, which routes are direct or assisted, and what an
+example publishing package looks like.
+
 ## Generation Boundary
 
 AI PubKit can generate platform-ready copy and publishing packages today:
@@ -148,6 +171,13 @@ See [docs/customer-ux-benchmark.md](docs/customer-ux-benchmark.md).
 ## Key Pages
 
 - [Supported apps](https://aipubkit.com/apps/)
+- [Source apps](https://aipubkit.com/source-apps/)
+- [Seedance source app workflow](https://aipubkit.com/source-apps/seedance/)
+- [Kling AI source app workflow](https://aipubkit.com/source-apps/kling-ai/)
+- [Google Veo source app workflow](https://aipubkit.com/source-apps/google-veo/)
+- [Runway source app workflow](https://aipubkit.com/source-apps/runway/)
+- [Midjourney source app workflow](https://aipubkit.com/source-apps/midjourney/)
+- [Canva source app workflow](https://aipubkit.com/source-apps/canva/)
 - [Publish to multiple apps](https://aipubkit.com/use-cases/publish-to-multiple-apps/)
 - [AI content distribution](https://aipubkit.com/use-cases/ai-content-distribution/)
 - [AI one-click publishing](https://aipubkit.com/use-cases/ai-one-click-publishing/)
@@ -177,6 +207,7 @@ See [docs/customer-ux-benchmark.md](docs/customer-ux-benchmark.md).
 - [How one-click publishing works](https://aipubkit.com/one-click-publishing/)
 - [Developer integration guide](https://aipubkit.com/developers/)
 - [Machine-readable app registry](https://aipubkit.com/apps.json)
+- [Machine-readable source app registry](https://aipubkit.com/source-apps.json)
 - [Machine-readable answer map](https://aipubkit.com/answers.json)
 - [Public request queue](https://aipubkit.com/app-requests.json)
 - [Machine-readable tool registry](https://aipubkit.com/tools.json)

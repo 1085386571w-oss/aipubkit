@@ -1,52 +1,56 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { appSlug, connectorCount, topConnectors } from "../data/apps";
-import { appUseCases } from "../data/appUseCases";
-import { comparisons } from "../data/comparisons";
-import { tools } from "../data/tools";
+import { sourceApps } from "../data/sourceApps";
 
-const title = "AI PubKit - One-click AI publishing and content distribution";
+const title = "AI PubKit - One-click AI publishing workspace";
 const description =
-  "AI PubKit turns one AI-generated source into platform-ready posts, videos, articles, and drafts for global publishing apps.";
+  "Upload or paste AI-generated content, choose source apps and destination platforms, then generate a multi-platform publishing package.";
 const alternates = [
   { hrefLang: "en", path: "/" },
   { hrefLang: "zh-CN", path: "/zh/" },
   { hrefLang: "x-default", path: "/" },
 ];
+const consoleSources = sourceApps.slice(0, 6);
+const consoleDestinations = topConnectors.slice(0, 10);
+const featuredDestinations = topConnectors.slice(0, 8);
+const samplePackage = JSON.stringify(
+  {
+    sourceApp: "Seedance",
+    asset: "12-second AI video",
+    destinations: ["TikTok", "YouTube Shorts", "Instagram Reels"],
+    outputs: ["caption", "title", "hashtags", "cover text", "review checklist"],
+    route: "direct where available, assisted where account review is required",
+  },
+  null,
+  2,
+);
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: [
     {
       "@type": "Question",
-      name: "Can AI publish content to multiple apps in one click?",
+      name: "What problem does AI PubKit solve?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. AI PubKit is designed for one-click AI publishing across multiple app destinations. Some apps support direct publishing, while others require assisted drafts or account approval.",
+        text: "AI PubKit turns one AI-generated source from tools such as Seedance, Kling AI, Veo, Runway, Midjourney, or Canva into platform-ready publishing packages for multiple destination apps.",
       },
     },
     {
       "@type": "Question",
-      name: "Is AI PubKit only for China-market apps?",
+      name: "Can users choose publishing platforms?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. AI PubKit is built for global apps such as YouTube, TikTok, Instagram, Facebook Pages, X, LinkedIn, Threads, Pinterest, Reddit, WordPress, Medium, Bluesky, Mastodon, Webflow CMS, Telegram, Discord, and Slack, while also tracking China-market platforms.",
+        text: "Yes. Users can choose destination platforms such as TikTok, YouTube, Instagram, Pinterest, LinkedIn, Facebook Pages, WordPress, and regional apps before generating the publishing package.",
       },
     },
     {
       "@type": "Question",
-      name: "Can AI PubKit generate images, videos, or copy?",
+      name: "Can AI PubKit publish directly to every app?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "AI PubKit can generate platform-ready copy and publishing packages. For images and videos, the first product path is to accept generated assets from AI image or video tools, then create captions, titles, descriptions, cover text, alt text, hashtags, and publishing checks around those assets.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Can users request new publishing apps?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. Users can request a new app destination, share API documentation, volunteer to test, or sponsor publishing support.",
+        text: "No. AI PubKit separates direct paths from assisted paths. Some destinations support direct publishing, while others need account approval, review, or manual draft handling.",
       },
     },
   ],
@@ -54,533 +58,186 @@ const faqSchema = {
 ---
 
 <BaseLayout title={title} description={description} schema={faqSchema} alternates={alternates}>
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-copy">
-        <p class="eyebrow">AI publishing workflow</p>
-        <h1>Turn one AI source into publish-ready content for every app.</h1>
-        <p class="lead">
-          AI PubKit helps creators, agencies, and product teams repurpose one
-          idea into platform-specific posts, captions, video metadata, articles,
-          community updates, and review-ready drafts.
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="/tools/ai-publishing-composer/">
-            Generate publishing package
-          </a>
-          <a class="button secondary" href="/apps/">Check app support</a>
-          <a class="button secondary" href="/use-cases/publish-to-multiple-apps/">
-            Publish to multiple apps
-          </a>
-          <a class="button secondary" href="/developers/">Connect your AI app</a>
-          <a class="button secondary" href="/request-app/">Request an app</a>
-        </div>
-        <div class="job-strip" aria-label="Customer jobs">
-          <span>Generate copy and package</span>
-          <span>Adapt by app</span>
-          <span>Check publishing path</span>
-          <span>Publish or stage for review</span>
-        </div>
-        <div class="hero-finder" aria-label="Popular publishing apps">
-          <div class="finder-label">Popular publishing destinations</div>
-          <div class="quick-apps">
-            {topConnectors.slice(0, 10).map((connector) => (
-              <a href={`/apps/${appSlug(connector.name)}/`}>
-                {connector.name}
-              </a>
-            ))}
+  <section class="console-hero">
+    <div class="console-shell">
+      <aside class="console-sidebar" aria-label="Product navigation">
+        <strong>AI PubKit</strong>
+        <a class="active" href="/">Content library</a>
+        <a href="/tools/ai-publishing-composer/">AI publish</a>
+        <a href="/apps/">Publish</a>
+        <a href="/source-apps/">AI assets</a>
+        <a href="/request-app/">Task history</a>
+      </aside>
+
+      <div class="console-main">
+        <div class="console-topbar">
+          <div>
+            <strong>Workspace</strong>
+            <span>Default</span>
+          </div>
+          <div class="console-actions">
+            <a href="/answers.json">Data</a>
+            <a href="/request-app/">New</a>
           </div>
         </div>
-        <div class="metric-row">
-          <div class="metric"><strong>{connectorCount}+</strong> apps mapped</div>
-          <div class="metric"><strong>Direct</strong> and assisted paths</div>
-          <div class="metric"><strong>Open</strong> GitHub registry</div>
-          <div class="metric"><strong>Request</strong> any missing app</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">Customer problem</p>
-        <h2>The hard part is not writing one post. It is finishing every version.</h2>
-      </div>
-      <p>
-        Teams already use AI to draft ideas. The repeated work comes after:
-        resizing the message, rewriting for each audience, checking platform
-        limits, preparing metadata, and moving the final content into the right
-        app without losing review control.
-      </p>
-    </div>
-    <div class="grid four">
-      <article class="card">
-        <h3>One idea becomes many assets</h3>
-        <p>
-          Convert a brief, launch note, article, transcript, or script into
-          channel-specific outputs.
-        </p>
-      </article>
-      <article class="card">
-        <h3>Every app gets its own format</h3>
-        <p>
-          Prepare captions, hooks, hashtags, titles, descriptions, tags,
-          article fields, and community copy.
-        </p>
-      </article>
-      <article class="card">
-        <h3>Publishing rules stay visible</h3>
-        <p>
-          See whether a destination is direct, assisted, or still researching
-          before promising one-click publishing.
-        </p>
-      </article>
-      <article class="card">
-        <h3>Missing apps have a path</h3>
-        <p>
-          Let customers request destinations, share official API docs, and turn
-          demand into the roadmap.
-        </p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">Generation boundary</p>
-        <h2>Generate the publishing layer, connect the media layer.</h2>
-      </div>
-      <p>
-        Customers may start with a blank idea, an AI image, a short video, a
-        transcript, or a product update. AI PubKit should make that source
-        ready for publishing, while keeping image and video generation
-        integrations open instead of trying to replace every model.
-      </p>
-    </div>
-    <div class="grid three">
-      <article class="card">
-        <h3>Copy generation now</h3>
-        <p>
-          Generate captions, hooks, titles, descriptions, hashtags, calls to
-          action, CMS draft notes, and platform-specific review checks.
-        </p>
-      </article>
-      <article class="card">
-        <h3>Image and video handoff</h3>
-        <p>
-          Accept generated media URLs, prompts, cover images, thumbnails, and
-          asset context, then create the publishing package around them.
-        </p>
-      </article>
-      <article class="card">
-        <h3>Model integrations later</h3>
-        <p>
-          Add image or video model APIs after the publishing workflow is clear:
-          source asset, destination outputs, review state, and route to each app.
-        </p>
-      </article>
-    </div>
-    <div class="actions">
-      <a class="button dark" href="/tools/ai-publishing-composer/">
-        Open publishing composer
-      </a>
-      <a class="button light" href="/developers/">
-        Connect a source app
-      </a>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">Workflow</p>
-        <h2>Built around the publishing job customers actually repeat.</h2>
-      </div>
-      <p>
-        Market-leading social and repurposing tools center the page on create,
-        schedule, publish, analyze, and reuse. AI PubKit narrows that into an
-        AI-first publishing workflow with app capability data built in.
-      </p>
-    </div>
-    <div class="steps workflow-steps">
-      <article class="step">
-        <h3>Start with one source</h3>
-        <p>
-          Use an AI draft, product update, blog post, transcript, campaign
-          brief, or video script as the source.
-        </p>
-      </article>
-      <article class="step">
-        <h3>Select destinations</h3>
-        <p>
-          Choose social, video, community, CMS, newsletter, messaging, or
-          regional apps from the open registry.
-        </p>
-      </article>
-      <article class="step">
-        <h3>Create app-ready outputs</h3>
-        <p>
-          Generate platform-specific copy, metadata, formatting notes, media
-          requirements, and review checklists.
-        </p>
-      </article>
-      <article class="step">
-        <h3>Route by publishing status</h3>
-        <p>
-          Publish directly where stable paths exist, or create assisted drafts
-          when approval, account setup, or human review is needed.
-        </p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">Developer handoff</p>
-        <h2>AI image, video, writing, and design apps need a clean publishing handoff.</h2>
-      </div>
-      <p>
-        A source app should not need to understand every social, video, CMS, or
-        community API on day one. It can start by sending a structured content
-        package and checking destination status.
-      </p>
-    </div>
-    <div class="grid three">
-      <article class="card">
-        <h3>Generated asset</h3>
-        <p>
-          Your app creates an image, video, script, article, prompt, or campaign
-          draft and prepares media URLs plus context.
-        </p>
-      </article>
-      <article class="card">
-        <h3>Content package</h3>
-        <p>
-          AI PubKit defines a simple JSON shape for source app, asset, caption,
-          prompt, destination, and requested output details.
-        </p>
-        <div class="actions">
-          <a class="button light" href="/content-package.schema.json">
-            View schema
-          </a>
-        </div>
-      </article>
-      <article class="card">
-        <h3>Publishing workflow</h3>
-        <p>
-          AI PubKit checks destination support and prepares direct publishing
-          paths or assisted drafts based on platform rules.
-        </p>
-        <div class="actions">
-          <a class="button light" href="/developers/">
-            Developer guide
-          </a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">Free tools</p>
-        <h2>Give visitors a useful output before they sign up or request an app.</h2>
-      </div>
-      <p>
-        The homepage should not only explain the idea. It should let a creator,
-        founder, marketer, or agency quickly produce something they can use.
-      </p>
-    </div>
-    <div class="grid three">
-      {tools.map((tool) => (
-        <article class="card">
-          <h3>{tool.name}</h3>
-          <p>{tool.description}</p>
-          <div class="actions">
-            <a class="button light" href={`/tools/${tool.slug}/`}>
-              Open tool
-            </a>
+        <div class="composer-card">
+          <div class="upload-tile">
+            <span>+</span>
           </div>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">Popular destinations</p>
-        <h2>Start with global platforms, keep regional demand open.</h2>
-      </div>
-      <a class="button light" href="/apps/">View all apps</a>
-    </div>
-    <div class="grid three">
-      {topConnectors.map((connector) => (
-        <article class="connector" id={appSlug(connector.name)}>
-          <div class="connector-top">
-            <div>
-              <h3>{connector.name}</h3>
-              <p>{connector.category} · {connector.region}</p>
+          <div class="composer-body">
+            <div class="composer-head">
+              <div>
+                <p class="eyebrow">One-click operation</p>
+                <h1>Upload content, choose platforms, generate a publishing package.</h1>
+              </div>
+              <a class="button dark" href="/tools/ai-publishing-composer/">Generate</a>
             </div>
-            <span class={`status ${connector.status.toLowerCase().replace(" ", "-")}`}>
-              {connector.status}
-            </span>
+
+            <div class="control-strip">
+              <a class="pill-control" href="/tools/ai-publishing-composer/">Generate draft</a>
+              <details class="picker-control">
+                <summary>{consoleDestinations.length} platforms</summary>
+                <div class="picker-menu" aria-label="Destination platforms">
+                  {consoleDestinations.map((connector) => (
+                    <a href={`/apps/${appSlug(connector.name)}/`}>
+                      <span class="check-dot">✓</span>
+                      <span>{connector.name}</span>
+                    </a>
+                  ))}
+                </div>
+              </details>
+              <details class="picker-control source-picker">
+                <summary>Source app</summary>
+                <div class="picker-menu" aria-label="Source apps">
+                  {consoleSources.map((app) => (
+                    <a href={`/source-apps/${app.slug}/`}>
+                      <span class="check-dot">✓</span>
+                      <span>{app.name}</span>
+                    </a>
+                  ))}
+                </div>
+              </details>
+              <span class="pill-control">Seedance 2.0</span>
+              <span class="pill-control">9:16</span>
+              <span class="pill-control">8s</span>
+              <a class="pill-control highlight" href="/tools/ai-publishing-composer/">Requirements</a>
+            </div>
+
+            <label class="prompt-row">
+              <span>Prompt</span>
+              <input
+                type="text"
+                value="Publish this AI video to TikTok, YouTube Shorts, Instagram Reels, and LinkedIn."
+                aria-label="Publishing prompt"
+                readonly
+              />
+            </label>
           </div>
-          <div class="tag-row">
-            {connector.content.map((item) => <span class="tag">{item}</span>)}
+        </div>
+
+        <div class="library-card">
+          <div class="library-tabs">
+            <span class="active">All <b>1</b></span>
+            <span>Drafts</span>
+            <span>Video</span>
+            <span>Images</span>
           </div>
-          <p>{connector.notes}</p>
-          <div class="actions">
-            <a class="button light" href={`/apps/${appSlug(connector.name)}/`}>
-              View publishing page
-            </a>
+          <div class="library-actions">
+            <a href="/tools/ai-publishing-composer/">Batch move</a>
+            <a href="/request-app/">Request app</a>
+            <a href="/source-apps.json">Generation record</a>
           </div>
-        </article>
-      ))}
+          <article class="content-preview">
+            <div class="preview-art">
+              <span>AI</span>
+              <strong>Seedance campaign video</strong>
+              <small>TikTok · YouTube · Instagram · LinkedIn</small>
+            </div>
+            <div>
+              <h2>Short video launch package</h2>
+              <p>
+                A generated media asset becomes captions, titles, descriptions,
+                tags, cover text, alt text, and review checks for each selected platform.
+              </p>
+              <div class="tag-row surface-tags">
+                <span class="tag">Seedance</span>
+                <span class="tag">AI video</span>
+                <span class="tag">10 platforms</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section compact-section">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Demand-led roadmap</p>
-        <h2>Customers can ask for the apps that matter to their market.</h2>
+        <p class="eyebrow">Source apps</p>
+        <h2>Independent pages for the tools customers search first.</h2>
       </div>
-      <p>
-        A fixed app list becomes stale. The product should grow from real demand:
-        global platforms, China-market platforms, regional apps, CMS systems,
-        newsletters, communities, and internal team channels.
-      </p>
+      <a class="button light" href="/source-apps/">View source apps</a>
     </div>
-    <div class="split">
-      <div class="notice">
-        <h3>Request a missing app</h3>
-        <p>
-          Users can request a publishing destination, link official API docs,
-          describe the content they need to publish, and share whether direct
-          publishing or draft creation is enough.
-        </p>
-        <div class="actions">
-          <a class="button dark" href="/request-app/">Request app support</a>
-        </div>
-      </div>
-      <div class="notice">
-        <h3>Use GitHub as the public registry</h3>
-        <p>
-          The open-source repo turns app support into a public contribution
-          surface: issues, source policy, roadmap, data files, and support
-          status that search engines and AI assistants can cite.
-        </p>
-        <div class="actions">
-          <a
-            class="button dark"
-            href="https://github.com/1085386571w-oss/aipubkit"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Open GitHub registry
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">SEO use cases</p>
-        <h2>Answer the workflows people already search for.</h2>
-      </div>
-      <p>
-        These pages target practical search and AI assistant questions around
-        AI content distribution, content repurposing, cross-posting, and social
-        media automation.
-      </p>
-    </div>
-    <div class="grid two">
-      <article class="card">
-        <h3>AI content distribution</h3>
-        <p>
-          Turn one AI-generated source into app-ready content for global social,
-          video, community, and CMS destinations.
-        </p>
-        <div class="actions">
-          <a class="button light" href="/use-cases/ai-content-distribution/">
-            View workflow
-          </a>
-        </div>
-      </article>
-      <article class="card">
-        <h3>AI one-click publishing</h3>
-        <p>
-          Take one AI source, adapt it for selected apps, then publish directly
-          or create assisted drafts based on platform status.
-        </p>
-        <div class="actions">
-          <a class="button light" href="/use-cases/ai-one-click-publishing/">
-            View workflow
-          </a>
-        </div>
-      </article>
-      <article class="card">
-        <h3>Multi-platform content distribution</h3>
-        <p>
-          Distribute one source across social, video, CMS, community,
-          newsletter, messaging, and regional app channels.
-        </p>
-        <div class="actions">
-          <a class="button light" href="/use-cases/multi-platform-content-distribution/">
-            View workflow
-          </a>
-        </div>
-      </article>
-      <article class="card">
-        <h3>AI content repurposing</h3>
-        <p>
-          Convert articles, transcripts, product notes, and launch briefs into
-          app-ready publishing assets.
-        </p>
-        <div class="actions">
-          <a class="button light" href="/use-cases/ai-content-repurposing/">
-            View workflow
-          </a>
-        </div>
-      </article>
-      <article class="card">
-        <h3>AI post generator for multiple platforms</h3>
-        <p>
-          Generate platform-specific social posts, hooks, captions, hashtags,
-          media notes, and review checklists from one idea.
-        </p>
-        <div class="actions">
-          <a class="button light" href="/use-cases/ai-post-generator-for-multiple-platforms/">
-            View workflow
-          </a>
-        </div>
-      </article>
-      <article class="card">
-        <h3>Content repurposing tool</h3>
-        <p>
-          Repurpose articles, scripts, transcripts, and launch notes into
-          posts, captions, metadata, messages, and drafts.
-        </p>
-        <div class="actions">
-          <a class="button light" href="/use-cases/content-repurposing-tool/">
-            View workflow
-          </a>
-        </div>
-      </article>
-      <article class="card">
-        <h3>Social media cross-posting</h3>
-        <p>
-          Prepare one source for multiple social apps without sending the exact
-          same copy everywhere.
-        </p>
-        <div class="actions">
-          <a class="button light" href="/use-cases/social-media-cross-posting/">
-            View workflow
-          </a>
-        </div>
-      </article>
-      <article class="card">
-        <h3>Social media automation tool</h3>
-        <p>
-          Automate AI publishing preparation while keeping review, approval, and
-          platform limits visible.
-        </p>
-        <div class="actions">
-          <a class="button light" href="/use-cases/social-media-automation-tool/">
-            View workflow
-          </a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">Alternatives</p>
-        <h2>Compare AI PubKit with broader social and automation tools.</h2>
-      </div>
-      <p>
-        These comparison pages help buyers decide whether they need a mature
-        social management platform, a general automation tool, or a focused
-        AI publishing workflow.
-      </p>
-    </div>
-    <div class="grid three">
-      {comparisons.map((comparison) => (
-        <article class="card">
-          <h3>{comparison.competitor} alternative</h3>
-          <p>{comparison.description}</p>
-          <div class="actions">
-            <a class="button light" href={`/compare/${comparison.slug}/`}>
-              Compare
-            </a>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">App-specific workflows</p>
-        <h2>Turn long-tail search into practical publishing pages.</h2>
-      </div>
-      <p>
-        These app pages answer specific questions such as Facebook AI post
-        generation, LinkedIn B2B posts, and repurposing video content for
-        YouTube or TikTok.
-      </p>
-    </div>
-    <div class="grid three">
-      {appUseCases.map((useCase) => (
-        <article class="card">
-          <h3>{useCase.keyword}</h3>
-          <p>{useCase.description}</p>
-          <div class="actions">
-            <a
-              class="button light"
-              href={`/apps/${appSlug(useCase.appName)}/${useCase.useCaseSlug}/`}
-            >
-              View workflow
-            </a>
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="callout">
-    <div class="section">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Single purpose</p>
-          <h2>AI PubKit is for one-click publishing, not mixed automation.</h2>
-        </div>
-        <p>
-          The product stays focused on one job: take AI-generated content and
-          move it toward the apps where it needs to be published.
-        </p>
-      </div>
-      <div class="actions">
-        <a class="button primary" href="/one-click-publishing/">See how it works</a>
-        <a class="button secondary" href="/request-app/">Request an app</a>
-        <a
-          class="button secondary"
-          href="https://github.com/1085386571w-oss/aipubkit"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Open GitHub registry
+    <div class="source-card-grid">
+      {sourceApps.map((app) => (
+        <a class="source-card" href={`/source-apps/${app.slug}/`}>
+          <span>{app.category} · {app.region}</span>
+          <strong>{app.name}</strong>
+          <p>{app.description}</p>
         </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="handoff-board">
+      <div>
+        <p class="eyebrow">How it works</p>
+        <h2>One simple handoff instead of many manual uploads.</h2>
+        <div class="mini-table" role="table" aria-label="AI PubKit publishing workflow">
+          <div role="row">
+            <strong role="cell">Input</strong>
+            <span role="cell">Media URL, prompt, context, audience, rights notes</span>
+          </div>
+          <div role="row">
+            <strong role="cell">Output</strong>
+            <span role="cell">Platform copy, metadata, hashtags, alt text, cover text</span>
+          </div>
+          <div role="row">
+            <strong role="cell">Route</strong>
+            <span role="cell">Direct publishing where stable, assisted draft where review is needed</span>
+          </div>
+        </div>
       </div>
+      <div class="package-panel">
+        <div class="panel-header">
+          <strong>Example publishing package</strong>
+          <span>JSON handoff</span>
+        </div>
+        <pre><code>{samplePackage}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Destinations</p>
+        <h2>Click to choose where the content should go.</h2>
+      </div>
+      <a class="button light" href="/apps/">All destinations</a>
+    </div>
+    <div class="destination-strip">
+      {featuredDestinations.map((connector) => (
+        <a href={`/apps/${appSlug(connector.name)}/`}>
+          <strong>{connector.name}</strong>
+          <span class={`status ${connector.status.toLowerCase().replaceAll(" ", "-")}`}>
+            {connector.status}
+          </span>
+        </a>
+      ))}
     </div>
   </section>
 </BaseLayout>
