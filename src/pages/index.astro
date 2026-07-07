@@ -35,6 +35,7 @@ const featuredDestinations = selectedDestinations.slice(0, 12);
 const destinationGroups = [
   {
     label: "Global social",
+    description: "Short video, social posts, visual discovery, and community reach.",
     names: [
       "YouTube",
       "TikTok",
@@ -50,6 +51,7 @@ const destinationGroups = [
   },
   {
     label: "Commerce",
+    description: "Store blogs, marketplace listings, product copy, and shop content.",
     names: [
       "Shopify Blog",
       "Amazon Seller Central",
@@ -63,6 +65,7 @@ const destinationGroups = [
   },
   {
     label: "China",
+    description: "China social, short video, private-domain, Q&A, and commerce channels.",
     names: [
       "Xiaohongshu",
       "Douyin",
@@ -76,6 +79,7 @@ const destinationGroups = [
   },
   {
     label: "Community & CMS",
+    description: "Articles, newsletters, local updates, team channels, and broadcasts.",
     names: [
       "WordPress",
       "Notion",
@@ -110,6 +114,11 @@ const platformMarks: Record<string, string> = {
   "Shopify Blog": "SH",
   Xiaohongshu: "RED",
   Douyin: "DY",
+};
+const statusLabel = {
+  "Live path": "Direct",
+  Assisted: "Assisted",
+  Researching: "Research",
 };
 const samplePackage = JSON.stringify(
   {
@@ -202,19 +211,43 @@ const faqSchema = {
                 ))}
               </span>
               <details class="picker-control destination-picker">
-                <summary>{connectorCount} destinations</summary>
-                <div class="picker-menu destination-menu" aria-label="Destination platforms">
-                  {destinationGroups.map((group) => (
-                    <section class="picker-group">
-                      <strong>{group.label}</strong>
-                      {group.items.map((connector) => (
-                        <a href={`/apps/${appSlug(connector.name)}/`}>
-                          <span class="check-dot">✓</span>
-                          <span>{connector.name}</span>
-                        </a>
-                      ))}
-                    </section>
-                  ))}
+                <summary>
+                  <span>{connectorCount} destinations</span>
+                  <small>social · commerce · China</small>
+                </summary>
+                <div class="destination-panel" aria-label="Destination platforms">
+                  <div class="destination-panel-head">
+                    <div>
+                      <strong>Choose publishing destinations</strong>
+                      <p>Pick a category first, then open any app page to check direct, assisted, or research status.</p>
+                    </div>
+                    <div class="destination-panel-actions">
+                      <a href="/apps/">All apps</a>
+                      <a href="/request-app/">Request app</a>
+                    </div>
+                  </div>
+                  <div class="destination-panel-grid">
+                    {destinationGroups.map((group) => (
+                      <section class="destination-group-card">
+                        <header>
+                          <strong>{group.label}</strong>
+                          <span>{group.items.length}</span>
+                        </header>
+                        <p>{group.description}</p>
+                        <div class="destination-chip-grid">
+                          {group.items.map((connector) => (
+                            <a href={`/apps/${appSlug(connector.name)}/`}>
+                              <span>
+                                <i class={`status-dot ${connector.status.toLowerCase().replaceAll(" ", "-")}`}></i>
+                                {connector.name}
+                              </span>
+                              <small>{statusLabel[connector.status]}</small>
+                            </a>
+                          ))}
+                        </div>
+                      </section>
+                    ))}
+                  </div>
                 </div>
               </details>
               <details class="picker-control source-picker">

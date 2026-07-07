@@ -35,6 +35,7 @@ const featuredDestinations = selectedDestinations.slice(0, 12);
 const destinationGroups = [
   {
     label: "国际社媒",
+    description: "短视频、社交图文、视觉种草和社区传播。",
     names: [
       "YouTube",
       "TikTok",
@@ -50,6 +51,7 @@ const destinationGroups = [
   },
   {
     label: "电商平台",
+    description: "店铺博客、商品 Listing、产品文案和商城活动。",
     names: [
       "Shopify Blog",
       "Amazon Seller Central",
@@ -63,6 +65,7 @@ const destinationGroups = [
   },
   {
     label: "中国平台",
+    description: "中国社媒、短视频、私域、问答和内容电商。",
     names: [
       "Xiaohongshu",
       "Douyin",
@@ -76,6 +79,7 @@ const destinationGroups = [
   },
   {
     label: "社区/CMS",
+    description: "文章、Newsletter、本地商家动态、团队频道和社群广播。",
     names: [
       "WordPress",
       "Notion",
@@ -207,19 +211,43 @@ const faqSchema = {
                 ))}
               </span>
               <details class="picker-control destination-picker">
-                <summary>{connectorCount} 个目标平台</summary>
-                <div class="picker-menu destination-menu" aria-label="目标平台">
-                  {destinationGroups.map((group) => (
-                    <section class="picker-group">
-                      <strong>{group.label}</strong>
-                      {group.items.map((connector) => (
-                        <a href={`/apps/${appSlug(connector.name)}/`}>
-                          <span class="check-dot">✓</span>
-                          <span>{connector.name}</span>
-                        </a>
-                      ))}
-                    </section>
-                  ))}
+                <summary>
+                  <span>{connectorCount} 个目标平台</span>
+                  <small>社媒 · 电商 · 中国</small>
+                </summary>
+                <div class="destination-panel" aria-label="目标平台">
+                  <div class="destination-panel-head">
+                    <div>
+                      <strong>选择要发布的平台</strong>
+                      <p>先按类型找平台，再进入平台页查看可直发、需辅助或待验证状态。</p>
+                    </div>
+                    <div class="destination-panel-actions">
+                      <a href="/apps/">全部平台</a>
+                      <a href="/request-app/">申请接入</a>
+                    </div>
+                  </div>
+                  <div class="destination-panel-grid">
+                    {destinationGroups.map((group) => (
+                      <section class="destination-group-card">
+                        <header>
+                          <strong>{group.label}</strong>
+                          <span>{group.items.length}</span>
+                        </header>
+                        <p>{group.description}</p>
+                        <div class="destination-chip-grid">
+                          {group.items.map((connector) => (
+                            <a href={`/apps/${appSlug(connector.name)}/`}>
+                              <span>
+                                <i class={`status-dot ${connector.status.toLowerCase().replaceAll(" ", "-")}`}></i>
+                                {connector.name}
+                              </span>
+                              <small>{statusLabels[connector.status]}</small>
+                            </a>
+                          ))}
+                        </div>
+                      </section>
+                    ))}
+                  </div>
                 </div>
               </details>
               <details class="picker-control source-picker">
