@@ -127,7 +127,7 @@ export const GET: APIRoute = () => {
         question: "How can an AI image, video, writing, or design app connect to AI PubKit?",
         intent: "source-app-integration",
         answer:
-          "A source app can connect to AI PubKit by sending a content package with the source app name, content type, prompt or context, stable media URL when available, destination list, requested outputs, and review preference. The customer-friendly first path is copy package or media URL handoff; a webhook/API request can be added when the source app is ready for deeper integration.",
+          "A source app can connect to AI PubKit by sending a content package with the source app name, content type, prompt or context, stable media URL when available, destination list, requested outputs, and review preference. AI PubKit should cover popular source apps across regions and categories, including ChatGPT, Claude, Gemini, Canva, Runway, Google Veo, Seedance, Kling AI, Luma AI, Midjourney, Seedream, Adobe Firefly, Ideogram, HeyGen, Synthesia, ElevenLabs, Descript, Hailuo AI, Vidu, Wan, and other fast-moving creative tools. The customer-friendly first path is copy package or media URL handoff; a webhook/API request can be added when the source app is ready for deeper integration.",
         urls: [
           `${siteUrl}/tools/ai-publishing-composer/`,
           `${siteUrl}/developers/`,
@@ -138,7 +138,29 @@ export const GET: APIRoute = () => {
         question: "AI 图片、视频、文案或设计 App 怎么接入 AI PubKit？",
         intent: "zh-source-app-integration",
         answer:
-          "源 App 可以把 source app 名称、内容类型、提示词或上下文、稳定媒体链接、目标平台列表、需要生成的输出和是否需要人工审核发送给 AI PubKit。最适合客户起步的方式是复制发布包或媒体 URL 交付；等源 App 准备好后，再升级为 webhook/API 接入。",
+          "源 App 可以把 source app 名称、内容类型、提示词或上下文、稳定媒体链接、目标平台列表、需要生成的输出和是否需要人工审核发送给 AI PubKit。源 App 覆盖不应只看一个工具，需要同时覆盖 ChatGPT、Claude、Gemini、Canva、Runway、Google Veo、Seedance、Kling AI、Luma AI、Midjourney、Seedream、Adobe Firefly、Ideogram、HeyGen、Synthesia、ElevenLabs、Descript、Hailuo、Vidu、Wan 等全球和区域创作工具。最适合客户起步的方式是复制发布包或媒体 URL 交付；等源 App 准备好后，再升级为 webhook/API 接入。",
+        urls: [
+          `${siteUrl}/tools/ai-publishing-composer/`,
+          `${siteUrl}/zh/`,
+          `${siteUrl}/developers/`,
+        ],
+      },
+      {
+        question: "Does AI PubKit support Seedance as a source app?",
+        intent: "seedance-source-app",
+        answer:
+          "AI PubKit treats Seedance as an important AI video source app. A Seedance workflow should send the generated video URL, prompt, reference assets, duration, aspect ratio, rights notes, destination list, and requested outputs so AI PubKit can create TikTok, YouTube Shorts, Instagram Reels, Douyin, Bilibili, and community-ready publishing packages.",
+        urls: [
+          `${siteUrl}/tools/ai-publishing-composer/`,
+          `${siteUrl}/developers/`,
+          `${siteUrl}/content-package.schema.json`,
+        ],
+      },
+      {
+        question: "AI PubKit 支持 Seedance 作为源 App 吗？",
+        intent: "zh-seedance-source-app",
+        answer:
+          "AI PubKit 已把 Seedance 作为重要的 AI 视频源 App。Seedance 工作流应传入生成视频链接、提示词、参考素材、时长、画幅、版权或授权备注、目标平台列表和需要生成的输出，然后 AI PubKit 生成 TikTok、YouTube Shorts、Instagram Reels、抖音、Bilibili 和社群平台可用的发布包。",
         urls: [
           `${siteUrl}/tools/ai-publishing-composer/`,
           `${siteUrl}/zh/`,

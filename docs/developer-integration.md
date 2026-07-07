@@ -63,11 +63,28 @@ Minimum package fields:
 
 | Source app type | What AI PubKit needs | Customer result |
 | --- | --- | --- |
-| Writing app | title, prompt, draft, campaign, audience, destination list | platform-specific posts, CMS notes, community messages |
+| Writing and research app | title, prompt, draft, campaign, audience, destination list | platform-specific posts, CMS notes, community messages |
 | Design app | image/design URL, visible text, prompt, brand notes, target apps | captions, alt text, cover text, visual review checks |
-| Video app | video URL, transcript, aspect ratio, duration, cover frame notes | TikTok captions, YouTube metadata, Shorts notes, safe-zone checks |
+| Global video app | video URL, transcript, aspect ratio, duration, cover frame notes | TikTok captions, YouTube metadata, Shorts notes, safe-zone checks |
+| China or Asia video app | generated video URL, prompt, reference assets, rights notes, duration, aspect ratio | TikTok, Douyin, Bilibili, Shorts, Reels, and community publishing packages |
 | Audio/transcript app | transcript, audio/video URL, speaker context, summary | article drafts, social posts, YouTube descriptions |
+| Avatar video app | final video URL, script, voice/language notes, disclosure needs | YouTube, LinkedIn, training CMS, newsletter, and community drafts |
 | Media generator | image/video URL, prompt, rights notes, campaign context | publishing copy around the asset and destination checks |
+
+## Source App Coverage To Watch
+
+The source-app list should be reviewed regularly because AI creative tools move
+quickly. Current priority source apps include:
+
+- Writing and research: ChatGPT, Claude, Gemini, Perplexity, Jasper, Copy.ai,
+  Notion AI.
+- Image and design: Canva, Midjourney, Seedream, Adobe Firefly, Ideogram,
+  Leonardo AI, FLUX/Stable Diffusion.
+- Global video: Seedance, Google Veo/Gemini Omni, Runway, Luma AI, Pika.
+- China and Asia video: Seedance, Kling AI, Hailuo AI, Vidu, Wan, CapCut.
+- Avatar, audio, and editing: HeyGen, Synthesia, ElevenLabs, Descript.
+- Legacy or imported media only: Sora, unless an official path is available for
+  the customer account.
 
 ## Generation Boundary
 

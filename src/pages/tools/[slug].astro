@@ -22,7 +22,7 @@ const composerPresets = [
     data: {
       source:
         "A 15-second AI-generated vertical product teaser for a new skincare serum. The brand wants global launch traffic and a polished but energetic message.",
-      source_app: "Runway",
+      source_app: "Seedance",
       source_type: "Video or audio",
       handoff_mode: "Stable media URL",
       media_url: "https://cdn.example.com/serum-launch-video.mp4",
@@ -111,34 +111,87 @@ const composerPresets = [
 ];
 const sourceAppPlaybooks = [
   {
-    name: "ChatGPT or writing app",
+    name: "ChatGPT, Claude, Gemini, or writing app",
+    aliases: ["ChatGPT", "Claude", "Gemini", "Perplexity", "Jasper", "Copy.ai", "Notion AI"],
     content: "Text, script, article, prompt, or product update",
     handoff: "Paste the source or send a content package with title, prompt, caption, and destination list.",
     customerResult: "Platform-specific copy, CMS notes, community messages, and approval checklist.",
   },
   {
-    name: "Canva or design app",
+    name: "Canva, Firefly, Ideogram, or design app",
+    aliases: ["Canva", "Adobe Firefly", "Ideogram", "Leonardo AI"],
     content: "Image, design, carousel, thumbnail, or campaign creative",
     handoff: "Send a stable image/design URL plus prompt, visible text, brand notes, and target apps.",
     customerResult: "Captions, alt text, Pinterest/Instagram notes, cover text, and visual review checks.",
   },
   {
-    name: "Runway, CapCut, or video app",
+    name: "Seedance, Kling, or China/Asia video app",
+    aliases: ["Seedance", "Kling AI", "Hailuo AI", "Vidu", "Wan", "CapCut"],
+    content: "Short video, multimodal clip, generated audio-video scene, or social-ready video",
+    handoff: "Send the video URL, prompt, reference assets, rights notes, duration, aspect ratio, and destination list.",
+    customerResult: "TikTok, YouTube Shorts, Instagram Reels, Bilibili, Douyin, and community publishing packages.",
+  },
+  {
+    name: "Runway, Veo, Luma, Pika, or video app",
+    aliases: ["Runway", "Google Veo / Gemini Omni", "Google Veo", "Gemini Omni", "Luma AI", "Pika"],
     content: "Short video, edited clip, AI video, audio, or transcript",
     handoff: "Send the video URL, source prompt, transcript if available, aspect ratio, duration, and cover frame notes.",
     customerResult: "TikTok caption, YouTube title and description, Shorts metadata, thumbnail text, and safe-zone checks.",
   },
   {
     name: "Descript or audio transcript app",
+    aliases: ["Descript", "ElevenLabs"],
     content: "Podcast clip, webinar transcript, voiceover, captions, or long-form recording",
     handoff: "Send the transcript, audio/video URL when available, speaker context, summary, and destination list.",
     customerResult: "Article drafts, LinkedIn posts, YouTube descriptions, community updates, and review notes.",
   },
   {
-    name: "Midjourney, Pika, or media generator",
+    name: "Midjourney, Seedream, FLUX, or media generator",
+    aliases: ["Midjourney", "Seedream", "FLUX / Stable Diffusion", "Stable Diffusion"],
     content: "Generated image, short video, prompt, seed/context, or campaign concept",
     handoff: "Start with media URL or manual upload, then keep the prompt and rights notes with the package.",
     customerResult: "Publishing copy around the asset without forcing the customer to rewrite every platform version.",
+  },
+  {
+    name: "HeyGen, Synthesia, or avatar app",
+    aliases: ["HeyGen", "Synthesia"],
+    content: "Avatar video, talking-head explainer, training video, voiceover, or multilingual clip",
+    handoff: "Send the final video URL, script, speaker language, disclosure needs, and target platforms.",
+    customerResult: "YouTube, LinkedIn, training CMS, newsletter, and community drafts with review checks.",
+  },
+  {
+    name: "Sora legacy media",
+    aliases: ["Sora legacy media", "Sora"],
+    content: "Previously generated OpenAI Sora media or exported video assets",
+    handoff: "Treat Sora as imported media only unless the official API path is available for the customer account.",
+    customerResult: "A safe publishing package around existing video without promising future direct Sora generation.",
+  },
+];
+const sourceAppClusters = [
+  {
+    category: "Global video",
+    apps: ["Seedance", "Google Veo / Gemini Omni", "Runway", "Luma AI", "Pika", "Sora legacy media"],
+    note: "Use for text-to-video, image-to-video, multimodal clips, and imported AI video assets.",
+  },
+  {
+    category: "China and Asia video",
+    apps: ["Seedance", "Kling AI", "Hailuo AI", "Vidu", "Wan", "CapCut"],
+    note: "Important for creators publishing into TikTok, Douyin, Bilibili, Shorts, Reels, and regional channels.",
+  },
+  {
+    category: "Image and design",
+    apps: ["Midjourney", "Seedream", "Adobe Firefly", "Ideogram", "Leonardo AI", "FLUX / Stable Diffusion", "Canva"],
+    note: "Use for campaign images, product visuals, posters, thumbnails, covers, carousels, and alt text.",
+  },
+  {
+    category: "Writing and research",
+    apps: ["ChatGPT", "Claude", "Gemini", "Perplexity", "Jasper", "Copy.ai", "Notion AI"],
+    note: "Use for posts, scripts, launch notes, articles, summaries, briefs, and source research.",
+  },
+  {
+    category: "Avatar, audio, and editing",
+    apps: ["HeyGen", "Synthesia", "ElevenLabs", "Descript"],
+    note: "Use for voiceovers, avatar explainers, podcasts, transcripts, captions, and training content.",
   },
 ];
 const handoffFlow = [
@@ -344,6 +397,19 @@ const toolData = {
             <h3>{playbook.content}</h3>
             <p>{playbook.handoff}</p>
             <p class="muted">{playbook.customerResult}</p>
+          </article>
+        ))}
+      </div>
+      <div class="source-app-cluster-grid">
+        {sourceAppClusters.map((cluster) => (
+          <article class="source-app-cluster">
+            <h3>{cluster.category}</h3>
+            <div class="surface-tags">
+              {cluster.apps.map((app) => (
+                <span class="tag">{app}</span>
+              ))}
+            </div>
+            <p>{cluster.note}</p>
           </article>
         ))}
       </div>
@@ -617,11 +683,22 @@ const toolData = {
       return [...new Set(tags)].slice(0, 5).join(" ");
     }
 
+    function normalizeForMatch(text) {
+      return String(text)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
+    }
+
     function sourceAppNotes(sourceApp, handoffMode, mediaUrl, sourceType) {
-      const normalized = String(sourceApp).toLowerCase();
+      const normalized = normalizeForMatch(sourceApp);
       const playbook = toolData.sourceAppPlaybooks?.find((item) => {
-        const name = String(item.name).toLowerCase();
-        return name.includes(normalized) || normalized.includes(name.split(" ")[0]);
+        const candidates = [item.name, ...(item.aliases || [])].map(normalizeForMatch);
+        return candidates.some(
+          (candidate) => candidate === normalized ||
+            candidate.includes(normalized) ||
+            normalized.includes(candidate)
+        );
       });
       const base = [
         `Source app: ${sourceApp}`,

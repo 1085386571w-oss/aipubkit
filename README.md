@@ -137,6 +137,9 @@ AI PubKit should reduce customer decisions before it asks for more data:
 - show platform-specific previews
 - make source-app handoff obvious for AI image, video, writing, design, audio,
   and transcript tools
+- cover popular global and regional source apps such as Seedance, Google Veo,
+  Kling AI, Luma, Midjourney, Seedream, Adobe Firefly, ChatGPT, Claude,
+  Gemini, HeyGen, Synthesia, and Descript
 - keep direct, assisted, and researching status visible
 - make review and approval the next action, not an afterthought
 

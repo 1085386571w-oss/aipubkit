@@ -624,6 +624,7 @@ th {
 
 .flow-grid,
 .playbook-grid,
+.source-app-cluster-grid,
 .readiness-grid {
   display: grid;
   gap: 14px;
@@ -636,6 +637,11 @@ th {
 }
 
 .playbook-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 14px;
+}
+
+.source-app-cluster-grid {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
@@ -645,6 +651,7 @@ th {
 
 .flow-card,
 .playbook-card,
+.source-app-cluster,
 .readiness-card {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -676,9 +683,24 @@ th {
 }
 
 .playbook-card p,
+.source-app-cluster p,
 .readiness-card p,
 .flow-card p {
   margin: 0;
+}
+
+.source-app-cluster {
+  align-content: start;
+}
+
+.source-app-cluster .surface-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.source-app-cluster .tag {
+  font-size: 0.8rem;
 }
 
 .readiness-card strong {
@@ -824,6 +846,7 @@ pre {
     .preview-grid,
     .flow-grid,
     .playbook-grid,
+    .source-app-cluster-grid,
     .readiness-grid {
     grid-template-columns: 1fr;
   }

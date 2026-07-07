@@ -20,6 +20,11 @@ site's internal data model.
 - LinkedIn Posts API: https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api
 - X API create post: https://docs.x.com/x-api/posts/create-post
 - WordPress REST API posts: https://developer.wordpress.org/rest-api/reference/posts/
+- ByteDance Seedance: https://seed.bytedance.com/en/seedance
+- Google Gemini API video generation: https://ai.google.dev/gemini-api/docs/video
+- Kling AI: https://kling.ai/
+- Luma AI: https://luma.ai/
+- OpenAI Sora status: https://openai.com/index/sora-2/
 
 ## Patterns Worth Copying
 
@@ -59,6 +64,16 @@ site's internal data model.
    - AI PubKit should tell customers whether a destination is direct, assisted,
      or still researching before it asks them to connect an account.
 
+7. Cover source apps by category and region, not only by one famous tool.
+   - Seedance is important for AI video, especially because of ByteDance and
+     TikTok adjacency, but it is not the only source app customers will use.
+   - AI PubKit should also cover Google Veo/Gemini Omni, Kling AI, Luma, Pika,
+     Runway, Hailuo, Vidu, Wan, Midjourney, Seedream, Adobe Firefly, Ideogram,
+     Leonardo AI, FLUX/Stable Diffusion, ChatGPT, Claude, Gemini, Perplexity,
+     HeyGen, Synthesia, ElevenLabs, Descript, Jasper, Copy.ai, and Notion AI.
+   - Sora should be treated carefully as legacy or imported media unless an
+     official path is available for the customer account.
+
 ## Implemented In This Iteration
 
 - Quick-start workflow templates for short video launches, product updates,
@@ -73,5 +88,11 @@ site's internal data model.
   AI PubKit.
 - Source app playbooks for writing, design, video, transcript, and media
   generator workflows.
+- Source app cluster cards for global video, China/Asia video, image/design,
+  writing/research, and avatar/audio workflows.
+- Seedance was added as a first-class source app, alongside Kling AI, Google
+  Veo/Gemini Omni, Luma AI, Hailuo, Vidu, Wan, Seedream, Adobe Firefly,
+  Ideogram, Leonardo AI, FLUX/Stable Diffusion, Claude, Perplexity, HeyGen,
+  Synthesia, Copy.ai, and Notion AI.
 - Destination readiness cards for YouTube, TikTok, Instagram, LinkedIn, X, and
   WordPress.
