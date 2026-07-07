@@ -22,7 +22,9 @@ const composerPresets = [
     data: {
       source:
         "A 15-second AI-generated vertical product teaser for a new skincare serum. The brand wants global launch traffic and a polished but energetic message.",
+      source_app: "Runway",
       source_type: "Video or audio",
+      handoff_mode: "Stable media URL",
       media_url: "https://cdn.example.com/serum-launch-video.mp4",
       audience: "beauty creators and ecommerce buyers",
       tone: "Promotional",
@@ -44,7 +46,9 @@ const composerPresets = [
     data: {
       source:
         "We are launching a faster AI publishing workflow that turns one source into platform-ready drafts, metadata, and review checks.",
+      source_app: "ChatGPT",
       source_type: "Product update",
+      handoff_mode: "Paste or copy package",
       media_url: "",
       audience: "SaaS founders, marketers, and content teams",
       tone: "Professional",
@@ -65,7 +69,9 @@ const composerPresets = [
     data: {
       source:
         "A 1,500-word article explains how small teams can repurpose one webinar into social posts, a blog article, newsletter notes, and community updates.",
+      source_app: "Descript",
       source_type: "Article or transcript",
+      handoff_mode: "Paste or copy package",
       media_url: "",
       audience: "agency operators and lean marketing teams",
       tone: "Educational",
@@ -86,7 +92,9 @@ const composerPresets = [
     data: {
       source:
         "An AI-generated campaign image shows a new cafe menu board with seasonal drinks, warm lighting, and a limited-time weekend offer.",
+      source_app: "Canva",
       source_type: "Image or design",
+      handoff_mode: "Stable media URL",
       media_url: "https://cdn.example.com/cafe-weekend-offer.jpg",
       audience: "local cafe customers and food creators",
       tone: "Friendly",
@@ -99,6 +107,97 @@ const composerPresets = [
         "Review checklist",
       ],
     },
+  },
+];
+const sourceAppPlaybooks = [
+  {
+    name: "ChatGPT or writing app",
+    content: "Text, script, article, prompt, or product update",
+    handoff: "Paste the source or send a content package with title, prompt, caption, and destination list.",
+    customerResult: "Platform-specific copy, CMS notes, community messages, and approval checklist.",
+  },
+  {
+    name: "Canva or design app",
+    content: "Image, design, carousel, thumbnail, or campaign creative",
+    handoff: "Send a stable image/design URL plus prompt, visible text, brand notes, and target apps.",
+    customerResult: "Captions, alt text, Pinterest/Instagram notes, cover text, and visual review checks.",
+  },
+  {
+    name: "Runway, CapCut, or video app",
+    content: "Short video, edited clip, AI video, audio, or transcript",
+    handoff: "Send the video URL, source prompt, transcript if available, aspect ratio, duration, and cover frame notes.",
+    customerResult: "TikTok caption, YouTube title and description, Shorts metadata, thumbnail text, and safe-zone checks.",
+  },
+  {
+    name: "Descript or audio transcript app",
+    content: "Podcast clip, webinar transcript, voiceover, captions, or long-form recording",
+    handoff: "Send the transcript, audio/video URL when available, speaker context, summary, and destination list.",
+    customerResult: "Article drafts, LinkedIn posts, YouTube descriptions, community updates, and review notes.",
+  },
+  {
+    name: "Midjourney, Pika, or media generator",
+    content: "Generated image, short video, prompt, seed/context, or campaign concept",
+    handoff: "Start with media URL or manual upload, then keep the prompt and rights notes with the package.",
+    customerResult: "Publishing copy around the asset without forcing the customer to rewrite every platform version.",
+  },
+];
+const handoffFlow = [
+  {
+    title: "Source app creates",
+    body: "The customer finishes a text, image, video, audio, design, or transcript in the app they already use.",
+  },
+  {
+    title: "AI PubKit packages",
+    body: "AI PubKit receives context, media URL, prompt, destination choices, and requested outputs.",
+  },
+  {
+    title: "Destination decides",
+    body: "Each app becomes direct publishing, assisted draft, or research status based on official rules and account setup.",
+  },
+];
+const destinationReadiness = [
+  {
+    app: "YouTube",
+    status: "Live path",
+    bestFor: "Video, Shorts, titles, descriptions, tags, privacy checks",
+    customerNeeds: "Google account, YouTube channel, upload scope, media file, and metadata review.",
+    sourceUrl: "https://developers.google.com/youtube/v3/docs/videos/insert",
+  },
+  {
+    app: "TikTok",
+    status: "Assisted",
+    bestFor: "Short video, caption, draft upload, direct post where approved",
+    customerNeeds: "Creator account authorization, app approval, video settings, caption, and draft/direct choice.",
+    sourceUrl: "https://developers.tiktok.com/products/content-posting-api/",
+  },
+  {
+    app: "Instagram",
+    status: "Assisted",
+    bestFor: "Image, carousel, Reels, caption, alt text",
+    customerNeeds: "Professional account, connected Meta setup, media container flow, and publishing limits review.",
+    sourceUrl: "https://developers.facebook.com/documentation/instagram-platform/content-publishing",
+  },
+  {
+    app: "LinkedIn",
+    status: "Live path",
+    bestFor: "B2B posts, images, videos, documents, company updates",
+    customerNeeds: "LinkedIn authorization, member or organization permission, page role, and media upload when needed.",
+    sourceUrl:
+      "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api",
+  },
+  {
+    app: "X",
+    status: "Assisted",
+    bestFor: "Posts, threads, media, AI disclosure fields",
+    customerNeeds: "OAuth user token, API plan check, media upload path, and paid-feature limits review.",
+    sourceUrl: "https://docs.x.com/x-api/posts/create-post",
+  },
+  {
+    app: "WordPress",
+    status: "Live path",
+    bestFor: "Articles, drafts, scheduled posts, excerpts, SEO notes",
+    customerNeeds: "WordPress credentials, post status choice, slug, title, content, excerpt, categories, and image notes.",
+    sourceUrl: "https://developer.wordpress.org/rest-api/reference/posts/",
   },
 ];
 const faqSchema = {
@@ -161,6 +260,8 @@ const webAppSchema = {
 const toolData = {
   toolSlug: tool.slug,
   presets: isComposer ? composerPresets : [],
+  sourceAppPlaybooks: isComposer ? sourceAppPlaybooks : [],
+  destinationReadiness: isComposer ? destinationReadiness : [],
   connectors: connectors.map((connector) => ({
     name: connector.name,
     slug: appSlug(connector.name),
@@ -210,6 +311,71 @@ const toolData = {
             <strong>{preset.label}</strong>
             <span>{preset.description}</span>
           </button>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {isComposer && (
+    <section class="section compact-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Source app handoff</p>
+          <h2>Show customers exactly how their AI app connects.</h2>
+        </div>
+        <p>
+          The simplest customer path is not a full API on day one. It is a clear
+          handoff: source app, content package, destination status, and human
+          review where required.
+        </p>
+      </div>
+      <div class="flow-grid">
+        {handoffFlow.map((item) => (
+          <article class="flow-card">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+      <div class="playbook-grid">
+        {sourceAppPlaybooks.map((playbook) => (
+          <article class="playbook-card">
+            <span class="tag">{playbook.name}</span>
+            <h3>{playbook.content}</h3>
+            <p>{playbook.handoff}</p>
+            <p class="muted">{playbook.customerResult}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {isComposer && (
+    <section class="section compact-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Connection readiness</p>
+          <h2>Do not promise one-click until the destination is ready.</h2>
+        </div>
+        <p>
+          Customers need a plain answer before they connect accounts: what can
+          be published directly, what should become a draft, and what setup is
+          required.
+        </p>
+      </div>
+      <div class="readiness-grid">
+        {destinationReadiness.map((item) => (
+          <article class="readiness-card">
+            <div class="preview-card-top">
+              <h3>{item.app}</h3>
+              <span class={`status ${item.status.toLowerCase().replaceAll(" ", "-")}`}>
+                {item.status}
+              </span>
+            </div>
+            <p><strong>Best for:</strong> {item.bestFor}</p>
+            <p class="muted"><strong>Customer needs:</strong> {item.customerNeeds}</p>
+            <a class="source-link" href={item.sourceUrl}>Official publishing source</a>
+          </article>
         ))}
       </div>
     </section>
@@ -451,6 +617,39 @@ const toolData = {
       return [...new Set(tags)].slice(0, 5).join(" ");
     }
 
+    function sourceAppNotes(sourceApp, handoffMode, mediaUrl, sourceType) {
+      const normalized = String(sourceApp).toLowerCase();
+      const playbook = toolData.sourceAppPlaybooks?.find((item) => {
+        const name = String(item.name).toLowerCase();
+        return name.includes(normalized) || normalized.includes(name.split(" ")[0]);
+      });
+      const base = [
+        `Source app: ${sourceApp}`,
+        `Handoff mode: ${handoffMode}`,
+        playbook ? `What it creates: ${playbook.content}` : `What it creates: ${sourceType}`,
+        playbook
+          ? `What to send: ${playbook.handoff}`
+          : "What to send: source app name, source context, prompt, caption, stable asset URL when available, target destinations, and requested outputs.",
+      ];
+
+      if (handoffMode === "Webhook or API request") {
+        base.push("Integration note: send a content package that matches AI PubKit's public schema, then keep user review required by default.");
+      } else if (handoffMode === "Stable media URL") {
+        base.push(
+          mediaUrl
+            ? "Integration note: media URL is present, so AI PubKit can build publishing copy around the asset."
+            : "Integration note: add a stable media URL before this can become a clean media handoff."
+        );
+      } else if (handoffMode === "Manual upload after review") {
+        base.push("Integration note: create the platform package first, then let the customer upload or confirm the media manually.");
+      } else {
+        base.push("Integration note: copy-paste is the fastest test path before building a deeper source-app integration.");
+      }
+
+      base.push("Review note: preserve prompt, rights, disclosure, language, and brand context with the package.");
+      return base;
+    }
+
     function destinationDraft(destination, packageData) {
       const summary = sourceSummary(packageData.source);
       const tags = hashtagSet(packageData.source, destination);
@@ -561,7 +760,9 @@ const toolData = {
 
     function buildPublishingPackage(data) {
       const source = value(data, "source", "Source idea or asset");
+      const sourceApp = value(data, "source_app", "ChatGPT");
       const sourceType = value(data, "source_type", "Text or idea");
+      const handoffMode = value(data, "handoff_mode", "Paste or copy package");
       const mediaUrl = value(data, "media_url");
       const audience = value(data, "audience", "the target audience");
       const tone = value(data, "tone", "Clear");
@@ -584,10 +785,13 @@ const toolData = {
           ];
       return {
         source,
+        sourceApp,
         sourceType,
+        handoffMode,
         mediaUrl,
         audience,
         tone,
+        sourceAppNotes: sourceAppNotes(sourceApp, handoffMode, mediaUrl, sourceType),
         destinations: destinations.map((destination) => {
           const status = appStatus(destination);
           return {
@@ -616,6 +820,8 @@ const toolData = {
       ]);
       return [
         section("AI publishing package", [
+          `Source app: ${packageData.sourceApp}`,
+          `Handoff mode: ${packageData.handoffMode}`,
           `Source type: ${packageData.sourceType}`,
           `Source: ${packageData.source}`,
           packageData.mediaUrl ? `Media URL: ${packageData.mediaUrl}` : "",
@@ -624,6 +830,7 @@ const toolData = {
           `Destinations: ${packageData.destinations.map((destination) => destination.name).join(", ")}`,
           `Needed outputs: ${packageData.outputs.join(", ")}`,
         ]),
+        section("Source app handoff", packageData.sourceAppNotes),
         section("Asset handling", packageData.assetMode),
         destinationBlocks.join("\n"),
         section("Approval and handoff", [

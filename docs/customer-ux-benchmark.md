@@ -15,6 +15,11 @@ site's internal data model.
 - Hootsuite social media management: https://www.hootsuite.com/
 - Hootsuite approval workflow guide: https://blog.hootsuite.com/social-media-approval-workflow/
 - Zapier Forms: https://zapier.com/forms
+- TikTok Content Posting API: https://developers.tiktok.com/products/content-posting-api/
+- YouTube Data API videos.insert: https://developers.google.com/youtube/v3/docs/videos/insert
+- LinkedIn Posts API: https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api
+- X API create post: https://docs.x.com/x-api/posts/create-post
+- WordPress REST API posts: https://developer.wordpress.org/rest-api/reference/posts/
 
 ## Patterns Worth Copying
 
@@ -48,6 +53,12 @@ site's internal data model.
    - AI PubKit should accept media URLs and generate the publishing package
      around those assets before building native media generation.
 
+6. Explain connection readiness before asking for account access.
+   - Official destination APIs differ sharply by account type, OAuth scope,
+     approval, quota, media upload, and publishing limit.
+   - AI PubKit should tell customers whether a destination is direct, assisted,
+     or still researching before it asks them to connect an account.
+
 ## Implemented In This Iteration
 
 - Quick-start workflow templates for short video launches, product updates,
@@ -58,3 +69,9 @@ site's internal data model.
 - Expanded destination options for Threads, Pinterest, Reddit, Discord, and
   Slack.
 - More concrete generated copy instead of only generic publishing advice.
+- Source-app handoff fields for where the content starts and how it is sent to
+  AI PubKit.
+- Source app playbooks for writing, design, video, transcript, and media
+  generator workflows.
+- Destination readiness cards for YouTube, TikTok, Instagram, LinkedIn, X, and
+  WordPress.

@@ -105,7 +105,7 @@ export const GET: APIRoute = () => {
         question: "Can AI PubKit generate images, videos, or copy?",
         intent: "ai-generation-and-publishing",
         answer:
-          "AI PubKit can generate platform-ready copy and publishing packages today, including captions, titles, descriptions, hashtags, cover text, alt text, CMS notes, and review checks. The AI publishing composer now includes quick-start workflow templates, sensible defaults, platform preview cards, and direct or assisted status for each selected destination. For images and videos, the practical first path is to accept generated media from AI image or video tools, then prepare the app-ready publishing package around that asset.",
+          "AI PubKit can generate platform-ready copy and publishing packages today, including captions, titles, descriptions, hashtags, cover text, alt text, CMS notes, and review checks. The AI publishing composer now includes source-app handoff choices, quick-start workflow templates, sensible defaults, platform preview cards, and direct or assisted status for each selected destination. For images and videos, the practical first path is to accept generated media from AI image or video tools, then prepare the app-ready publishing package around that asset.",
         urls: [
           `${siteUrl}/tools/ai-publishing-composer/`,
           `${siteUrl}/developers/`,
@@ -116,7 +116,29 @@ export const GET: APIRoute = () => {
         question: "AI PubKit 能直接生成图片、视频或文案吗？",
         intent: "zh-ai-generation-and-publishing",
         answer:
-          "AI PubKit 现在可以生成多平台发布文案和发布包，包括标题、描述、标签、封面文字、alt text、CMS 草稿备注和发布检查项。AI publishing composer 已加入常见工作流模板、默认平台选择、平台预览卡片，以及每个目的地的 Direct 或 Assisted 状态。图片和视频优先作为已有 AI 生成素材或媒体链接接入，再围绕素材生成各平台发布内容。",
+          "AI PubKit 现在可以生成多平台发布文案和发布包，包括标题、描述、标签、封面文字、alt text、CMS 草稿备注和发布检查项。AI publishing composer 已加入源 App 接入方式、常见工作流模板、默认平台选择、平台预览卡片，以及每个目的地的 Direct 或 Assisted 状态。图片和视频优先作为已有 AI 生成素材或媒体链接接入，再围绕素材生成各平台发布内容。",
+        urls: [
+          `${siteUrl}/tools/ai-publishing-composer/`,
+          `${siteUrl}/zh/`,
+          `${siteUrl}/developers/`,
+        ],
+      },
+      {
+        question: "How can an AI image, video, writing, or design app connect to AI PubKit?",
+        intent: "source-app-integration",
+        answer:
+          "A source app can connect to AI PubKit by sending a content package with the source app name, content type, prompt or context, stable media URL when available, destination list, requested outputs, and review preference. The customer-friendly first path is copy package or media URL handoff; a webhook/API request can be added when the source app is ready for deeper integration.",
+        urls: [
+          `${siteUrl}/tools/ai-publishing-composer/`,
+          `${siteUrl}/developers/`,
+          `${siteUrl}/content-package.schema.json`,
+        ],
+      },
+      {
+        question: "AI 图片、视频、文案或设计 App 怎么接入 AI PubKit？",
+        intent: "zh-source-app-integration",
+        answer:
+          "源 App 可以把 source app 名称、内容类型、提示词或上下文、稳定媒体链接、目标平台列表、需要生成的输出和是否需要人工审核发送给 AI PubKit。最适合客户起步的方式是复制发布包或媒体 URL 交付；等源 App 准备好后，再升级为 webhook/API 接入。",
         urls: [
           `${siteUrl}/tools/ai-publishing-composer/`,
           `${siteUrl}/zh/`,

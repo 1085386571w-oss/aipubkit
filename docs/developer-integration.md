@@ -17,11 +17,14 @@ without manually rewriting every version.
 AI PubKit does not yet expose a production ingestion API. The current public
 path is:
 
-1. Create an AI PubKit content package.
-2. Check destination support in `apps.json`.
-3. Generate or preview a publishing package in the browser composer.
-4. Submit a source-app integration request through the website or GitHub.
-5. Use AI PubKit's destination model to create direct publishing paths or
+1. Choose the source app and source content type in the browser composer.
+2. Choose the handoff mode: copy package, stable media URL, webhook/API
+   request, or manual upload after review.
+3. Create an AI PubKit content package.
+4. Check destination support in `apps.json`.
+5. Generate or preview a publishing package in the browser composer.
+6. Submit a source-app integration request through the website or GitHub.
+7. Use AI PubKit's destination model to create direct publishing paths or
    assisted drafts.
 
 The live composer is:
@@ -47,12 +50,24 @@ Minimum package fields:
 ## Expected Product Flow
 
 1. Source app generates content.
-2. Source app prepares a content package.
-3. AI PubKit maps destinations to `Live path`, `Assisted`, or `Researching`.
-4. AI PubKit creates app-ready outputs: captions, titles, descriptions,
+2. Source app sends source context, prompt, media URL when available, content
+   type, destination choices, and requested outputs.
+3. AI PubKit prepares a content package.
+4. AI PubKit maps destinations to `Live path`, `Assisted`, or `Researching`.
+5. AI PubKit creates app-ready outputs: captions, titles, descriptions,
    hashtags, cover text, alt text, CMS notes, media checks, and review status.
-5. User reviews output.
-6. Direct publishing or assisted draft creation happens by destination.
+6. User reviews output.
+7. Direct publishing or assisted draft creation happens by destination.
+
+## Source App Handoff Examples
+
+| Source app type | What AI PubKit needs | Customer result |
+| --- | --- | --- |
+| Writing app | title, prompt, draft, campaign, audience, destination list | platform-specific posts, CMS notes, community messages |
+| Design app | image/design URL, visible text, prompt, brand notes, target apps | captions, alt text, cover text, visual review checks |
+| Video app | video URL, transcript, aspect ratio, duration, cover frame notes | TikTok captions, YouTube metadata, Shorts notes, safe-zone checks |
+| Audio/transcript app | transcript, audio/video URL, speaker context, summary | article drafts, social posts, YouTube descriptions |
+| Media generator | image/video URL, prompt, rights notes, campaign context | publishing copy around the asset and destination checks |
 
 ## Generation Boundary
 

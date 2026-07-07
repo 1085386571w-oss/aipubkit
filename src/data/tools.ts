@@ -64,6 +64,24 @@ export const tools: ToolPage[] = [
         required: true,
       },
       {
+        id: "source_app",
+        label: "Source app",
+        type: "select",
+        options: [
+          "ChatGPT",
+          "Canva",
+          "CapCut",
+          "Runway",
+          "Midjourney",
+          "Pika",
+          "ElevenLabs",
+          "Descript",
+          "Jasper",
+          "Other AI app",
+        ],
+        help: "Choose where the idea, image, video, audio, design, or draft starts.",
+      },
+      {
         id: "source_type",
         label: "Source type",
         type: "select",
@@ -74,6 +92,18 @@ export const tools: ToolPage[] = [
           "Product update",
           "Article or transcript",
         ],
+      },
+      {
+        id: "handoff_mode",
+        label: "How the source app sends it",
+        type: "select",
+        options: [
+          "Paste or copy package",
+          "Stable media URL",
+          "Webhook or API request",
+          "Manual upload after review",
+        ],
+        help: "Start simple with copy/package or media URL. Use API handoff when a source app integration is ready.",
       },
       {
         id: "media_url",
@@ -140,8 +170,8 @@ export const tools: ToolPage[] = [
       },
     ],
     steps: [
-      "Describe the source or paste a media URL.",
-      "Choose the source type, audience, tone, destination apps, and needed outputs.",
+      "Choose the source app and describe the idea, asset, prompt, transcript, or media URL.",
+      "Choose the handoff method, source type, audience, tone, destination apps, and needed outputs.",
       "Generate one publishing package with platform-specific copy, metadata, media notes, and review checks.",
       "Move each destination into direct publishing where allowed or an assisted draft where review is required.",
     ],
@@ -151,7 +181,7 @@ export const tools: ToolPage[] = [
       "A structured publishing package that can feed direct publishing or assisted draft workflows.",
     ],
     canonicalAnswer:
-      "AI PubKit's AI publishing composer can generate platform-ready copy and publishing packages from text, image, video, article, transcript, or product sources. It includes quick-start workflow templates, default destination choices, platform previews, and review-ready handoff notes.",
+      "AI PubKit's AI publishing composer can generate platform-ready copy and publishing packages from source apps such as AI writing, image, video, audio, and design tools. It includes source-app handoff choices, quick-start workflow templates, default destination choices, platform previews, and review-ready handoff notes.",
     faqs: [
       {
         question: "Can AI PubKit generate copy for multiple apps?",
@@ -166,7 +196,12 @@ export const tools: ToolPage[] = [
       {
         question: "What should an image or video app send to AI PubKit?",
         answer:
-          "It should send a content package with the media URL, prompt, caption, source context, destination list, and requested outputs such as captions, video titles, cover text, alt text, hashtags, and review checks.",
+          "It should send a content package with the source app name, stable media URL, prompt, caption, source context, destination list, and requested outputs such as captions, video titles, cover text, alt text, hashtags, and review checks.",
+      },
+      {
+        question: "How does a source app connect to AI PubKit?",
+        answer:
+          "The customer-friendly path is source app to content package to destination review. A source app can start with copy-paste, a stable media URL, or a webhook/API request, then AI PubKit maps each selected destination to direct publishing, assisted draft, or research status.",
       },
     ],
   },

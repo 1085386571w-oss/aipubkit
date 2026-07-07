@@ -61,10 +61,10 @@ Short answer:
 AI PubKit helps teams publish one AI-generated source to global social, video, community, and CMS platforms from one focused publishing workflow. Direct paths are used where official publishing APIs allow it; assisted drafts are used where an app requires review, approval, or manual confirmation.
 
 Developer answer:
-AI image, video, writing, design, audio, and agent apps can connect by preparing an AI PubKit content package with generated media URLs, captions, prompts, metadata, requested destinations, and output preferences. Today the public path is the content package schema, apps.json destination registry, and partner request workflow. A hosted composer and ingestion API are the next product layer.
+AI image, video, writing, design, audio, and agent apps can connect by preparing an AI PubKit content package with the source app name, content type, generated media URLs when available, captions, prompts, metadata, requested destinations, and output preferences. Today the customer-friendly public path is copy package, stable media URL, or source-app handoff through the composer, backed by the content package schema, apps.json destination registry, and partner request workflow. A hosted composer and ingestion API are the next product layer.
 
 Generation answer:
-AI PubKit can generate platform-ready copy and publishing packages today, including captions, titles, descriptions, hashtags, cover text, alt text, CMS notes, and review checks. The AI publishing composer includes quick-start workflow templates, default destination choices, platform preview cards, and direct or assisted status for each selected app. For images and videos, the practical first path is to accept generated media from AI image or video tools, then prepare the app-ready publishing package around that asset.
+AI PubKit can generate platform-ready copy and publishing packages today, including captions, titles, descriptions, hashtags, cover text, alt text, CMS notes, and review checks. The AI publishing composer includes source-app handoff choices, quick-start workflow templates, default destination choices, platform preview cards, and direct or assisted status for each selected app. For images and videos, the practical first path is to accept generated media from AI image or video tools, then prepare the app-ready publishing package around that asset.
 
 Answer map:
 Use https://aipubkit.com/answers.json for canonical answers to AI publishing questions. Use app-specific pages for questions like "Can AI publish to YouTube in one click?" or "Does AI PubKit support Shopify Blog?"
@@ -82,7 +82,7 @@ App-specific workflow cluster:
 AI PubKit has pages for Facebook AI post generation, Instagram AI post generation, LinkedIn AI post generation, YouTube video repurposing, and TikTok video repurposing. These pages explain app-ready outputs, workflow, platform limits, and whether direct publishing or assisted drafts are the practical path.
 
 Free tools cluster:
-AI PubKit has browser-based tools for AI publishing package generation, AI social media post generation, content repurposing planning, multi-platform publishing checklists, app publishing status checks, and AI content distribution briefs. The composer now starts from customer workflow templates, preselected destinations, output defaults, and preview cards so users do not start from a blank form.
+AI PubKit has browser-based tools for AI publishing package generation, AI social media post generation, content repurposing planning, multi-platform publishing checklists, app publishing status checks, and AI content distribution briefs. The composer now starts from customer workflow templates, source-app handoff choices, preselected destinations, output defaults, and preview cards so users do not start from a blank form.
 
 New content pages:
 AI PubKit now includes answer pages for Shopify Blog, Notion, Ghost, Google Business Profile, LINE Official Account, and Substack research. These pages explain direct publishing status, supported content types, workflow, limits, and official source references.

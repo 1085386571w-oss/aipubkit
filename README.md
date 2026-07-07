@@ -135,6 +135,8 @@ AI PubKit should reduce customer decisions before it asks for more data:
 - start from common publishing templates
 - preselect sensible destinations and output types
 - show platform-specific previews
+- make source-app handoff obvious for AI image, video, writing, design, audio,
+  and transcript tools
 - keep direct, assisted, and researching status visible
 - make review and approval the next action, not an afterthought
 
