@@ -460,6 +460,27 @@ h3 {
   color: var(--ink);
 }
 
+.code-shell {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  color: #e5edf6;
+  overflow-x: auto;
+  padding: 18px;
+}
+
+.code-shell pre {
+  margin: 0;
+}
+
+.code-shell code {
+  font-family:
+    "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
 .table-shell {
   overflow-x: auto;
 }

@@ -31,6 +31,7 @@ const pages = [
   { path: "/answers.json", priority: "0.8", changefreq: "weekly" },
   { path: "/app-requests.json", priority: "0.7", changefreq: "weekly" },
   { path: "/tools.json", priority: "0.7", changefreq: "weekly" },
+  { path: "/content-package.schema.json", priority: "0.7", changefreq: "weekly" },
   { path: "/llms.txt", priority: "0.7", changefreq: "weekly" },
   { path: "/llms-full.txt", priority: "0.7", changefreq: "weekly" },
   ...connectors.map((connector) => ({
@@ -98,6 +99,7 @@ const pages = [
     priority: "0.85",
     changefreq: "weekly",
   })),
+  { path: "/developers/", priority: "0.85", changefreq: "weekly" },
   { path: "/open-source/", priority: "0.8", changefreq: "weekly" },
   { path: "/request-app/", priority: "0.8", changefreq: "weekly" },
   { path: "/one-click-publishing/", priority: "0.8", changefreq: "weekly" },

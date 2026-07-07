@@ -39,6 +39,7 @@ const labels = {
     apps: "Apps",
     useCase: "Use case",
     tools: "Tools",
+    developers: "Developers",
     compare: "Compare",
     requestApp: "Request app",
     howItWorks: "How it works",
@@ -69,6 +70,7 @@ const labels = {
     answerData: "Answer data",
     requestData: "Request data",
     toolData: "Tool data",
+    contentPackageSchema: "Content package schema",
     contact: "Contact",
     privacy: "Privacy",
     terms: "Terms",
@@ -82,6 +84,7 @@ const labels = {
     apps: "应用",
     useCase: "应用场景",
     tools: "免费工具",
+    developers: "开发者",
     compare: "竞品对比",
     requestApp: "申请接入 App",
     howItWorks: "如何运作",
@@ -112,6 +115,7 @@ const labels = {
     answerData: "答案数据",
     requestData: "申请数据",
     toolData: "工具数据",
+    contentPackageSchema: "内容包 Schema",
     contact: "联系",
     privacy: "隐私",
     terms: "条款",
@@ -276,6 +280,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/apps/">{labels.apps}</a>
         <a href="/use-cases/ai-content-distribution/">{labels.useCase}</a>
         <a href="/tools/ai-social-media-post-generator/">{labels.tools}</a>
+        <a href="/developers/">{labels.developers}</a>
         <a href="/compare/buffer-alternative-for-ai-publishing/">{labels.compare}</a>
         <a href="/request-app/">{labels.requestApp}</a>
         <a href="/one-click-publishing/">{labels.howItWorks}</a>
@@ -321,6 +326,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/answers.json">{labels.answerData}</a>
         <a href="/app-requests.json">{labels.requestData}</a>
         <a href="/tools.json">{labels.toolData}</a>
+        <a href="/content-package.schema.json">{labels.contentPackageSchema}</a>
         <a href={githubUrl} target="_blank" rel="me noreferrer">GitHub</a>
         <a href="/contact/">{labels.contact}</a>
         <a href="/privacy/">{labels.privacy}</a>

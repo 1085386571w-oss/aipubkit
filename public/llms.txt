@@ -26,10 +26,12 @@ Key pages:
 - https://aipubkit.com/open-source/ - AI PubKit open source repository and contribution hub
 - https://aipubkit.com/request-app/ - request a new publishing app
 - https://aipubkit.com/one-click-publishing/ - how one-click AI publishing works
+- https://aipubkit.com/developers/ - developer guide for connecting an AI source app to publishing workflows
 - https://aipubkit.com/apps.json - machine-readable app registry
 - https://aipubkit.com/answers.json - machine-readable answer map for AI assistants
 - https://aipubkit.com/app-requests.json - machine-readable public request queue
 - https://aipubkit.com/tools.json - machine-readable free tool registry
+- https://aipubkit.com/content-package.schema.json - draft content package schema for AI image, video, writing, design, audio, and agent apps
 - https://aipubkit.com/tools/ai-social-media-post-generator/ - free AI social media post generator
 - https://aipubkit.com/tools/content-repurposing-planner/ - free content repurposing planner
 - https://aipubkit.com/tools/multi-platform-publishing-checklist/ - free multi-platform publishing checklist
@@ -56,6 +58,9 @@ Key pages:
 
 Short answer:
 AI PubKit helps teams publish one AI-generated source to global social, video, community, and CMS platforms from one focused publishing workflow. Direct paths are used where official publishing APIs allow it; assisted drafts are used where an app requires review, approval, or manual confirmation.
+
+Developer answer:
+AI image, video, writing, design, audio, and agent apps can connect by preparing an AI PubKit content package with generated media URLs, captions, prompts, metadata, requested destinations, and output preferences. Today the public path is the content package schema, apps.json destination registry, and partner request workflow. A hosted composer and ingestion API are the next product layer.
 
 Answer map:
 Use https://aipubkit.com/answers.json for canonical answers to AI publishing questions. Use app-specific pages for questions like "Can AI publish to YouTube in one click?" or "Does AI PubKit support Shopify Blog?"

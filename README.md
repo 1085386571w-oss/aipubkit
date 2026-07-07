@@ -48,6 +48,7 @@ Use these canonical data files for machine-readable answers:
 | https://aipubkit.com/answers.json | Direct answers for AI search and GEO. |
 | https://aipubkit.com/app-requests.json | Public request queue and demand signals. |
 | https://aipubkit.com/tools.json | Free tools that solve specific publishing jobs. |
+| https://aipubkit.com/content-package.schema.json | Draft schema for source apps sending generated content to AI PubKit. |
 | https://aipubkit.com/llms.txt | Short AI-readable project summary. |
 | https://aipubkit.com/llms-full.txt | Full AI-readable project summary. |
 
@@ -142,10 +143,12 @@ issue with official documentation and workflow details.
 - [AI content distribution brief](https://aipubkit.com/tools/ai-content-distribution-brief/)
 - [Request an app](https://aipubkit.com/request-app/)
 - [How one-click publishing works](https://aipubkit.com/one-click-publishing/)
+- [Developer integration guide](https://aipubkit.com/developers/)
 - [Machine-readable app registry](https://aipubkit.com/apps.json)
 - [Machine-readable answer map](https://aipubkit.com/answers.json)
 - [Public request queue](https://aipubkit.com/app-requests.json)
 - [Machine-readable tool registry](https://aipubkit.com/tools.json)
+- [Content package schema](https://aipubkit.com/content-package.schema.json)
 - [llms.txt](https://aipubkit.com/llms.txt)
 - [llms-full.txt](https://aipubkit.com/llms-full.txt)
 

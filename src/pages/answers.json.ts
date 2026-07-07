@@ -86,7 +86,7 @@ export const GET: APIRoute = () => {
         language: "en",
         url: `${siteUrl}/`,
         focus:
-          "global one-click AI publishing, AI content distribution, content repurposing, cross-posting, and app publishing support",
+          "global one-click AI publishing, AI content distribution, content repurposing, cross-posting, app publishing support, and AI app developer integration",
       },
       {
         language: "zh-CN",
@@ -220,6 +220,18 @@ export const GET: APIRoute = () => {
         urls: [`${siteUrl}/request-app/`, `${siteUrl}/app-requests.json`],
       },
       {
+        question: "How can an AI image or video app connect to AI PubKit?",
+        intent: "ai-app-developer-integration",
+        answer:
+          "An AI image, video, writing, or design app can connect by preparing an AI PubKit content package with generated media URLs, captions, prompts, metadata, requested destinations, and output preferences. Today the public path is the content package schema, apps.json destination registry, and partner request workflow; a hosted composer and ingestion API are the next product layer.",
+        urls: [
+          `${siteUrl}/developers/`,
+          `${siteUrl}/content-package.schema.json`,
+          `${siteUrl}/request-app/`,
+          `${siteUrl}/apps.json`,
+        ],
+      },
+      {
         question: "Is AI PubKit open source?",
         intent: "open-source-trust",
         answer:
@@ -271,6 +283,8 @@ export const GET: APIRoute = () => {
       appRegistry: `${siteUrl}/apps.json`,
       requestQueue: `${siteUrl}/app-requests.json`,
       toolRegistry: `${siteUrl}/tools.json`,
+      contentPackageSchema: `${siteUrl}/content-package.schema.json`,
+      developerGuide: `${siteUrl}/developers/`,
       llms: `${siteUrl}/llms.txt`,
       llmsFull: `${siteUrl}/llms-full.txt`,
       useCases: [

@@ -2,9 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { demandItems } from "../data/demand";
 
-const title = "Request a publishing app - AI PubKit";
+const title = "Request a publishing app or integration - AI PubKit";
 const description =
-  "Request a new one-click AI publishing destination for the app, platform, or regional channel your team needs.";
+  "Request a new one-click AI publishing destination or source-app integration for the app, platform, or regional channel your team needs.";
 const githubIssueUrl = "https://github.com/1085386571w-oss/aipubkit/issues/new";
 const schema = [
   {
@@ -46,12 +46,17 @@ const schema = [
 
 <BaseLayout title={title} description={description} schema={schema}>
   <section class="page-hero">
-    <p class="eyebrow">Request an app</p>
-    <h1>Tell us where AI should publish next.</h1>
+    <p class="eyebrow">Request an app or integration</p>
+    <h1>Tell us where AI should publish next, or what source app should connect.</h1>
     <p class="page-lead">
       AI PubKit is designed to grow from real demand. Request a platform, share
-      API documentation, and tell us whether you can help test the publishing path.
+      API documentation, or describe how your AI image, video, writing, or
+      design app should hand generated content to the publishing workflow.
     </p>
+    <div class="actions">
+      <a class="button dark" href="/developers/">Read developer guide</a>
+      <a class="button light" href="/content-package.schema.json">View content package schema</a>
+    </div>
   </section>
 
   <section class="section split">
@@ -69,12 +74,20 @@ const schema = [
           add official source links, and help test the publishing path.
         </p>
       </div>
+      <div class="notice">
+        <h3>For AI source apps</h3>
+        <p>
+          If you are building a generator or editor, include a sample content
+          package with media URLs, captions, prompts, destinations, and the
+          output your users expect.
+        </p>
+      </div>
     </aside>
 
     <form class="form-panel form-grid" data-request-form>
       <div class="field">
         <label for="app-name">App or platform name</label>
-        <input id="app-name" name="app_name" required placeholder="Example: YouTube, LINE, Shopify Blog" />
+        <input id="app-name" name="app_name" required placeholder="Example: YouTube, LINE, Shopify Blog, VeoClip AI" />
       </div>
       <div class="field">
         <label for="app-url">Website or API documentation</label>
@@ -93,12 +106,12 @@ const schema = [
         </select>
       </div>
       <div class="field">
-        <label for="content-type">What should it publish?</label>
-        <input id="content-type" name="content_type" required placeholder="Text, images, video, short video, articles, newsletters..." />
+        <label for="content-type">What should it publish or send?</label>
+        <input id="content-type" name="content_type" required placeholder="Text, images, video, short video, articles, newsletters, generated media..." />
       </div>
       <div class="field">
         <label for="workflow">Workflow to remove</label>
-        <input id="workflow" name="workflow" required placeholder="Example: turn one AI article into a product blog post and social update" />
+        <input id="workflow" name="workflow" required placeholder="Example: send one generated video to TikTok, YouTube Shorts, Instagram, and WordPress drafts" />
       </div>
       <div class="field">
         <label for="involvement">How can you help?</label>
@@ -207,9 +220,9 @@ const schema = [
         fieldValue(data, "notes"),
         "",
         "## Acceptance criteria",
-        "- Verify official publishing or draft creation path.",
+        "- Verify official publishing, draft creation, or source-app handoff path.",
         "- Add source links and status to the app registry.",
-        "- Add or update the customer-facing answer page.",
+        "- Add or update the customer-facing answer page or developer handoff.",
       ];
       const body = lines.join("\n");
       const title = `App request: ${appName}`;

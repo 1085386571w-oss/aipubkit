@@ -1,0 +1,278 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Connect an AI app to publishing workflows - AI PubKit";
+const description =
+  "Developer guide for connecting an AI image, video, writing, or design app to AI PubKit using a content package, app registry, and partner intake workflow.";
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Connect an AI app to AI PubKit",
+    description,
+    step: [
+      {
+        "@type": "HowToStep",
+        name: "Create a content package",
+        text: "Send AI PubKit the generated media, text, prompt, source context, and requested publishing destinations as a structured content package.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Check destination support",
+        text: "Use apps.json to check whether each destination is direct, assisted, or still researching.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Route the output",
+        text: "Use direct publishing paths where official platform rules allow it, or prepare assisted drafts and review checklists where approval is required.",
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Can an AI image or video app connect to AI PubKit?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. An AI image, video, writing, or design app can prepare a content package with generated assets, captions, prompts, and requested destinations. AI PubKit then maps that package to app-ready publishing outputs.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Does AI PubKit have a production ingestion API today?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Not yet. The current public path is a documented content package schema, machine-readable app registry, and partner request workflow. A hosted composer and ingestion API are the next product steps.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How should generated images or videos be sent?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Use stable media URLs or storage references in the content package, plus text fields such as caption, prompt, title, description, alt text, and destination preferences.",
+        },
+      },
+    ],
+  },
+];
+const packageExample = {
+  schemaVersion: "0.1",
+  sourceApp: {
+    name: "VeoClip AI",
+    website: "https://example.com/veoclip-ai",
+    contentType: "ai-video",
+  },
+  sourceContent: {
+    title: "New product launch video",
+    prompt: "Create a 12-second vertical product teaser for a skincare launch.",
+    caption: "A short launch teaser for our new serum.",
+    language: "en",
+    assets: [
+      {
+        type: "video",
+        url: "https://cdn.example.com/video/launch-teaser.mp4",
+        format: "mp4",
+        aspectRatio: "9:16",
+        durationSeconds: 12,
+      },
+      {
+        type: "image",
+        url: "https://cdn.example.com/image/cover.jpg",
+        format: "jpg",
+        purpose: "cover",
+      },
+    ],
+  },
+  destinations: [
+    "TikTok",
+    "YouTube",
+    "Instagram",
+    "LinkedIn",
+    "WordPress",
+    "Telegram Channel",
+  ],
+  requestedOutput: [
+    "platform captions",
+    "video titles",
+    "hashtags",
+    "thumbnail notes",
+    "review checklist",
+  ],
+};
+const packageExampleJson = JSON.stringify(packageExample, null, 2);
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <section class="page-hero">
+    <p class="eyebrow">Developers</p>
+    <h1>Connect your AI app to app-ready publishing workflows.</h1>
+    <p class="page-lead">
+      If you build an AI image generator, video maker, writing tool, design app,
+      or content agent, your users eventually ask: where can this output go?
+      AI PubKit gives you a destination registry, content package shape, and
+      partner intake path for that handoff.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/content-package.schema.json">View content package schema</a>
+      <a class="button light" href="/apps.json">Check destination registry</a>
+      <a class="button light" href="/request-app/">Request integration review</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Customer test</p>
+        <h2>The current product is useful, but it needs this developer handoff.</h2>
+      </div>
+      <p>
+        From a customer perspective, the app support pages explain destinations
+        well. The missing step is how a source app sends generated images,
+        videos, captions, prompts, and campaign context into the publishing
+        workflow.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Source app creates the asset</h3>
+        <p>
+          The user finishes an image, short video, article, script, or design
+          inside your product.
+        </p>
+      </article>
+      <article class="card">
+        <h3>AI PubKit prepares destinations</h3>
+        <p>
+          The content package is mapped into app-specific captions, titles,
+          descriptions, tags, media notes, and review checks.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Each destination gets routed safely</h3>
+        <p>
+          Direct paths are used where official platform rules allow it.
+          Assisted drafts are created where approval or manual review is needed.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Integration model</p>
+      <h2>Start with a content package, not a platform-specific API maze.</h2>
+      <p class="page-lead">
+        The practical first integration is a single structured package that
+        describes the generated content and requested destinations. AI PubKit
+        then checks what each destination can actually support.
+      </p>
+    </aside>
+    <div class="steps">
+      <article class="step">
+        <h3>1. Build the package</h3>
+        <p>
+          Include source app details, generated text, asset URLs, prompt,
+          language, destination list, and desired output types.
+        </p>
+      </article>
+      <article class="step">
+        <h3>2. Read destination status</h3>
+        <p>
+          Use the public registry to decide whether the user can expect direct
+          publishing, assisted drafts, or a researched future path.
+        </p>
+      </article>
+      <article class="step">
+        <h3>3. Open composer or request review</h3>
+        <p>
+          Today, use the partner request path with the content package. Next,
+          the same schema can power a hosted composer URL and ingestion API.
+        </p>
+      </article>
+      <article class="step">
+        <h3>4. Route by platform rules</h3>
+        <p>
+          Keep platform approval, OAuth, media requirements, review state, and
+          manual confirmation visible before a post is sent.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Example</p>
+        <h2>What an AI video tool would send.</h2>
+      </div>
+      <p>
+        This is the handoff object a video or image app should be able to create
+        after generation. The public schema defines the field names and allowed
+        asset structure.
+      </p>
+    </div>
+    <div class="code-shell">
+      <pre><code>{packageExampleJson}</code></pre>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Current status</p>
+        <h2>Be honest about what is live today.</h2>
+      </div>
+      <p>
+        This keeps customer expectations clear while still giving developers a
+        concrete way to start.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Live now</h3>
+        <p>
+          Public app registry, destination answer pages, content package schema,
+          GitHub partner intake, and free planning tools. There is no production
+          ingestion API yet.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Partner review</h3>
+        <p>
+          AI apps can submit their source app details, API docs, content package
+          sample, destination needs, and testing availability.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Next product step</h3>
+        <p>
+          Hosted composer URL, signed package submission, OAuth destination
+          connections, draft creation, and direct posting where official paths
+          allow it.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Direct answer</p>
+      <h2>How does an AI image or video app connect to AI PubKit?</h2>
+      <p>
+        Create a content package with generated media URLs, captions, prompts,
+        metadata, and requested destinations. Check destination support in
+        apps.json. Submit the package and source app details through the partner
+        request path today; use the same package shape for the hosted composer
+        or API when that product layer is added.
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/request-app/">Start integration review</a>
+        <a class="button light" href="/content-package.schema.json">Open JSON schema</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
