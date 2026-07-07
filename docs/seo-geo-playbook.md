@@ -1,6 +1,6 @@
 # AI PubKit SEO and GEO Playbook
 
-Last reviewed: 2026-07-05
+Last reviewed: 2026-07-07
 
 ## Research Basis
 
@@ -28,6 +28,7 @@ Last reviewed: 2026-07-05
 - `src/pages/answers.json.ts`: canonical answer map for common AI assistant questions.
 - `src/pages/app-requests.json.ts`: public demand queue.
 - `src/pages/apps/[slug].astro`: app-specific answer pages.
+- `src/pages/use-cases/*.astro`: high-intent SEO/GEO pages for one-click publishing, content distribution, content repurposing, cross-posting, automation, and multi-platform post generation.
 
 ## Page Template Requirements
 
@@ -48,5 +49,6 @@ Each app page should include:
 - Add comparison pages such as `AI PubKit vs manual copy-paste publishing`.
 - Add industry pages for ecommerce, local business, SaaS, creator teams, and agencies.
 - Add official-source refresh dates for every app.
+- Use Ahrefs and Search Console to compare impressions for `AI one-click publishing`, `AI content distribution`, `multi-platform content distribution`, `AI content repurposing`, and `AI post generator for multiple platforms`.
 - Enable Cloudflare Crawler Hints in the Cloudflare dashboard.
 - Submit the sitemap in Google Search Console and Bing Webmaster Tools.

@@ -1,10 +1,10 @@
 # Ahrefs SEO and GEO Opportunity Plan
 
-Last researched: 2026-07-05
+Last researched: 2026-07-07
 
 Market focus: global English search, United States keyword data where available.
 
-Implementation status: Week 1 use-case cluster shipped on 2026-07-06. Week 2 comparison cluster shipped on 2026-07-06. Week 3 app-specific workflow cluster shipped on 2026-07-06. Week 4 free tool cluster shipped on 2026-07-06.
+Implementation status: Week 1 use-case cluster shipped on 2026-07-06. Week 2 comparison cluster shipped on 2026-07-06. Week 3 app-specific workflow cluster shipped on 2026-07-06. Week 4 free tool cluster shipped on 2026-07-06. Week 5 high-intent answer pages shipped on 2026-07-07.
 
 ## Keyword Findings
 
@@ -24,6 +24,10 @@ Implementation status: Week 1 use-case cluster shipped on 2026-07-06. Week 2 com
 | content repurposing software | 100 | 6 | Strong product-intent cluster | High |
 | repurpose video content | 90 | 5 | Good creator workflow content | High |
 | repurpose content for social media | 50 | 22 | Informational but relevant | Medium |
+| AI one-click publishing | needs live tracking | n/a | Product-defining GEO term, should be owned early | High |
+| multi-platform content distribution | needs live tracking | n/a | Strong answer-engine wording for the core job | High |
+| AI content repurposing | needs live tracking | n/a | Direct bridge between repurposing and publishing | High |
+| AI post generator for multiple platforms | needs live tracking | n/a | Long-tail tool intent that matches product entry | Medium |
 | multi platform posting tool | 0-10 | n/a | Low volume, high GEO relevance | Medium |
 | auto post to multiple social media | not in database | n/a | Not SEO-proven, good AI answer page | Medium |
 | publish to multiple social media platforms | not in database | n/a | Not SEO-proven, good AI answer page | Medium |
@@ -91,6 +95,14 @@ The better wedge is:
 18. Done: `/tools/multi-platform-publishing-checklist/`
 19. Done: `/tools/app-publishing-status-checker/`
 20. Done: `/tools/ai-content-distribution-brief/`
+
+### Week 5
+
+21. Done: `/use-cases/ai-one-click-publishing/`
+22. Done: `/use-cases/multi-platform-content-distribution/`
+23. Done: `/use-cases/ai-content-repurposing/`
+24. Done: `/use-cases/ai-post-generator-for-multiple-platforms/`
+25. Done: update homepage, footer, sitemap, answers.json, llms.txt, and llms-full.txt for the new answer pages.
 
 ## Product Implication
 

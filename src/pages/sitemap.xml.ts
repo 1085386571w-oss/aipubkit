@@ -4,7 +4,7 @@ import { appUseCases } from "../data/appUseCases";
 import { comparisons } from "../data/comparisons";
 import { tools } from "../data/tools";
 
-const lastmod = "2026-07-06";
+const lastmod = "2026-07-07";
 const pages = [
   {
     path: "/",
@@ -50,6 +50,26 @@ const pages = [
   },
   {
     path: "/use-cases/ai-content-distribution/",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/use-cases/ai-one-click-publishing/",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/use-cases/multi-platform-content-distribution/",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/use-cases/ai-content-repurposing/",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+  {
+    path: "/use-cases/ai-post-generator-for-multiple-platforms/",
     priority: "0.9",
     changefreq: "weekly",
   },

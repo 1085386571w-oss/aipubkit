@@ -59,9 +59,12 @@ developer discovery on GitHub. The main tracked intent clusters are:
 - AI one-click publishing
 - AI content distribution
 - AI content distribution tool
+- multi-platform content distribution
+- AI content repurposing
 - content repurposing tool
 - publish to multiple apps
 - social media cross-posting
+- AI post generator for multiple platforms
 - AI social media post generator
 - AI一键发布
 - 多平台内容分发
@@ -115,6 +118,10 @@ issue with official documentation and workflow details.
 - [Supported apps](https://aipubkit.com/apps/)
 - [Publish to multiple apps](https://aipubkit.com/use-cases/publish-to-multiple-apps/)
 - [AI content distribution](https://aipubkit.com/use-cases/ai-content-distribution/)
+- [AI one-click publishing](https://aipubkit.com/use-cases/ai-one-click-publishing/)
+- [Multi-platform content distribution](https://aipubkit.com/use-cases/multi-platform-content-distribution/)
+- [AI content repurposing](https://aipubkit.com/use-cases/ai-content-repurposing/)
+- [AI post generator for multiple platforms](https://aipubkit.com/use-cases/ai-post-generator-for-multiple-platforms/)
 - [Content repurposing tool](https://aipubkit.com/use-cases/content-repurposing-tool/)
 - [Social media cross-posting](https://aipubkit.com/use-cases/social-media-cross-posting/)
 - [Social media automation tool](https://aipubkit.com/use-cases/social-media-automation-tool/)

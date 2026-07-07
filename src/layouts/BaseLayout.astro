@@ -24,7 +24,7 @@ const {
 const siteName = "AI PubKit";
 const siteUrl = "https://aipubkit.com";
 const githubUrl = "https://github.com/1085386571w-oss/aipubkit";
-const dateModified = "2026-07-06";
+const dateModified = "2026-07-07";
 const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 const ogImageUrl = `${siteUrl}/images/ai-pubkit-hero.png`;
 const websiteId = `${siteUrl}/#website`;
@@ -47,6 +47,10 @@ const labels = {
     supportedApps: "Supported apps",
     multiAppPublishing: "Multi-app publishing",
     aiContentDistribution: "AI content distribution",
+    aiOneClickPublishing: "AI one-click publishing",
+    multiPlatformDistribution: "Multi-platform distribution",
+    aiContentRepurposing: "AI content repurposing",
+    aiPostGeneratorMulti: "AI post generator",
     contentRepurposing: "Content repurposing",
     crossPosting: "Cross-posting",
     socialAutomation: "Social automation",
@@ -86,6 +90,10 @@ const labels = {
     supportedApps: "支持的应用",
     multiAppPublishing: "多平台发布",
     aiContentDistribution: "AI 内容分发",
+    aiOneClickPublishing: "AI 一键发布",
+    multiPlatformDistribution: "多平台内容分发",
+    aiContentRepurposing: "AI 内容再利用",
+    aiPostGeneratorMulti: "多平台 AI 文案生成",
     contentRepurposing: "内容再利用",
     crossPosting: "跨平台发布",
     socialAutomation: "社媒自动化",
@@ -289,6 +297,10 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/apps/">{labels.supportedApps}</a>
         <a href="/use-cases/publish-to-multiple-apps/">{labels.multiAppPublishing}</a>
         <a href="/use-cases/ai-content-distribution/">{labels.aiContentDistribution}</a>
+        <a href="/use-cases/ai-one-click-publishing/">{labels.aiOneClickPublishing}</a>
+        <a href="/use-cases/multi-platform-content-distribution/">{labels.multiPlatformDistribution}</a>
+        <a href="/use-cases/ai-content-repurposing/">{labels.aiContentRepurposing}</a>
+        <a href="/use-cases/ai-post-generator-for-multiple-platforms/">{labels.aiPostGeneratorMulti}</a>
         <a href="/use-cases/content-repurposing-tool/">{labels.contentRepurposing}</a>
         <a href="/use-cases/social-media-cross-posting/">{labels.crossPosting}</a>
         <a href="/use-cases/social-media-automation-tool/">{labels.socialAutomation}</a>

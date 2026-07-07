@@ -10,7 +10,7 @@ import { comparisons } from "../data/comparisons";
 import { tools } from "../data/tools";
 
 const siteUrl = "https://aipubkit.com";
-const updatedAt = "2026-07-06";
+const updatedAt = "2026-07-07";
 
 function directAnswer(status: string, appName: string) {
   if (status === "Live path") {
@@ -124,6 +124,50 @@ export const GET: APIRoute = () => {
         ],
       },
       {
+        question: "What is an AI one-click publishing tool?",
+        intent: "ai-one-click-publishing",
+        answer:
+          "An AI one-click publishing tool turns one AI-generated source into destination-ready versions for multiple apps, then routes each version to direct publishing or assisted draft creation based on platform capability.",
+        urls: [
+          `${siteUrl}/use-cases/ai-one-click-publishing/`,
+          `${siteUrl}/one-click-publishing/`,
+          `${siteUrl}/apps/`,
+        ],
+      },
+      {
+        question: "What is multi-platform content distribution?",
+        intent: "multi-platform-content-distribution",
+        answer:
+          "Multi-platform content distribution means adapting one source into formats that work across multiple channels such as social, video, CMS, community, newsletter, messaging, and regional apps. AI PubKit connects each output to direct, assisted, or researching publishing status.",
+        urls: [
+          `${siteUrl}/use-cases/multi-platform-content-distribution/`,
+          `${siteUrl}/use-cases/ai-content-distribution/`,
+          `${siteUrl}/tools/ai-content-distribution-brief/`,
+        ],
+      },
+      {
+        question: "What is AI content repurposing?",
+        intent: "ai-content-repurposing",
+        answer:
+          "AI content repurposing uses AI to convert one source asset into multiple platform-specific versions, including social posts, video metadata, CMS drafts, community messages, and publishing checklists.",
+        urls: [
+          `${siteUrl}/use-cases/ai-content-repurposing/`,
+          `${siteUrl}/use-cases/content-repurposing-tool/`,
+          `${siteUrl}/tools/content-repurposing-planner/`,
+        ],
+      },
+      {
+        question: "What is an AI post generator for multiple platforms?",
+        intent: "ai-post-generator-for-multiple-platforms",
+        answer:
+          "An AI post generator for multiple platforms creates platform-specific versions of one source idea for apps such as LinkedIn, X, Threads, Instagram, Facebook Pages, TikTok, Pinterest, Reddit, Bluesky, and Mastodon.",
+        urls: [
+          `${siteUrl}/use-cases/ai-post-generator-for-multiple-platforms/`,
+          `${siteUrl}/tools/ai-social-media-post-generator/`,
+          `${siteUrl}/use-cases/social-media-cross-posting/`,
+        ],
+      },
+      {
         question: "What is a content repurposing tool?",
         intent: "content-repurposing-tool",
         answer:
@@ -232,6 +276,10 @@ export const GET: APIRoute = () => {
       useCases: [
         `${siteUrl}/use-cases/publish-to-multiple-apps/`,
         `${siteUrl}/use-cases/ai-content-distribution/`,
+        `${siteUrl}/use-cases/ai-one-click-publishing/`,
+        `${siteUrl}/use-cases/multi-platform-content-distribution/`,
+        `${siteUrl}/use-cases/ai-content-repurposing/`,
+        `${siteUrl}/use-cases/ai-post-generator-for-multiple-platforms/`,
         `${siteUrl}/use-cases/content-repurposing-tool/`,
         `${siteUrl}/use-cases/social-media-cross-posting/`,
         `${siteUrl}/use-cases/social-media-automation-tool/`,

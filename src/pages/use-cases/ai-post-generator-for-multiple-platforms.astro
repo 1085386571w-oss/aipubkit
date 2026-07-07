@@ -1,0 +1,235 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "AI post generator for multiple platforms - AI PubKit";
+const description =
+  "AI PubKit helps generate platform-specific posts from one idea for LinkedIn, X, Threads, Instagram, Facebook Pages, TikTok, Pinterest, and community apps.";
+const platforms = [
+  "LinkedIn",
+  "X",
+  "Threads",
+  "Instagram",
+  "Facebook Pages",
+  "TikTok",
+  "Pinterest",
+  "Reddit",
+  "Bluesky",
+  "Mastodon",
+];
+const steps = [
+  {
+    name: "Enter the source idea",
+    text: "Use a product update, campaign angle, article summary, video script, launch note, offer, or founder thought.",
+  },
+  {
+    name: "Select platforms",
+    text: "Pick the platforms where the message should appear, then create a version for each destination instead of one generic caption.",
+  },
+  {
+    name: "Generate platform-specific posts",
+    text: "Create hooks, captions, threads, hashtags, media notes, links, calls to action, and review notes for each app.",
+  },
+  {
+    name: "Move toward publishing",
+    text: "Use the app registry to decide whether each platform can publish directly or needs an assisted draft.",
+  },
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is an AI post generator for multiple platforms?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "An AI post generator for multiple platforms creates platform-specific versions of one source idea for apps such as LinkedIn, X, Threads, Instagram, Facebook Pages, TikTok, Pinterest, Reddit, Bluesky, and Mastodon.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Should every platform get the same AI-generated post?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Usually no. Each platform needs a different hook, length, format, media note, hashtag approach, link handling, and audience angle.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can AI PubKit publish generated posts after creating them?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI PubKit connects generated posts to app publishing status. Some platforms can use direct publishing paths after account setup, while others need assisted drafts or human review.",
+      },
+    },
+  ],
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "AI post generator for multiple platforms",
+      item: "https://aipubkit.com/use-cases/ai-post-generator-for-multiple-platforms/",
+    },
+  ],
+};
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to generate AI posts for multiple platforms",
+  description,
+  step: steps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step.name,
+    text: step.text,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={[faqSchema, breadcrumbSchema, howToSchema]}>
+  <section class="page-hero">
+    <p class="eyebrow">Use case</p>
+    <h1>Generate AI posts for multiple platforms from one idea.</h1>
+    <p class="page-lead">
+      A useful AI post generator should not produce one generic caption. It
+      should create platform-specific social posts, review notes, media
+      guidance, and publishing handoff details from the same source.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/tools/ai-social-media-post-generator/">
+        Try the AI post generator
+      </a>
+      <a class="button light" href="/use-cases/social-media-cross-posting/">
+        Cross-posting workflow
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Customer problem</p>
+        <h2>One idea needs different social executions.</h2>
+      </div>
+      <p>
+        Social platforms have different audiences, lengths, media behavior,
+        link handling, and permission models. Good generation should prepare
+        content for the app, not only for a blank text box.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Different hooks</h3>
+        <p>
+          A LinkedIn hook may teach or frame a business lesson, while X needs
+          a concise angle, Threads can be conversational, and Reddit needs a
+          discussion prompt.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Different formats</h3>
+        <p>
+          Generate single posts, short threads, carousel notes, video captions,
+          visual prompts, hashtags, alt-text reminders, and link placement.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Different publishing paths</h3>
+        <p>
+          Some destinations have official direct posting paths. Others need a
+          ready-to-review draft, account setup, or manual confirmation.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Workflow</p>
+      <h2>Generate, adapt, then route by platform status.</h2>
+      <p class="page-lead">
+        AI PubKit connects generation with the app registry so each generated
+        post can move toward direct publishing or assisted review.
+      </p>
+    </aside>
+    <div class="steps">
+      {steps.map((step) => (
+        <article class="step">
+          <h3>{step.name}</h3>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Platform coverage</p>
+        <h2>Start with the platforms customers already use.</h2>
+      </div>
+      <p>
+        The generator should support global social apps first, while keeping a
+        request path open for regional and industry-specific platforms.
+      </p>
+    </div>
+    <div class="tag-row surface-tags">
+      {platforms.map((platform) => <span class="tag">{platform}</span>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid three">
+      <article class="card">
+        <h3>For creators</h3>
+        <p>
+          Turn one video or newsletter idea into social teasers, captions,
+          short threads, and audience-specific prompts.
+        </p>
+      </article>
+      <article class="card">
+        <h3>For agencies</h3>
+        <p>
+          Create repeatable platform packages for client campaigns without
+          manually rewriting every social app from scratch.
+        </p>
+      </article>
+      <article class="card">
+        <h3>For product teams</h3>
+        <p>
+          Convert release notes, launches, changelogs, and feature briefs into
+          public posts and internal updates.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Direct answer</p>
+      <h2>What does AI PubKit generate for multiple platforms?</h2>
+      <p>
+        AI PubKit generates platform-specific social posts, hooks, captions,
+        threads, hashtags, media notes, and review checklists from one source.
+        It then links those outputs to app publishing status so the user knows
+        whether direct posting or assisted drafting is the practical next step.
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/tools/ai-social-media-post-generator/">
+          Open free generator
+        </a>
+        <a class="button light" href="/apps/">Check app support</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

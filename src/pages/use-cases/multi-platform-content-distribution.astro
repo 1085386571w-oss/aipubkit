@@ -1,0 +1,215 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Multi-platform content distribution with AI - AI PubKit";
+const description =
+  "AI PubKit helps teams run multi-platform content distribution by turning one AI source into channel-specific outputs for social, video, CMS, and community apps.";
+const steps = [
+  {
+    name: "Define the source asset",
+    text: "Use a campaign brief, article, product update, webinar transcript, video script, newsletter idea, or AI draft.",
+  },
+  {
+    name: "Map channels by job",
+    text: "Separate awareness, search, community, customer education, internal enablement, and conversion channels before creating outputs.",
+  },
+  {
+    name: "Adapt content by platform",
+    text: "Create versions that match each app's format, length, metadata, audience, media rules, and publishing requirements.",
+  },
+  {
+    name: "Track direct and assisted paths",
+    text: "Route content to direct publishing where stable paths exist, and prepare drafts or checklists where review is required.",
+  },
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is multi-platform content distribution?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Multi-platform content distribution means adapting one content source into formats that work across multiple channels such as social, video, CMS, community, newsletter, and messaging apps.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How does AI help multi-platform content distribution?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI can turn one source into platform-specific posts, captions, article drafts, video metadata, community messages, and review checklists. AI PubKit connects those outputs to app publishing status.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is multi-platform distribution the same as posting everywhere?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. Posting everywhere usually repeats the same message. Multi-platform distribution adapts the idea, format, metadata, and call to action for each destination.",
+      },
+    },
+  ],
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Multi-platform content distribution",
+      item: "https://aipubkit.com/use-cases/multi-platform-content-distribution/",
+    },
+  ],
+};
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to distribute content across multiple platforms with AI",
+  description,
+  step: steps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step.name,
+    text: step.text,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={[faqSchema, breadcrumbSchema, howToSchema]}>
+  <section class="page-hero">
+    <p class="eyebrow">Use case</p>
+    <h1>Multi-platform content distribution should adapt, not duplicate.</h1>
+    <p class="page-lead">
+      Teams need to turn one source into many channel-ready assets without
+      rebuilding every post, article, description, or community message by hand.
+      AI PubKit makes the destination app part of the distribution plan.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/use-cases/ai-content-distribution/">
+        AI content distribution
+      </a>
+      <a class="button light" href="/tools/ai-content-distribution-brief/">
+        Build a distribution brief
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Market need</p>
+        <h2>Distribution now spans more than social scheduling.</h2>
+      </div>
+      <p>
+        Strong content workflows spread the same idea across social networks,
+        search pages, video channels, newsletters, communities, messaging apps,
+        and internal team spaces.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Social and creator channels</h3>
+        <p>
+          Prepare LinkedIn posts, X threads, Threads updates, Instagram
+          captions, Facebook Page posts, TikTok captions, Pinterest copy, and
+          creator community prompts.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Search and owned media</h3>
+        <p>
+          Turn the same idea into WordPress posts, Shopify Blog content, Ghost
+          drafts, Webflow CMS entries, Medium drafts, and answer-ready pages.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Community and team channels</h3>
+        <p>
+          Prepare Reddit posts, Discord announcements, Slack updates, Telegram
+          messages, Notion pages, and regional app drafts from one source.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Workflow</p>
+      <h2>A distribution workflow should know the job of each channel.</h2>
+      <p class="page-lead">
+        AI PubKit helps separate audience, format, publishing status, and review
+        requirements before content is sent to a destination.
+      </p>
+    </aside>
+    <div class="steps">
+      {steps.map((step) => (
+        <article class="step">
+          <h3>{step.name}</h3>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Customer outcomes</p>
+        <h2>What users get from one source asset.</h2>
+      </div>
+      <p>
+        The output should be ready enough that a creator, agency, or marketing
+        team can review and publish instead of starting over.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Awareness package</h3>
+        <p>
+          Launch posts, short video captions, teaser copy, hooks, hashtags,
+          and platform-specific calls to action.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Search package</h3>
+        <p>
+          Article outlines, CMS fields, titles, descriptions, FAQs, tags,
+          excerpts, and internal linking notes.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Community package</h3>
+        <p>
+          Discussion prompts, support updates, changelog summaries, founder
+          notes, group posts, and team announcements.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Direct answer</p>
+      <h2>How does AI PubKit support multi-platform content distribution?</h2>
+      <p>
+        AI PubKit turns one AI source into platform-specific outputs for social,
+        video, CMS, community, newsletter, messaging, and regional apps. It then
+        connects each output to a direct, assisted, or researching publishing
+        status so the user knows what can happen next.
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/apps.json">Open app registry</a>
+        <a class="button light" href="/request-app/">Request a channel</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

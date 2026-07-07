@@ -1,0 +1,217 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "AI content repurposing for app-ready publishing - AI PubKit";
+const description =
+  "AI PubKit repurposes one AI content source into social posts, video metadata, CMS drafts, community messages, and publishing checklists.";
+const steps = [
+  {
+    name: "Choose the strongest source",
+    text: "Start with a long-form draft, blog post, transcript, product note, video idea, webinar recap, or launch brief.",
+  },
+  {
+    name: "Choose the target formats",
+    text: "Select posts, threads, captions, article drafts, video metadata, messages, newsletters, or internal notes.",
+  },
+  {
+    name: "Rewrite by audience and app",
+    text: "Adjust hook, angle, length, tone, metadata, links, media notes, and calls to action for each destination.",
+  },
+  {
+    name: "Prepare publishing handoff",
+    text: "Create a direct publishing package or assisted draft package based on the app's capability status.",
+  },
+];
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is AI content repurposing?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI content repurposing uses AI to convert one source asset into multiple platform-specific versions, such as social posts, video metadata, CMS drafts, community messages, and review-ready publishing checklists.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can AI content repurposing help with publishing?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Repurposing is most valuable when the output is ready for a destination. AI PubKit connects repurposed content to each app's direct, assisted, or researching publishing status.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What content can be repurposed with AI PubKit?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "AI PubKit can repurpose articles, scripts, transcripts, product updates, launch briefs, podcast notes, video ideas, newsletter drafts, and campaign summaries into app-ready outputs.",
+      },
+    },
+  ],
+};
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "AI content repurposing",
+      item: "https://aipubkit.com/use-cases/ai-content-repurposing/",
+    },
+  ],
+};
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to repurpose AI content for publishing",
+  description,
+  step: steps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step.name,
+    text: step.text,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={[faqSchema, breadcrumbSchema, howToSchema]}>
+  <section class="page-hero">
+    <p class="eyebrow">Use case</p>
+    <h1>AI content repurposing should end in publish-ready outputs.</h1>
+    <p class="page-lead">
+      Repurposing is not just making shorter text. The user needs each version
+      to fit a destination app, with the right metadata, media notes, review
+      state, and publishing path.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/tools/content-repurposing-planner/">
+        Plan repurposed content
+      </a>
+      <a class="button light" href="/use-cases/content-repurposing-tool/">
+        Content repurposing tool
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Customer problem</p>
+        <h2>Most teams have content. They do not have every version.</h2>
+      </div>
+      <p>
+        The bottleneck is turning one good source into enough high-quality
+        versions for all the places a customer, prospect, fan, or internal team
+        will see it.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Long-form to social</h3>
+        <p>
+          Turn a guide, article, transcript, or newsletter into LinkedIn posts,
+          X threads, Threads updates, Instagram captions, and Facebook Page
+          updates.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Video to search</h3>
+        <p>
+          Convert video scripts and transcripts into YouTube metadata, blog
+          articles, FAQs, descriptions, tags, chapters, and short-form notes.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Launch brief to community</h3>
+        <p>
+          Prepare founder posts, Reddit prompts, Discord announcements, Slack
+          updates, Telegram messages, Notion notes, and support snippets.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section split">
+    <aside>
+      <p class="eyebrow">Workflow</p>
+      <h2>Repurposing needs app context.</h2>
+      <p class="page-lead">
+        AI PubKit uses app destination data so a repurposed output can be routed
+        toward direct publishing or assisted draft creation.
+      </p>
+    </aside>
+    <div class="steps">
+      {steps.map((step) => (
+        <article class="step">
+          <h3>{step.name}</h3>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Quality controls</p>
+        <h2>Useful repurposing protects the source idea.</h2>
+      </div>
+      <p>
+        The output should not become generic filler. It should keep the core
+        message while changing format, angle, and publishing details.
+      </p>
+    </div>
+    <div class="grid three">
+      <article class="card">
+        <h3>Keep the original claim</h3>
+        <p>
+          Preserve the source message, proof, offer, deadline, product facts,
+          and brand constraints while adapting the surface text.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Change the channel angle</h3>
+        <p>
+          Make LinkedIn useful for B2B context, X concise, Instagram visual,
+          YouTube searchable, Reddit discussion-led, and Slack action-focused.
+        </p>
+      </article>
+      <article class="card">
+        <h3>Add publishing readiness</h3>
+        <p>
+          Include titles, descriptions, tags, media notes, link placement,
+          review fields, and assisted handoff instructions where needed.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">Direct answer</p>
+      <h2>What does AI content repurposing mean in AI PubKit?</h2>
+      <p>
+        AI content repurposing in AI PubKit means turning one source into
+        destination-ready publishing assets, then connecting those assets to
+        the app registry so users know whether each destination supports direct
+        publishing, assisted drafts, or more research.
+      </p>
+      <div class="actions">
+        <a class="button dark" href="/use-cases/ai-content-distribution/">
+          Distribution workflow
+        </a>
+        <a class="button light" href="/answers.json">Answer map</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
