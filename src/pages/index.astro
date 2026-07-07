@@ -1,19 +1,116 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { appSlug, connectorCount, topConnectors } from "../data/apps";
+import { appSlug, connectorCount, connectors, topConnectors } from "../data/apps";
 import { sourceApps } from "../data/sourceApps";
 
 const title = "AI PubKit - One-click AI publishing workspace";
 const description =
-  "Upload or paste AI-generated content, choose source apps and destination platforms, then generate a multi-platform publishing package.";
+  "Upload or paste AI-generated content, select a source app and publishing platforms, then generate platform-ready publishing packages.";
 const alternates = [
   { hrefLang: "en", path: "/" },
   { hrefLang: "zh-CN", path: "/zh/" },
   { hrefLang: "x-default", path: "/" },
 ];
 const consoleSources = sourceApps.slice(0, 6);
-const consoleDestinations = topConnectors.slice(0, 10);
-const featuredDestinations = topConnectors.slice(0, 8);
+const consoleDestinations = topConnectors;
+const selectedDestinationNames = [
+  "YouTube",
+  "TikTok",
+  "Instagram",
+  "Facebook Pages",
+  "X",
+  "LinkedIn",
+  "Pinterest",
+  "Amazon Seller Central",
+  "TikTok Shop",
+  "Shopify Blog",
+  "Xiaohongshu",
+  "Douyin",
+];
+const selectedDestinations = selectedDestinationNames.flatMap((name) => {
+  const connector = connectors.find((item) => item.name === name);
+  return connector ? [connector] : [];
+});
+const featuredDestinations = selectedDestinations.slice(0, 12);
+const destinationGroups = [
+  {
+    label: "Global social",
+    names: [
+      "YouTube",
+      "TikTok",
+      "Instagram",
+      "Facebook Pages",
+      "X",
+      "LinkedIn",
+      "Threads",
+      "Pinterest",
+      "Reddit",
+      "Snapchat",
+    ],
+  },
+  {
+    label: "Commerce",
+    names: [
+      "Shopify Blog",
+      "Amazon Seller Central",
+      "TikTok Shop",
+      "Etsy",
+      "eBay",
+      "Walmart Marketplace",
+      "WooCommerce",
+      "BigCommerce",
+    ],
+  },
+  {
+    label: "China",
+    names: [
+      "Xiaohongshu",
+      "Douyin",
+      "Bilibili",
+      "WeChat Official Account",
+      "WeChat Channels",
+      "Weibo",
+      "Kuaishou",
+      "Zhihu",
+    ],
+  },
+  {
+    label: "Community & CMS",
+    names: [
+      "WordPress",
+      "Notion",
+      "Ghost",
+      "Google Business Profile",
+      "Telegram Channel",
+      "Discord",
+      "Slack",
+      "Mailchimp",
+    ],
+  },
+].map((group) => ({
+  ...group,
+  items: group.names.flatMap((name) => {
+    const connector = consoleDestinations.find((item) => item.name === name);
+    return connector ? [connector] : [];
+  }),
+}));
+const platformMarks: Record<string, string> = {
+  YouTube: "YT",
+  TikTok: "TT",
+  Instagram: "IG",
+  "Facebook Pages": "FB",
+  X: "X",
+  LinkedIn: "IN",
+  Threads: "TH",
+  Pinterest: "PI",
+  Reddit: "RD",
+  WordPress: "WP",
+  "Amazon Seller Central": "AM",
+  "TikTok Shop": "TS",
+  "Shopify Blog": "SH",
+  Xiaohongshu: "RED",
+  Douyin: "DY",
+};
 const samplePackage = JSON.stringify(
   {
     sourceApp: "Seedance",
@@ -62,11 +159,11 @@ const faqSchema = {
     <div class="console-shell">
       <aside class="console-sidebar" aria-label="Product navigation">
         <strong>AI PubKit</strong>
-        <a class="active" href="/">Content library</a>
-        <a href="/tools/ai-publishing-composer/">AI publish</a>
-        <a href="/apps/">Publish</a>
-        <a href="/source-apps/">AI assets</a>
-        <a href="/request-app/">Task history</a>
+        <a class="active" href="/">Content</a>
+        <a href="/tools/ai-publishing-composer/">AI Publish</a>
+        <a href="/apps/">Destinations</a>
+        <a href="/source-apps/">Source Apps</a>
+        <a href="/request-app/">Request App</a>
       </aside>
 
       <div class="console-main">
@@ -76,34 +173,47 @@ const faqSchema = {
             <span>Default</span>
           </div>
           <div class="console-actions">
-            <a href="/answers.json">Data</a>
-            <a href="/request-app/">New</a>
+            <a href="/apps.json">Registry</a>
+            <a href="/tools/ai-publishing-composer/">New package</a>
           </div>
         </div>
 
         <div class="composer-card">
-          <div class="upload-tile">
+          <a class="upload-tile" href="/tools/ai-publishing-composer/" aria-label="Add content">
             <span>+</span>
-          </div>
+            <small>Add content</small>
+          </a>
           <div class="composer-body">
             <div class="composer-head">
               <div>
-                <p class="eyebrow">One-click operation</p>
-                <h1>Upload content, choose platforms, generate a publishing package.</h1>
+                <p class="eyebrow">One-click publishing</p>
+                <h1>Upload AI content, select destinations, and generate one publishing package.</h1>
               </div>
-              <a class="button dark" href="/tools/ai-publishing-composer/">Generate</a>
+              <a class="button dark" href="/tools/ai-publishing-composer/">Generate package</a>
             </div>
 
             <div class="control-strip">
-              <a class="pill-control" href="/tools/ai-publishing-composer/">Generate draft</a>
-              <details class="picker-control">
-                <summary>{consoleDestinations.length} platforms</summary>
-                <div class="picker-menu" aria-label="Destination platforms">
-                  {consoleDestinations.map((connector) => (
-                    <a href={`/apps/${appSlug(connector.name)}/`}>
-                      <span class="check-dot">✓</span>
-                      <span>{connector.name}</span>
-                    </a>
+              <a class="pill-control" href="/tools/ai-publishing-composer/">Create package</a>
+              <span class="platform-dots" aria-label="Selected publishing platforms">
+                {selectedDestinations.map((connector) => (
+                  <a href={`/apps/${appSlug(connector.name)}/`} aria-label={connector.name}>
+                    {platformMarks[connector.name] ?? connector.name.slice(0, 2)}
+                  </a>
+                ))}
+              </span>
+              <details class="picker-control destination-picker">
+                <summary>{connectorCount} destinations</summary>
+                <div class="picker-menu destination-menu" aria-label="Destination platforms">
+                  {destinationGroups.map((group) => (
+                    <section class="picker-group">
+                      <strong>{group.label}</strong>
+                      {group.items.map((connector) => (
+                        <a href={`/apps/${appSlug(connector.name)}/`}>
+                          <span class="check-dot">✓</span>
+                          <span>{connector.name}</span>
+                        </a>
+                      ))}
+                    </section>
                   ))}
                 </div>
               </details>
@@ -121,14 +231,14 @@ const faqSchema = {
               <span class="pill-control">Seedance 2.0</span>
               <span class="pill-control">9:16</span>
               <span class="pill-control">8s</span>
-              <a class="pill-control highlight" href="/tools/ai-publishing-composer/">Requirements</a>
+              <a class="pill-control highlight" href="/tools/ai-publishing-composer/">Copy requirements</a>
             </div>
 
             <label class="prompt-row">
               <span>Prompt</span>
               <input
                 type="text"
-                value="Publish this AI video to TikTok, YouTube Shorts, Instagram Reels, and LinkedIn."
+                value="Publish this AI video to TikTok, YouTube Shorts, Instagram Reels, LinkedIn, Amazon, and Xiaohongshu."
                 aria-label="Publishing prompt"
                 readonly
               />
@@ -146,7 +256,7 @@ const faqSchema = {
           <div class="library-actions">
             <a href="/tools/ai-publishing-composer/">Batch move</a>
             <a href="/request-app/">Request app</a>
-            <a href="/source-apps.json">Generation record</a>
+            <a href="/apps/">App registry</a>
           </div>
           <article class="content-preview">
             <div class="preview-art">
@@ -155,15 +265,15 @@ const faqSchema = {
               <small>TikTok · YouTube · Instagram · LinkedIn</small>
             </div>
             <div>
-              <h2>Short video launch package</h2>
+              <h2>AI video publishing package</h2>
               <p>
-                A generated media asset becomes captions, titles, descriptions,
-                tags, cover text, alt text, and review checks for each selected platform.
+                One generated asset becomes platform-specific captions, titles,
+                descriptions, tags, cover text, alt text, and review checks.
               </p>
               <div class="tag-row surface-tags">
                 <span class="tag">Seedance</span>
                 <span class="tag">AI video</span>
-                <span class="tag">10 platforms</span>
+                <span class="tag">{connectorCount} destinations</span>
               </div>
             </div>
           </article>
@@ -176,7 +286,7 @@ const faqSchema = {
     <div class="section-heading">
       <div>
         <p class="eyebrow">Source apps</p>
-        <h2>Independent pages for the tools customers search first.</h2>
+        <h2>Source app pages for the tools customers search first.</h2>
       </div>
       <a class="button light" href="/source-apps/">View source apps</a>
     </div>
@@ -225,7 +335,7 @@ const faqSchema = {
     <div class="section-heading">
       <div>
         <p class="eyebrow">Destinations</p>
-        <h2>Click to choose where the content should go.</h2>
+        <h2>Coverage across global social, ecommerce, China, community, and CMS apps.</h2>
       </div>
       <a class="button light" href="/apps/">All destinations</a>
     </div>

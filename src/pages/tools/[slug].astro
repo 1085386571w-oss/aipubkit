@@ -627,7 +627,11 @@ const toolData = {
     }
 
     function slugify(name) {
-      return String(name).toLowerCase().replaceAll(" ", "-");
+      return String(name)
+        .toLowerCase()
+        .replaceAll("&", "and")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
     }
 
     function section(title, lines) {

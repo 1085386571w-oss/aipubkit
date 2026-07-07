@@ -1,19 +1,116 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { appSlug, topConnectors } from "../../data/apps";
+import { appSlug, connectorCount, connectors, topConnectors } from "../../data/apps";
 import { sourceApps } from "../../data/sourceApps";
 
 const title = "AI PubKit - AI 一键发布工作台";
 const description =
-  "上传或粘贴 AI 生成内容，选择源 App 和发布平台，然后生成多平台发布包。";
+  "上传或粘贴 AI 生成内容，选择源 App 和目标平台，生成适合各平台的发布包。";
 const alternates = [
   { hrefLang: "en", path: "/" },
   { hrefLang: "zh-CN", path: "/zh/" },
   { hrefLang: "x-default", path: "/" },
 ];
 const consoleSources = sourceApps.slice(0, 6);
-const consoleDestinations = topConnectors.slice(0, 10);
-const featuredDestinations = topConnectors.slice(0, 8);
+const consoleDestinations = topConnectors;
+const selectedDestinationNames = [
+  "YouTube",
+  "TikTok",
+  "Instagram",
+  "Facebook Pages",
+  "X",
+  "LinkedIn",
+  "Pinterest",
+  "Amazon Seller Central",
+  "TikTok Shop",
+  "Shopify Blog",
+  "Xiaohongshu",
+  "Douyin",
+];
+const selectedDestinations = selectedDestinationNames.flatMap((name) => {
+  const connector = connectors.find((item) => item.name === name);
+  return connector ? [connector] : [];
+});
+const featuredDestinations = selectedDestinations.slice(0, 12);
+const destinationGroups = [
+  {
+    label: "国际社媒",
+    names: [
+      "YouTube",
+      "TikTok",
+      "Instagram",
+      "Facebook Pages",
+      "X",
+      "LinkedIn",
+      "Threads",
+      "Pinterest",
+      "Reddit",
+      "Snapchat",
+    ],
+  },
+  {
+    label: "电商平台",
+    names: [
+      "Shopify Blog",
+      "Amazon Seller Central",
+      "TikTok Shop",
+      "Etsy",
+      "eBay",
+      "Walmart Marketplace",
+      "WooCommerce",
+      "BigCommerce",
+    ],
+  },
+  {
+    label: "中国平台",
+    names: [
+      "Xiaohongshu",
+      "Douyin",
+      "Bilibili",
+      "WeChat Official Account",
+      "WeChat Channels",
+      "Weibo",
+      "Kuaishou",
+      "Zhihu",
+    ],
+  },
+  {
+    label: "社区/CMS",
+    names: [
+      "WordPress",
+      "Notion",
+      "Ghost",
+      "Google Business Profile",
+      "Telegram Channel",
+      "Discord",
+      "Slack",
+      "Mailchimp",
+    ],
+  },
+].map((group) => ({
+  ...group,
+  items: group.names.flatMap((name) => {
+    const connector = consoleDestinations.find((item) => item.name === name);
+    return connector ? [connector] : [];
+  }),
+}));
+const platformMarks: Record<string, string> = {
+  YouTube: "YT",
+  TikTok: "TT",
+  Instagram: "IG",
+  "Facebook Pages": "FB",
+  X: "X",
+  LinkedIn: "IN",
+  Threads: "TH",
+  Pinterest: "PI",
+  Reddit: "RD",
+  WordPress: "WP",
+  "Amazon Seller Central": "AM",
+  "TikTok Shop": "TS",
+  "Shopify Blog": "SH",
+  Xiaohongshu: "RED",
+  Douyin: "DY",
+};
 const statusLabels = {
   "Live path": "可直发",
   Assisted: "需辅助",
@@ -69,9 +166,9 @@ const faqSchema = {
         <strong>AI PubKit</strong>
         <a class="active" href="/zh/">内容管理</a>
         <a href="/tools/ai-publishing-composer/">AI 发布</a>
-        <a href="/apps/">发布</a>
-        <a href="/source-apps/">AI 生成素材</a>
-        <a href="/request-app/">任务记录</a>
+        <a href="/apps/">目标平台</a>
+        <a href="/source-apps/">源 App</a>
+        <a href="/request-app/">申请接入</a>
       </aside>
 
       <div class="console-main">
@@ -81,34 +178,47 @@ const faqSchema = {
             <span>Default</span>
           </div>
           <div class="console-actions">
-            <a href="/answers.json">数据</a>
-            <a href="/request-app/">新建</a>
+            <a href="/apps.json">平台库</a>
+            <a href="/tools/ai-publishing-composer/">新建发布包</a>
           </div>
         </div>
 
         <div class="composer-card">
-          <div class="upload-tile">
+          <a class="upload-tile" href="/tools/ai-publishing-composer/" aria-label="添加内容">
             <span>+</span>
-          </div>
+            <small>添加内容</small>
+          </a>
           <div class="composer-body">
             <div class="composer-head">
               <div>
-                <p class="eyebrow">一键操作</p>
-                <h1>上传内容，选择平台，生成发布包。</h1>
+                <p class="eyebrow">一键发布</p>
+                <h1>上传 AI 内容，选择平台，生成一个发布包。</h1>
               </div>
-              <a class="button dark" href="/tools/ai-publishing-composer/">生成</a>
+              <a class="button dark" href="/tools/ai-publishing-composer/">生成发布包</a>
             </div>
 
             <div class="control-strip">
-              <a class="pill-control" href="/tools/ai-publishing-composer/">生成草稿</a>
-              <details class="picker-control">
-                <summary>{consoleDestinations.length} 个平台</summary>
-                <div class="picker-menu" aria-label="目标平台">
-                  {consoleDestinations.map((connector) => (
-                    <a href={`/apps/${appSlug(connector.name)}/`}>
-                      <span class="check-dot">✓</span>
-                      <span>{connector.name}</span>
-                    </a>
+              <a class="pill-control" href="/tools/ai-publishing-composer/">创建发布包</a>
+              <span class="platform-dots" aria-label="已选择的目标平台">
+                {selectedDestinations.map((connector) => (
+                  <a href={`/apps/${appSlug(connector.name)}/`} aria-label={connector.name}>
+                    {platformMarks[connector.name] ?? connector.name.slice(0, 2)}
+                  </a>
+                ))}
+              </span>
+              <details class="picker-control destination-picker">
+                <summary>{connectorCount} 个目标平台</summary>
+                <div class="picker-menu destination-menu" aria-label="目标平台">
+                  {destinationGroups.map((group) => (
+                    <section class="picker-group">
+                      <strong>{group.label}</strong>
+                      {group.items.map((connector) => (
+                        <a href={`/apps/${appSlug(connector.name)}/`}>
+                          <span class="check-dot">✓</span>
+                          <span>{connector.name}</span>
+                        </a>
+                      ))}
+                    </section>
                   ))}
                 </div>
               </details>
@@ -133,7 +243,7 @@ const faqSchema = {
               <span>提示词</span>
               <input
                 type="text"
-                value="把这个 AI 视频发布到 TikTok、YouTube Shorts、Instagram Reels 和 LinkedIn。"
+                value="把这个 AI 视频发布到 TikTok、YouTube Shorts、Instagram Reels、LinkedIn、Amazon 和小红书。"
                 aria-label="发布提示词"
                 readonly
               />
@@ -150,8 +260,8 @@ const faqSchema = {
           </div>
           <div class="library-actions">
             <a href="/tools/ai-publishing-composer/">批量移动</a>
-            <a href="/request-app/">申请平台</a>
-            <a href="/source-apps.json">生成记录</a>
+            <a href="/request-app/">申请接入</a>
+            <a href="/apps/">平台库</a>
           </div>
           <article class="content-preview">
             <div class="preview-art">
@@ -160,7 +270,7 @@ const faqSchema = {
               <small>TikTok · YouTube · Instagram · LinkedIn</small>
             </div>
             <div>
-              <h2>短视频发布包</h2>
+              <h2>AI 视频发布包</h2>
               <p>
                 一个生成素材可以变成每个平台需要的文案、标题、描述、标签、
                 封面文字、alt text 和发布检查项。
@@ -168,7 +278,7 @@ const faqSchema = {
               <div class="tag-row surface-tags">
                 <span class="tag">Seedance</span>
                 <span class="tag">AI 视频</span>
-                <span class="tag">10 个平台</span>
+                <span class="tag">{connectorCount} 个目标平台</span>
               </div>
             </div>
           </article>
@@ -181,7 +291,7 @@ const faqSchema = {
     <div class="section-heading">
       <div>
         <p class="eyebrow">源 App</p>
-        <h2>客户会先搜索这些生成工具。</h2>
+        <h2>这些源 App 是客户最先搜索的入口。</h2>
       </div>
       <a class="button light" href="/source-apps/">查看源 App</a>
     </div>
@@ -230,7 +340,7 @@ const faqSchema = {
     <div class="section-heading">
       <div>
         <p class="eyebrow">目标平台</p>
-        <h2>点击选择内容要发布到哪里。</h2>
+        <h2>覆盖国际社媒、电商、中国平台和社区/CMS。</h2>
       </div>
       <a class="button light" href="/apps/">全部目标平台</a>
     </div>

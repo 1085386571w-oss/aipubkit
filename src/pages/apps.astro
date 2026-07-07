@@ -4,7 +4,8 @@ import { appSlug, connectors } from "../data/apps";
 
 const title = "Supported publishing apps - AI PubKit";
 const description =
-  "Browse AI PubKit one-click publishing destinations for global social, video, community, CMS, and regional apps.";
+  "Browse AI PubKit one-click publishing destinations for global social, video, ecommerce, community, CMS, China, and regional apps.";
+const categories = [...new Set(connectors.map((connector) => connector.category))];
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -39,6 +40,10 @@ const itemListSchema = {
         <option value="Assisted">Assisted</option>
         <option value="Researching">Researching</option>
       </select>
+      <select id="connector-category" aria-label="Filter by category">
+        <option value="">All categories</option>
+        {categories.map((category) => <option value={category}>{category}</option>)}
+      </select>
     </div>
     <p class="muted" id="connector-count" aria-live="polite"></p>
 
@@ -50,6 +55,7 @@ const itemListSchema = {
           data-connector
           data-search={`${connector.name} ${connector.category} ${connector.region} ${connector.status} ${connector.content.join(" ")} ${connector.notes}`.toLowerCase()}
           data-status={connector.status}
+          data-category={connector.category}
         >
           <div class="connector-top">
             <div>
@@ -107,6 +113,7 @@ const itemListSchema = {
   <script>
     const searchInput = document.querySelector("#connector-search");
     const statusSelect = document.querySelector("#connector-status");
+    const categorySelect = document.querySelector("#connector-category");
     const countLabel = document.querySelector("#connector-count");
     const emptyState = document.querySelector("#connector-empty");
     const cards = Array.from(document.querySelectorAll("[data-connector]"));
@@ -114,12 +121,14 @@ const itemListSchema = {
     function applyFilters() {
       const query = String(searchInput?.value || "").trim().toLowerCase();
       const status = String(statusSelect?.value || "");
+      const category = String(categorySelect?.value || "");
       let visibleCount = 0;
 
       cards.forEach((card) => {
         const matchesQuery = !query || String(card.dataset.search || "").includes(query);
         const matchesStatus = !status || card.dataset.status === status;
-        const isVisible = matchesQuery && matchesStatus;
+        const matchesCategory = !category || card.dataset.category === category;
+        const isVisible = matchesQuery && matchesStatus && matchesCategory;
         card.hidden = !isVisible;
         if (isVisible) visibleCount += 1;
       });
@@ -135,6 +144,7 @@ const itemListSchema = {
 
     searchInput?.addEventListener("input", applyFilters);
     statusSelect?.addEventListener("change", applyFilters);
+    categorySelect?.addEventListener("change", applyFilters);
 
     const params = new URLSearchParams(window.location.search);
     const q = params.get("q");

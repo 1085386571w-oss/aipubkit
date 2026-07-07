@@ -215,7 +215,7 @@ textarea {
 
 .composer-card,
 .library-card {
-  background: var(--surface);
+  background: linear-gradient(180deg, #ffffff 0%, #fffdfd 100%);
   border: 1px solid #e8e4ea;
   border-radius: 10px;
   box-shadow: 0 10px 36px rgba(17, 24, 39, 0.06);
@@ -232,19 +232,34 @@ textarea {
 .upload-tile {
   align-items: center;
   background: #f4f3f4;
+  border: 1px dashed #d9d4dc;
   border-radius: 9px;
   color: var(--muted);
   display: flex;
+  flex-direction: column;
   font-size: 1.6rem;
+  gap: 6px;
   height: 96px;
   justify-content: center;
-  transform: rotate(-8deg);
+  text-decoration: none;
+}
+
+.upload-tile:hover {
+  background: #f0e7ff;
+  border-color: #c4b5fd;
+  color: #5b21b6;
+}
+
+.upload-tile small {
+  font-size: 0.72rem;
+  font-weight: 760;
 }
 
 .composer-body {
   display: grid;
   gap: 14px;
   min-width: 0;
+  width: 100%;
 }
 
 .composer-head {
@@ -295,6 +310,78 @@ textarea {
   color: #4c1d95;
 }
 
+.platform-dots {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-right: 2px;
+}
+
+.platform-dots a {
+  align-items: center;
+  background: #111827;
+  border: 2px solid white;
+  border-radius: 999px;
+  color: white;
+  display: inline-flex;
+  font-size: 0.62rem;
+  font-weight: 860;
+  height: 28px;
+  justify-content: center;
+  margin-left: -6px;
+  text-decoration: none;
+  width: 28px;
+}
+
+.platform-dots a:first-child {
+  margin-left: 0;
+}
+
+.platform-dots a:nth-child(2) {
+  background: #ef4444;
+}
+
+.platform-dots a:nth-child(3) {
+  background: #c026d3;
+}
+
+.platform-dots a:nth-child(4) {
+  background: #2563eb;
+}
+
+.platform-dots a:nth-child(5) {
+  background: #0f172a;
+}
+
+.platform-dots a:nth-child(6) {
+  background: #0a66c2;
+}
+
+.platform-dots a:nth-child(7) {
+  background: #bd081c;
+}
+
+.platform-dots a:nth-child(8) {
+  background: #f59e0b;
+}
+
+.platform-dots a:nth-child(9) {
+  background: #111827;
+}
+
+.platform-dots a:nth-child(10) {
+  background: #16a34a;
+}
+
+.platform-dots a:nth-child(11) {
+  background: #db2777;
+}
+
+.platform-dots a:nth-child(12) {
+  background: #ea580c;
+}
+
 .picker-control {
   position: relative;
 }
@@ -322,6 +409,24 @@ textarea {
   position: absolute;
   top: calc(100% + 8px);
   z-index: 20;
+}
+
+.destination-menu {
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  min-width: min(780px, calc(100vw - 96px));
+}
+
+.picker-group {
+  display: grid;
+  gap: 6px;
+}
+
+.picker-group strong {
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 860;
+  padding: 2px 4px;
+  text-transform: uppercase;
 }
 
 .picker-menu a {
@@ -1487,8 +1592,11 @@ pre {
 
   .upload-tile {
     height: 76px;
-    transform: none;
     width: 76px;
+  }
+
+  .upload-tile small {
+    font-size: 0.66rem;
   }
 
   .composer-card,
@@ -1506,8 +1614,14 @@ pre {
   }
 
   .composer-head h1 {
-    font-size: 1.24rem;
+    font-size: 1.08rem;
     line-height: 1.18;
+    word-break: break-all;
+  }
+
+  .composer-head .button {
+    justify-content: center;
+    width: 100%;
   }
 
   .pill-control,
@@ -1515,6 +1629,12 @@ pre {
     font-size: 0.84rem;
     min-height: 32px;
     padding: 6px 10px;
+  }
+
+  .platform-dots a {
+    font-size: 0.58rem;
+    height: 26px;
+    width: 26px;
   }
 
   .picker-control {
@@ -1527,6 +1647,10 @@ pre {
     min-width: min(320px, calc(100vw - 48px));
     position: static;
     top: auto;
+  }
+
+  .destination-menu {
+    min-width: 100%;
   }
 
   .prompt-row {

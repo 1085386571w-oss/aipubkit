@@ -7,7 +7,14 @@ export type ConnectorSource = {
 
 export type Connector = {
   name: string;
-  category: "Video" | "Social" | "Community" | "CMS" | "China";
+  category:
+    | "Video"
+    | "Social"
+    | "Community"
+    | "CMS"
+    | "Newsletter"
+    | "Ecommerce"
+    | "China";
   region: "Global" | "US/EU" | "China" | "Regional";
   status: ConnectorStatus;
   content: string[];
@@ -23,7 +30,11 @@ export type Connector = {
 };
 
 export function appSlug(name: string) {
-  return name.toLowerCase().replaceAll(" ", "-");
+  return name
+    .toLowerCase()
+    .replaceAll("&", "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 export function statusSummary(status: ConnectorStatus, appName: string) {
@@ -446,6 +457,202 @@ export const connectors: Connector[] = [
     sourceUrl: "https://docs.slack.dev/reference/methods/chat.postMessage",
   },
   {
+    name: "WhatsApp Business",
+    category: "Community",
+    region: "Global",
+    status: "Assisted",
+    content: ["Business message", "Template", "Media"],
+    notes:
+      "Important for customer communication, but sending requires opt-in, approved templates, and WhatsApp Business Platform setup.",
+    sourceName: "WhatsApp Cloud API send messages",
+    sourceUrl: "https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages",
+  },
+  {
+    name: "Snapchat",
+    category: "Social",
+    region: "Global",
+    status: "Researching",
+    content: ["Spotlight brief", "Story copy", "Creative note"],
+    notes:
+      "Relevant for youth and creator campaigns, but direct general-purpose publishing needs more verification before it should be promised.",
+  },
+  {
+    name: "Tumblr",
+    category: "CMS",
+    region: "Global",
+    status: "Live path",
+    content: ["Post", "Image", "Link"],
+    notes:
+      "Useful for fandom, visual posts, blogs, and niche communities that still need quick draft creation.",
+    sourceName: "Tumblr API create post",
+    sourceUrl: "https://www.tumblr.com/docs/en/api/v2",
+  },
+  {
+    name: "Vimeo",
+    category: "Video",
+    region: "Global",
+    status: "Live path",
+    content: ["Video", "Description", "Privacy"],
+    notes:
+      "Useful for professional video hosting, portfolios, product demos, and client review libraries.",
+    sourceName: "Vimeo API upload videos",
+    sourceUrl: "https://developer.vimeo.com/api/upload/videos",
+  },
+  {
+    name: "Mailchimp",
+    category: "Newsletter",
+    region: "Global",
+    status: "Live path",
+    content: ["Campaign", "Email draft", "Audience"],
+    notes:
+      "Useful when AI content should become an email campaign or newsletter draft, not only a social post.",
+    sourceName: "Mailchimp Marketing API campaigns",
+    sourceUrl: "https://mailchimp.com/developer/marketing/api/campaigns/",
+  },
+  {
+    name: "Beehiiv",
+    category: "Newsletter",
+    region: "Global",
+    status: "Assisted",
+    content: ["Newsletter post", "Draft", "Audience"],
+    notes:
+      "Important for creator newsletters, but publication-specific API access and account setup should be checked before direct publishing.",
+    sourceName: "Beehiiv API documentation",
+    sourceUrl: "https://developers.beehiiv.com/docs/v2",
+  },
+  {
+    name: "Amazon Seller Central",
+    category: "Ecommerce",
+    region: "Global",
+    status: "Assisted",
+    content: ["Product listing", "Marketplace copy", "A+ content"],
+    notes:
+      "High-value ecommerce destination for product copy, but listings require seller approval, catalog rules, compliance review, and SP-API setup.",
+    sourceName: "Amazon Selling Partner API",
+    sourceUrl: "https://developer-docs.amazon.com/sp-api/",
+  },
+  {
+    name: "TikTok Shop",
+    category: "Ecommerce",
+    region: "Global",
+    status: "Assisted",
+    content: ["Product listing", "Shop video", "Commerce caption"],
+    notes:
+      "Strong social-commerce fit for short video and product listings, with seller, region, product, and policy checks.",
+  },
+  {
+    name: "Etsy",
+    category: "Ecommerce",
+    region: "Global",
+    status: "Assisted",
+    content: ["Listing draft", "Product copy", "Tags"],
+    notes:
+      "Good fit for handmade, digital, and creator products; direct listing creation still needs shop authorization and review.",
+    sourceName: "Etsy API create draft listing",
+    sourceUrl: "https://developers.etsy.com/documentation/reference/#operation/createDraftListing",
+  },
+  {
+    name: "eBay",
+    category: "Ecommerce",
+    region: "Global",
+    status: "Assisted",
+    content: ["Listing", "Inventory item", "Product copy"],
+    notes:
+      "Useful for marketplace sellers, but product data, inventory, shipping, category, and policy fields need careful review.",
+    sourceName: "eBay Sell Inventory API",
+    sourceUrl:
+      "https://developer.ebay.com/api-docs/sell/inventory/resources/inventory_item/methods/createOrReplaceInventoryItem",
+  },
+  {
+    name: "Walmart Marketplace",
+    category: "Ecommerce",
+    region: "US/EU",
+    status: "Assisted",
+    content: ["Item setup", "Product copy", "Marketplace feed"],
+    notes:
+      "Important for U.S. marketplace sellers, but item setup needs seller account, category, compliance, and feed validation.",
+    sourceName: "Walmart Marketplace items API",
+    sourceUrl: "https://developer.walmart.com/us-marketplace/docs/items",
+  },
+  {
+    name: "WooCommerce",
+    category: "Ecommerce",
+    region: "Global",
+    status: "Live path",
+    content: ["Product", "Blog post", "Store copy"],
+    notes:
+      "Useful for independent ecommerce stores that need product pages, product updates, and blog drafts.",
+    sourceName: "WooCommerce REST API products",
+    sourceUrl: "https://woocommerce.github.io/woocommerce-rest-api-docs/#create-a-product",
+  },
+  {
+    name: "BigCommerce",
+    category: "Ecommerce",
+    region: "Global",
+    status: "Live path",
+    content: ["Product", "Category page", "Store content"],
+    notes:
+      "Good fit for merchants that need AI-generated product content moved into a structured commerce catalog.",
+    sourceName: "BigCommerce products API",
+    sourceUrl: "https://developer.bigcommerce.com/docs/rest-catalog/products",
+  },
+  {
+    name: "Shopee",
+    category: "Ecommerce",
+    region: "Regional",
+    status: "Assisted",
+    content: ["Product listing", "Shop copy", "Campaign copy"],
+    notes:
+      "Important for Southeast Asia ecommerce; seller authorization, category rules, and regional platform limits apply.",
+  },
+  {
+    name: "Lazada",
+    category: "Ecommerce",
+    region: "Regional",
+    status: "Assisted",
+    content: ["Product listing", "Campaign copy", "Store update"],
+    notes:
+      "Useful for Southeast Asia marketplace workflows, with seller, catalog, and regional compliance checks.",
+  },
+  {
+    name: "Mercado Libre",
+    category: "Ecommerce",
+    region: "Regional",
+    status: "Assisted",
+    content: ["Listing", "Product copy", "Catalog update"],
+    notes:
+      "Important for Latin America sellers; publishing should respect marketplace categories, shipping, and seller rules.",
+    sourceName: "Mercado Libre API documentation",
+    sourceUrl: "https://developers.mercadolibre.com.ar/en_us/api-docs",
+  },
+  {
+    name: "AliExpress",
+    category: "Ecommerce",
+    region: "Global",
+    status: "Researching",
+    content: ["Product copy", "Marketplace listing", "Campaign copy"],
+    notes:
+      "Demand is clear for cross-border ecommerce content, but direct publishing support needs official seller API verification.",
+  },
+  {
+    name: "Temu",
+    category: "Ecommerce",
+    region: "Global",
+    status: "Researching",
+    content: ["Product copy", "Marketplace content", "Campaign copy"],
+    notes:
+      "Important marketplace by traffic, but AI PubKit should validate merchant-side publishing access before promising direct support.",
+  },
+  {
+    name: "SHEIN Marketplace",
+    category: "Ecommerce",
+    region: "Global",
+    status: "Researching",
+    content: ["Product listing", "Fashion copy", "Campaign copy"],
+    notes:
+      "Useful for fashion ecommerce demand tracking, with direct support dependent on seller program access and official documentation.",
+  },
+  {
     name: "Xiaohongshu",
     category: "China",
     region: "China",
@@ -477,7 +684,88 @@ export const connectors: Connector[] = [
     content: ["Article", "Draft", "Media"],
     notes: "Useful for brand publishing and private-domain content operations.",
   },
+  {
+    name: "WeChat Channels",
+    category: "China",
+    region: "China",
+    status: "Assisted",
+    content: ["Short video", "Caption", "Private-domain traffic"],
+    notes:
+      "Useful for China video and private-domain distribution, with account and platform review requirements.",
+  },
+  {
+    name: "Weibo",
+    category: "China",
+    region: "China",
+    status: "Assisted",
+    content: ["Post", "Campaign copy", "Trend topic"],
+    notes:
+      "Important for public conversation, announcements, and campaign amplification in China.",
+  },
+  {
+    name: "Kuaishou",
+    category: "China",
+    region: "China",
+    status: "Assisted",
+    content: ["Short video", "Live commerce copy", "Caption"],
+    notes:
+      "Important China short-video and live-commerce destination, especially outside only top-tier city audiences.",
+  },
+  {
+    name: "Zhihu",
+    category: "China",
+    region: "China",
+    status: "Assisted",
+    content: ["Answer", "Article", "Q&A draft"],
+    notes:
+      "Useful for long-form expertise, product education, and Chinese search/discovery questions.",
+  },
+  {
+    name: "Toutiao",
+    category: "China",
+    region: "China",
+    status: "Assisted",
+    content: ["Article", "Short post", "Headline"],
+    notes:
+      "Useful for newsfeed-style distribution and article repurposing in China's ByteDance ecosystem.",
+  },
+  {
+    name: "Baidu Baijiahao",
+    category: "China",
+    region: "China",
+    status: "Assisted",
+    content: ["Article", "Video", "Search content"],
+    notes:
+      "Useful for Baidu-facing content distribution, article publishing, and search visibility in China.",
+  },
+  {
+    name: "Taobao Tmall",
+    category: "Ecommerce",
+    region: "China",
+    status: "Assisted",
+    content: ["Product copy", "Store campaign", "Commerce content"],
+    notes:
+      "Important for China ecommerce, but publishing must respect merchant access, product compliance, and store rules.",
+  },
+  {
+    name: "JD.com",
+    category: "Ecommerce",
+    region: "China",
+    status: "Assisted",
+    content: ["Product copy", "Store campaign", "Marketplace content"],
+    notes:
+      "Important for China marketplace sellers and brand stores, with catalog and merchant permission checks.",
+  },
+  {
+    name: "Dewu Poizon",
+    category: "Ecommerce",
+    region: "China",
+    status: "Researching",
+    content: ["Product copy", "Lifestyle content", "Marketplace content"],
+    notes:
+      "Relevant for fashion, sneaker, beauty, and youth commerce content, but direct support needs official path validation.",
+  },
 ];
 
 export const connectorCount = connectors.length;
-export const topConnectors = connectors.slice(0, 15);
+export const topConnectors = connectors;
