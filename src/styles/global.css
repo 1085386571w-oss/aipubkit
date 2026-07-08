@@ -241,7 +241,15 @@ textarea {
   gap: 6px;
   height: 96px;
   justify-content: center;
+  padding: 0;
   text-decoration: none;
+}
+
+.upload-tile,
+button.button,
+button.pill-control {
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .upload-tile:hover {

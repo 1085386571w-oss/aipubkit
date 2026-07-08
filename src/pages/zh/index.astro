@@ -5,7 +5,7 @@ import { sourceApps } from "../../data/sourceApps";
 
 const title = "AI PubKit - AI 一键发布工作台";
 const description =
-  "上传或粘贴 AI 生成内容，选择源 App 和目标平台，生成适合各平台的发布包。";
+  "上传或粘贴 AI 生成内容，选择源 App 和目标平台，生成适合各平台的发布稿。";
 const alternates = [
   { hrefLang: "en", path: "/" },
   { hrefLang: "zh-CN", path: "/zh/" },
@@ -140,7 +140,7 @@ const faqSchema = {
       name: "AI PubKit 解决什么问题？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "AI PubKit 把 Seedance、Kling AI、Veo、Runway、Midjourney、Canva 等源 App 生成的内容，变成适合多个目标平台的发布包。",
+        text: "AI PubKit 把 Seedance、Kling AI、Veo、Runway、Midjourney、Canva 等源 App 生成的内容，变成适合多个目标平台的发布稿。",
       },
     },
     {
@@ -148,7 +148,7 @@ const faqSchema = {
       name: "用户能选择发布平台吗？",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "可以。用户可以先选择 TikTok、YouTube、Instagram、Pinterest、LinkedIn、Facebook Pages、WordPress 和区域平台，再生成对应发布包。",
+        text: "可以。用户可以先选择 TikTok、YouTube、Instagram、Pinterest、LinkedIn、Facebook Pages、WordPress 和区域平台，再生成对应发布稿。",
       },
     },
   ],
@@ -183,26 +183,26 @@ const faqSchema = {
           </div>
           <div class="console-actions">
             <a href="/apps.json">平台库</a>
-            <a href="/tools/ai-publishing-composer/">新建发布包</a>
+            <a href="/tools/ai-publishing-composer/">新建发布稿</a>
           </div>
         </div>
 
         <div class="composer-card">
-          <a class="upload-tile" href="/tools/ai-publishing-composer/" aria-label="添加内容">
+          <button class="upload-tile" type="button" data-start-package aria-label="填写内容">
             <span>+</span>
-            <small>添加内容</small>
-          </a>
+            <small>填写内容</small>
+          </button>
           <div class="composer-body">
             <div class="composer-head">
               <div>
                 <p class="eyebrow">一键发布</p>
-                <h1>上传 AI 内容，选择平台，生成一个发布包。</h1>
+                <h1>上传 AI 内容，选择平台，生成多平台发布稿。</h1>
               </div>
-              <a class="button dark" href="/tools/ai-publishing-composer/">生成发布包</a>
+              <button class="button dark" type="button" data-start-package>生成发布稿</button>
             </div>
 
             <div class="control-strip">
-              <a class="pill-control" href="/tools/ai-publishing-composer/">创建发布包</a>
+              <button class="pill-control" type="button" data-start-package>创建发布稿</button>
               <span class="platform-dots" aria-label="已选择的目标平台">
                 {selectedDestinations.map((connector) => (
                   <button type="button" aria-label={connector.name}>
@@ -271,7 +271,7 @@ const faqSchema = {
               <span class="pill-control">Seedance 2.0</span>
               <span class="pill-control">9:16</span>
               <span class="pill-control">8s</span>
-              <a class="pill-control highlight" href="/tools/ai-publishing-composer/">文案要求</a>
+              <button class="pill-control highlight" type="button" data-start-package>文案要求</button>
               <button class="pill-control connect-control" type="button" data-auth-open>连接授权</button>
             </div>
 
@@ -305,7 +305,7 @@ const faqSchema = {
             </p>
             <div class="auth-list" data-auth-list></div>
             <div class="auth-actions">
-              <button class="button dark" type="button" data-auth-confirm>继续生成发布包</button>
+              <button class="button dark" type="button" data-auth-confirm>继续生成发布稿</button>
               <button class="button light" type="button" data-auth-close>取消</button>
             </div>
           </div>
@@ -330,7 +330,7 @@ const faqSchema = {
               <small>TikTok · YouTube · Instagram · LinkedIn</small>
             </div>
             <div>
-              <h2>AI 视频发布包</h2>
+              <h2>AI 视频发布稿</h2>
               <p>
                 一个生成素材可以变成每个平台需要的文案、标题、描述、标签、
                 封面文字、alt text 和发布检查项。
@@ -356,6 +356,7 @@ const faqSchema = {
     const authList = document.querySelector("[data-auth-list]");
     const authOpenButtons = Array.from(document.querySelectorAll("[data-auth-open]"));
     const authCloseButtons = Array.from(document.querySelectorAll("[data-auth-close]"));
+    const startPackageButtons = Array.from(document.querySelectorAll("[data-start-package]"));
     const authConfirm = document.querySelector("[data-auth-confirm]");
     const selectedDestinations = new Map();
 
@@ -474,11 +475,17 @@ const faqSchema = {
       });
     });
 
+    startPackageButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        window.location.href = composerUrlFromSelection();
+      });
+    });
+
     authConfirm?.addEventListener("click", () => {
       if (authModal instanceof HTMLElement) authModal.hidden = true;
       if (selectionNote) {
         selectionNote.textContent =
-          "下一步生成发布包，并按平台状态进入官方授权或生成待审核草稿。";
+          "下一步生成发布稿，并按平台状态进入官方授权或生成待审核草稿。";
       }
       window.location.href = composerUrlFromSelection();
     });
@@ -527,7 +534,7 @@ const faqSchema = {
       </div>
       <div class="package-panel">
         <div class="panel-header">
-          <strong>示例发布包</strong>
+          <strong>示例发布稿</strong>
           <span>JSON handoff</span>
         </div>
         <pre><code>{samplePackage}</code></pre>

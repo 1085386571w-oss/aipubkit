@@ -188,21 +188,21 @@ const faqSchema = {
         </div>
 
         <div class="composer-card">
-          <a class="upload-tile" href="/tools/ai-publishing-composer/" aria-label="Add content">
+          <button class="upload-tile" type="button" data-start-package aria-label="Add content">
             <span>+</span>
             <small>Add content</small>
-          </a>
+          </button>
           <div class="composer-body">
             <div class="composer-head">
               <div>
                 <p class="eyebrow">One-click publishing</p>
                 <h1>Upload AI content, select destinations, and generate one publishing package.</h1>
               </div>
-              <a class="button dark" href="/tools/ai-publishing-composer/">Generate package</a>
+              <button class="button dark" type="button" data-start-package>Generate package</button>
             </div>
 
             <div class="control-strip">
-              <a class="pill-control" href="/tools/ai-publishing-composer/">Create package</a>
+              <button class="pill-control" type="button" data-start-package>Create package</button>
               <span class="platform-dots" aria-label="Selected publishing platforms">
                 {selectedDestinations.map((connector) => (
                   <button type="button" aria-label={connector.name}>
@@ -271,7 +271,7 @@ const faqSchema = {
               <span class="pill-control">Seedance 2.0</span>
               <span class="pill-control">9:16</span>
               <span class="pill-control">8s</span>
-              <a class="pill-control highlight" href="/tools/ai-publishing-composer/">Copy requirements</a>
+              <button class="pill-control highlight" type="button" data-start-package>Copy requirements</button>
               <button class="pill-control connect-control" type="button" data-auth-open>Connect accounts</button>
             </div>
 
@@ -357,6 +357,7 @@ const faqSchema = {
     const authList = document.querySelector("[data-auth-list]");
     const authOpenButtons = Array.from(document.querySelectorAll("[data-auth-open]"));
     const authCloseButtons = Array.from(document.querySelectorAll("[data-auth-close]"));
+    const startPackageButtons = Array.from(document.querySelectorAll("[data-start-package]"));
     const authConfirm = document.querySelector("[data-auth-confirm]");
     const selectedDestinations = new Map();
 
@@ -472,6 +473,12 @@ const faqSchema = {
     authCloseButtons.forEach((button) => {
       button.addEventListener("click", () => {
         if (authModal instanceof HTMLElement) authModal.hidden = true;
+      });
+    });
+
+    startPackageButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        window.location.href = composerUrlFromSelection();
       });
     });
 
