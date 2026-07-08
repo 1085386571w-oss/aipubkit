@@ -205,25 +205,25 @@ const faqSchema = {
               <a class="pill-control" href="/tools/ai-publishing-composer/">创建发布包</a>
               <span class="platform-dots" aria-label="已选择的目标平台">
                 {selectedDestinations.map((connector) => (
-                  <a href={`/apps/${appSlug(connector.name)}/`} aria-label={connector.name}>
+                  <button type="button" aria-label={connector.name}>
                     {platformMarks[connector.name] ?? connector.name.slice(0, 2)}
-                  </a>
+                  </button>
                 ))}
               </span>
               <details class="picker-control destination-picker">
                 <summary>
-                  <span>{connectorCount} 个目标平台</span>
-                  <small>社媒 · 电商 · 中国</small>
+                  <span data-destination-summary>已选 {selectedDestinations.length} 个</span>
+                  <small>共 {connectorCount} 个平台</small>
                 </summary>
                 <div class="destination-panel" aria-label="目标平台">
                   <div class="destination-panel-head">
                     <div>
                       <strong>选择要发布的平台</strong>
-                      <p>先按类型找平台，再进入平台页查看可直发、需辅助或待验证状态。</p>
+                      <p>点击平台就是选中，不跳转。直发平台下一步进入授权确认，其他平台生成待审核草稿。</p>
                     </div>
                     <div class="destination-panel-actions">
-                      <a href="/apps/">全部平台</a>
-                      <a href="/request-app/">申请接入</a>
+                      <button type="button" data-auth-open>连接授权</button>
+                      <a href="/apps/">查看规则</a>
                     </div>
                   </div>
                   <div class="destination-panel-grid">
@@ -236,13 +236,20 @@ const faqSchema = {
                         <p>{group.description}</p>
                         <div class="destination-chip-grid">
                           {group.items.map((connector) => (
-                            <a href={`/apps/${appSlug(connector.name)}/`}>
+                            <button
+                              type="button"
+                              class={`destination-option ${selectedDestinationNames.includes(connector.name) ? "selected" : ""}`}
+                              data-destination-option
+                              data-name={connector.name}
+                              data-status={connector.status}
+                              data-mark={platformMarks[connector.name] ?? connector.name.slice(0, 2)}
+                            >
                               <span>
                                 <i class={`status-dot ${connector.status.toLowerCase().replaceAll(" ", "-")}`}></i>
                                 {connector.name}
                               </span>
                               <small>{statusLabels[connector.status]}</small>
-                            </a>
+                            </button>
                           ))}
                         </div>
                       </section>
@@ -265,7 +272,12 @@ const faqSchema = {
               <span class="pill-control">9:16</span>
               <span class="pill-control">8s</span>
               <a class="pill-control highlight" href="/tools/ai-publishing-composer/">文案要求</a>
+              <button class="pill-control connect-control" type="button" data-auth-open>连接授权</button>
             </div>
+
+            <p class="selection-note" data-selection-note>
+              已选 {selectedDestinations.length} 个目标平台。可直发平台会进入授权确认，需辅助平台会生成待审核草稿。
+            </p>
 
             <label class="prompt-row">
               <span>提示词</span>
@@ -276,6 +288,26 @@ const faqSchema = {
                 readonly
               />
             </label>
+          </div>
+        </div>
+
+        <div class="auth-modal" data-auth-modal hidden>
+          <div class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+            <div class="auth-header">
+              <div>
+                <p class="eyebrow">授权确认</p>
+                <h2 id="auth-title">连接已选平台。</h2>
+              </div>
+              <button type="button" data-auth-close aria-label="关闭授权弹窗">×</button>
+            </div>
+            <p class="auth-copy">
+              可直发平台会进入官方 OAuth 授权同意页；需辅助平台会生成待审核草稿，不会把客户带离当前选择流程。
+            </p>
+            <div class="auth-list" data-auth-list></div>
+            <div class="auth-actions">
+              <button class="button dark" type="button" data-auth-confirm>继续生成发布包</button>
+              <button class="button light" type="button" data-auth-close>取消</button>
+            </div>
           </div>
         </div>
 
@@ -314,6 +346,121 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <script>
+    const destinationOptions = Array.from(document.querySelectorAll("[data-destination-option]"));
+    const selectedDots = document.querySelector(".platform-dots");
+    const destinationSummary = document.querySelector("[data-destination-summary]");
+    const selectionNote = document.querySelector("[data-selection-note]");
+    const authModal = document.querySelector("[data-auth-modal]");
+    const authList = document.querySelector("[data-auth-list]");
+    const authOpenButtons = Array.from(document.querySelectorAll("[data-auth-open]"));
+    const authCloseButtons = Array.from(document.querySelectorAll("[data-auth-close]"));
+    const authConfirm = document.querySelector("[data-auth-confirm]");
+    const selectedDestinations = new Map();
+
+    function readOption(option) {
+      return {
+        name: option.dataset.name,
+        status: option.dataset.status,
+        mark: option.dataset.mark,
+      };
+    }
+
+    destinationOptions.forEach((option) => {
+      if (option.classList.contains("selected")) {
+        const item = readOption(option);
+        selectedDestinations.set(item.name, item);
+      }
+
+      option.addEventListener("click", () => {
+        const item = readOption(option);
+        if (selectedDestinations.has(item.name)) {
+          selectedDestinations.delete(item.name);
+        } else {
+          selectedDestinations.set(item.name, item);
+        }
+        syncDestinationSelection();
+      });
+    });
+
+    function syncDestinationSelection() {
+      destinationOptions.forEach((option) => {
+        option.classList.toggle("selected", selectedDestinations.has(option.dataset.name));
+      });
+
+      if (destinationSummary) {
+        destinationSummary.textContent = `已选 ${selectedDestinations.size} 个`;
+      }
+
+      if (selectionNote) {
+        selectionNote.textContent = selectedDestinations.size
+          ? `已选 ${selectedDestinations.size} 个目标平台。点击连接授权后，可直发平台进入授权确认，需辅助平台生成待审核草稿。`
+          : "请先选择至少一个目标平台。";
+      }
+
+      if (selectedDots) {
+        selectedDots.replaceChildren(
+          ...Array.from(selectedDestinations.values()).map((item) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.textContent = item.mark;
+            button.setAttribute("aria-label", item.name);
+            return button;
+          }),
+        );
+      }
+    }
+
+    function statusText(status) {
+      if (status === "Live path") return "官方授权";
+      if (status === "Assisted") return "草稿/审核";
+      return "先验证";
+    }
+
+    function openAuthModal() {
+      if (!(authModal instanceof HTMLElement) || !(authList instanceof HTMLElement)) return;
+      if (!selectedDestinations.size) {
+        if (selectionNote) {
+          selectionNote.textContent = "请先选择至少一个目标平台。";
+        }
+        return;
+      }
+      authList.replaceChildren(
+        ...Array.from(selectedDestinations.values()).map((item) => {
+          const row = document.createElement("div");
+          const name = document.createElement("strong");
+          const status = document.createElement("span");
+          row.className = "auth-row";
+          name.textContent = item.name;
+          status.textContent = statusText(item.status);
+          row.append(name, status);
+          return row;
+        }),
+      );
+      authModal.hidden = false;
+    }
+
+    authOpenButtons.forEach((button) => {
+      button.addEventListener("click", openAuthModal);
+    });
+
+    authCloseButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (authModal instanceof HTMLElement) authModal.hidden = true;
+      });
+    });
+
+    authConfirm?.addEventListener("click", () => {
+      if (authModal instanceof HTMLElement) authModal.hidden = true;
+      if (selectionNote) {
+        selectionNote.textContent =
+          "下一步生成发布包，并按平台状态进入官方授权或生成待审核草稿。";
+      }
+    });
+
+    syncDestinationSelection();
+  </script>
 
   <section class="section compact-section">
     <div class="section-heading">

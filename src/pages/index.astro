@@ -205,25 +205,25 @@ const faqSchema = {
               <a class="pill-control" href="/tools/ai-publishing-composer/">Create package</a>
               <span class="platform-dots" aria-label="Selected publishing platforms">
                 {selectedDestinations.map((connector) => (
-                  <a href={`/apps/${appSlug(connector.name)}/`} aria-label={connector.name}>
+                  <button type="button" aria-label={connector.name}>
                     {platformMarks[connector.name] ?? connector.name.slice(0, 2)}
-                  </a>
+                  </button>
                 ))}
               </span>
               <details class="picker-control destination-picker">
                 <summary>
-                  <span>{connectorCount} destinations</span>
-                  <small>social · commerce · China</small>
+                  <span data-destination-summary>{selectedDestinations.length} selected</span>
+                  <small>{connectorCount} destinations</small>
                 </summary>
                 <div class="destination-panel" aria-label="Destination platforms">
                   <div class="destination-panel-head">
                     <div>
                       <strong>Choose publishing destinations</strong>
-                      <p>Pick a category first, then open any app page to check direct, assisted, or research status.</p>
+                      <p>Click apps to select where this package should go. Connect accounts before direct sending.</p>
                     </div>
                     <div class="destination-panel-actions">
-                      <a href="/apps/">All apps</a>
-                      <a href="/request-app/">Request app</a>
+                      <button type="button" data-auth-open>Connect selected</button>
+                      <a href="/apps/">All app rules</a>
                     </div>
                   </div>
                   <div class="destination-panel-grid">
@@ -236,13 +236,20 @@ const faqSchema = {
                         <p>{group.description}</p>
                         <div class="destination-chip-grid">
                           {group.items.map((connector) => (
-                            <a href={`/apps/${appSlug(connector.name)}/`}>
+                            <button
+                              type="button"
+                              class={`destination-option ${selectedDestinationNames.includes(connector.name) ? "selected" : ""}`}
+                              data-destination-option
+                              data-name={connector.name}
+                              data-status={connector.status}
+                              data-mark={platformMarks[connector.name] ?? connector.name.slice(0, 2)}
+                            >
                               <span>
                                 <i class={`status-dot ${connector.status.toLowerCase().replaceAll(" ", "-")}`}></i>
                                 {connector.name}
                               </span>
                               <small>{statusLabel[connector.status]}</small>
-                            </a>
+                            </button>
                           ))}
                         </div>
                       </section>
@@ -265,7 +272,12 @@ const faqSchema = {
               <span class="pill-control">9:16</span>
               <span class="pill-control">8s</span>
               <a class="pill-control highlight" href="/tools/ai-publishing-composer/">Copy requirements</a>
+              <button class="pill-control connect-control" type="button" data-auth-open>Connect accounts</button>
             </div>
+
+            <p class="selection-note" data-selection-note>
+              {selectedDestinations.length} destinations selected. Direct paths ask for authorization; assisted paths create review-ready drafts.
+            </p>
 
             <label class="prompt-row">
               <span>Prompt</span>
@@ -276,6 +288,27 @@ const faqSchema = {
                 readonly
               />
             </label>
+          </div>
+        </div>
+
+        <div class="auth-modal" data-auth-modal hidden>
+          <div class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+            <div class="auth-header">
+              <div>
+                <p class="eyebrow">Account authorization</p>
+                <h2 id="auth-title">Connect selected platforms.</h2>
+              </div>
+              <button type="button" data-auth-close aria-label="Close authorization">×</button>
+            </div>
+            <p class="auth-copy">
+              Direct platforms open their official OAuth consent screen.
+              Assisted platforms stay as review-ready drafts without leaving this flow.
+            </p>
+            <div class="auth-list" data-auth-list></div>
+            <div class="auth-actions">
+              <button class="button dark" type="button" data-auth-confirm>Continue to package</button>
+              <button class="button light" type="button" data-auth-close>Cancel</button>
+            </div>
           </div>
         </div>
 
@@ -314,6 +347,121 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <script>
+    const destinationOptions = Array.from(document.querySelectorAll("[data-destination-option]"));
+    const selectedDots = document.querySelector(".platform-dots");
+    const destinationSummary = document.querySelector("[data-destination-summary]");
+    const selectionNote = document.querySelector("[data-selection-note]");
+    const authModal = document.querySelector("[data-auth-modal]");
+    const authList = document.querySelector("[data-auth-list]");
+    const authOpenButtons = Array.from(document.querySelectorAll("[data-auth-open]"));
+    const authCloseButtons = Array.from(document.querySelectorAll("[data-auth-close]"));
+    const authConfirm = document.querySelector("[data-auth-confirm]");
+    const selectedDestinations = new Map();
+
+    function readOption(option) {
+      return {
+        name: option.dataset.name,
+        status: option.dataset.status,
+        mark: option.dataset.mark,
+      };
+    }
+
+    destinationOptions.forEach((option) => {
+      if (option.classList.contains("selected")) {
+        const item = readOption(option);
+        selectedDestinations.set(item.name, item);
+      }
+
+      option.addEventListener("click", () => {
+        const item = readOption(option);
+        if (selectedDestinations.has(item.name)) {
+          selectedDestinations.delete(item.name);
+        } else {
+          selectedDestinations.set(item.name, item);
+        }
+        syncDestinationSelection();
+      });
+    });
+
+    function syncDestinationSelection() {
+      destinationOptions.forEach((option) => {
+        option.classList.toggle("selected", selectedDestinations.has(option.dataset.name));
+      });
+
+      if (destinationSummary) {
+        destinationSummary.textContent = `${selectedDestinations.size} selected`;
+      }
+
+      if (selectionNote) {
+        selectionNote.textContent = selectedDestinations.size
+          ? `${selectedDestinations.size} destinations selected. Connect accounts before one-click sending.`
+          : "Choose at least one destination before connecting accounts.";
+      }
+
+      if (selectedDots) {
+        selectedDots.replaceChildren(
+          ...Array.from(selectedDestinations.values()).map((item) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.textContent = item.mark;
+            button.setAttribute("aria-label", item.name);
+            return button;
+          }),
+        );
+      }
+    }
+
+    function statusText(status) {
+      if (status === "Live path") return "Official authorization";
+      if (status === "Assisted") return "Draft/review handoff";
+      return "Research first";
+    }
+
+    function openAuthModal() {
+      if (!(authModal instanceof HTMLElement) || !(authList instanceof HTMLElement)) return;
+      if (!selectedDestinations.size) {
+        if (selectionNote) {
+          selectionNote.textContent = "Choose at least one destination before connecting accounts.";
+        }
+        return;
+      }
+      authList.replaceChildren(
+        ...Array.from(selectedDestinations.values()).map((item) => {
+          const row = document.createElement("div");
+          const name = document.createElement("strong");
+          const status = document.createElement("span");
+          row.className = "auth-row";
+          name.textContent = item.name;
+          status.textContent = statusText(item.status);
+          row.append(name, status);
+          return row;
+        }),
+      );
+      authModal.hidden = false;
+    }
+
+    authOpenButtons.forEach((button) => {
+      button.addEventListener("click", openAuthModal);
+    });
+
+    authCloseButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        if (authModal instanceof HTMLElement) authModal.hidden = true;
+      });
+    });
+
+    authConfirm?.addEventListener("click", () => {
+      if (authModal instanceof HTMLElement) authModal.hidden = true;
+      if (selectionNote) {
+        selectionNote.textContent =
+          "Next step: generate the package, then authorize direct paths or create assisted drafts.";
+      }
+    });
+
+    syncDestinationSelection();
+  </script>
 
   <section class="section compact-section">
     <div class="section-heading">
