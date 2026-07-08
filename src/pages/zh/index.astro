@@ -418,6 +418,29 @@ const faqSchema = {
       return "先验证";
     }
 
+    function composerUrlFromSelection() {
+      const params = new URLSearchParams({
+        source:
+          "一条由 Seedance 2.0 生成的竖版 AI 短视频。请根据已选目标平台生成可发布的标题、文案、标签、封面文字、alt text 和审核检查项。",
+        source_app: "Seedance",
+        source_type: "Video or audio",
+        handoff_mode: "Stable media URL",
+        audience: "创作者、电商买家和社交媒体受众",
+        tone: "Promotional",
+        destinations: Array.from(selectedDestinations.values()).map((item) => item.name).join(","),
+        outputs: [
+          "Captions",
+          "Titles and descriptions",
+          "Hashtags",
+          "Cover or thumbnail text",
+          "Alt text",
+          "Review checklist",
+        ].join(","),
+        auto: "1",
+      });
+      return `/tools/ai-publishing-composer/?${params.toString()}`;
+    }
+
     function openAuthModal() {
       if (!(authModal instanceof HTMLElement) || !(authList instanceof HTMLElement)) return;
       if (!selectedDestinations.size) {
@@ -457,6 +480,7 @@ const faqSchema = {
         selectionNote.textContent =
           "下一步生成发布包，并按平台状态进入官方授权或生成待审核草稿。";
       }
+      window.location.href = composerUrlFromSelection();
     });
 
     syncDestinationSelection();

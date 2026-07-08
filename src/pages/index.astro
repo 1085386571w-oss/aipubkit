@@ -419,6 +419,29 @@ const faqSchema = {
       return "Research first";
     }
 
+    function composerUrlFromSelection() {
+      const params = new URLSearchParams({
+        source:
+          "A short vertical AI video created in Seedance 2.0. Generate a platform-ready publishing package for the selected destinations.",
+        source_app: "Seedance",
+        source_type: "Video or audio",
+        handoff_mode: "Stable media URL",
+        audience: "creators, ecommerce buyers, and social media audiences",
+        tone: "Promotional",
+        destinations: Array.from(selectedDestinations.values()).map((item) => item.name).join(","),
+        outputs: [
+          "Captions",
+          "Titles and descriptions",
+          "Hashtags",
+          "Cover or thumbnail text",
+          "Alt text",
+          "Review checklist",
+        ].join(","),
+        auto: "1",
+      });
+      return `/tools/ai-publishing-composer/?${params.toString()}`;
+    }
+
     function openAuthModal() {
       if (!(authModal instanceof HTMLElement) || !(authList instanceof HTMLElement)) return;
       if (!selectedDestinations.size) {
@@ -458,6 +481,7 @@ const faqSchema = {
         selectionNote.textContent =
           "Next step: generate the package, then authorize direct paths or create assisted drafts.";
       }
+      window.location.href = composerUrlFromSelection();
     });
 
     syncDestinationSelection();
