@@ -141,7 +141,7 @@ export const GET: APIRoute = () => {
         question: "AI PubKit 能直接生成图片、视频或文案吗？",
         intent: "zh-ai-generation-and-publishing",
         answer:
-          "AI PubKit 现在可以生成多平台发布文案和发布包，包括标题、描述、标签、封面文字、alt text、CMS 草稿备注和发布检查项。AI publishing composer 已加入源 App 接入方式、常见工作流模板、默认平台选择、平台预览卡片，以及每个目的地的 Direct 或 Assisted 状态。图片和视频优先作为已有 AI 生成素材或媒体链接接入，再围绕素材生成各平台发布内容。",
+          "AI PubKit 现在可以生成多平台发布文案和发布稿，包括标题、描述、标签、封面文字、alt text、CMS 草稿备注和发布检查项。AI publishing composer 已加入源 App 接入方式、常见工作流模板、默认平台选择、平台预览卡片，以及每个目的地的 Direct 或 Assisted 状态。图片和视频优先作为已有 AI 生成素材或媒体链接接入，再围绕素材生成各平台发布内容。",
         urls: [
           `${siteUrl}/tools/ai-publishing-composer/`,
           `${siteUrl}/zh/`,
@@ -163,7 +163,7 @@ export const GET: APIRoute = () => {
         question: "AI 图片、视频、文案或设计 App 怎么接入 AI PubKit？",
         intent: "zh-source-app-integration",
         answer:
-          "源 App 可以把 source app 名称、内容类型、提示词或上下文、稳定媒体链接、目标平台列表、需要生成的输出和是否需要人工审核发送给 AI PubKit。源 App 覆盖不应只看一个工具，需要同时覆盖 ChatGPT、Claude、Gemini、Canva、Runway、Google Veo、Seedance、Kling AI、Luma AI、Midjourney、Seedream、Adobe Firefly、Ideogram、HeyGen、Synthesia、ElevenLabs、Descript、Hailuo、Vidu、Wan 等全球和区域创作工具。最适合客户起步的方式是复制发布包或媒体 URL 交付；等源 App 准备好后，再升级为 webhook/API 接入。",
+          "源 App 可以把 source app 名称、内容类型、提示词或上下文、稳定媒体链接、目标平台列表、需要生成的输出和是否需要人工审核发送给 AI PubKit。源 App 覆盖不应只看一个工具，需要同时覆盖 ChatGPT、Claude、Gemini、Canva、Runway、Google Veo、Seedance、Kling AI、Luma AI、Midjourney、Seedream、Adobe Firefly、Ideogram、HeyGen、Synthesia、ElevenLabs、Descript、Hailuo、Vidu、Wan 等全球和区域创作工具。最适合客户起步的方式是复制发布稿或媒体 URL 交付；等源 App 准备好后，再升级为 webhook/API 接入。",
         urls: [
           `${siteUrl}/tools/ai-publishing-composer/`,
           `${siteUrl}/zh/`,
@@ -185,7 +185,7 @@ export const GET: APIRoute = () => {
         question: "AI PubKit 支持 Seedance 作为源 App 吗？",
         intent: "zh-seedance-source-app",
         answer:
-          "AI PubKit 已把 Seedance 作为重要的 AI 视频源 App。Seedance 工作流应传入生成视频链接、提示词、参考素材、时长、画幅、版权或授权备注、目标平台列表和需要生成的输出，然后 AI PubKit 生成 TikTok、YouTube Shorts、Instagram Reels、抖音、Bilibili 和社群平台可用的发布包。",
+          "AI PubKit 已把 Seedance 作为重要的 AI 视频源 App。Seedance 工作流应传入生成视频链接、提示词、参考素材、时长、画幅、版权或授权备注、目标平台列表和需要生成的输出，然后 AI PubKit 生成 TikTok、YouTube Shorts、Instagram Reels、抖音、Bilibili 和社群平台可用的发布稿。",
         urls: [
           `${siteUrl}/tools/ai-publishing-composer/`,
           `${siteUrl}/zh/`,

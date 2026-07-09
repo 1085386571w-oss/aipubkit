@@ -747,6 +747,66 @@ button.pill-control {
   margin-top: 16px;
 }
 
+.test-hero .page-lead {
+  max-width: 840px;
+}
+
+.test-warning {
+  align-items: center;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  color: #7c2d12;
+  display: flex;
+  gap: 12px;
+  padding: 13px 14px;
+}
+
+.test-warning strong {
+  flex: 0 0 auto;
+}
+
+.test-publish-grid {
+  align-items: start;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.test-publish-card {
+  align-content: start;
+  display: grid;
+  gap: 18px;
+}
+
+.test-publish-card .page-lead {
+  font-size: 1rem;
+  margin: 10px 0 0;
+}
+
+.test-status {
+  border-radius: 8px;
+  color: var(--muted);
+  margin: 0;
+  min-height: 40px;
+  padding: 10px 12px;
+}
+
+.test-status[data-kind="loading"] {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.test-status[data-kind="success"] {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.test-status[data-kind="error"] {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
 .prompt-row span {
   color: var(--muted);
   font-weight: 720;
@@ -1835,7 +1895,8 @@ pre {
     .flow-grid,
     .playbook-grid,
     .source-app-cluster-grid,
-    .readiness-grid {
+    .readiness-grid,
+    .test-publish-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1970,6 +2031,11 @@ pre {
   .auth-modal {
     align-items: flex-start;
     padding: 18px;
+  }
+
+  .test-warning {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .prompt-row {

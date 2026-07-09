@@ -1,0 +1,259 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "AI PubKit 测试发布 - Telegram 和 WordPress";
+const description =
+  "用测试频道或测试站点验证 AI PubKit 的真实发布链路：先发 Telegram 测试消息，或在 WordPress 创建草稿。";
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to test AI PubKit publishing",
+  description,
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Prepare a test destination",
+      text: "Use a Telegram test channel or a WordPress test site. Do not start with a main production account.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Send one controlled test",
+      text: "Use a temporary bot token or WordPress application password to send a test message or create a draft.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Review and revoke",
+      text: "Confirm the result, then revoke the temporary token or application password if it was only for testing.",
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/test-publish/"
+  lang="zh-CN"
+  locale="zh"
+  schema={schema}
+>
+  <section class="page-hero test-hero">
+    <p class="eyebrow">真实链路测试</p>
+    <h1>先用测试账号，把“生成发布稿 → 发出测试内容”跑通。</h1>
+    <p class="page-lead">
+      不要一开始接主账号。先用 Telegram 测试频道或 WordPress 测试站点验证：
+      AI PubKit 生成的发布稿是否能进入真实平台。
+    </p>
+    <div class="actions">
+      <a class="button dark" href="#telegram-test">测试 Telegram</a>
+      <a class="button light" href="#wordpress-test">测试 WordPress 草稿</a>
+      <a class="button light" href="/tools/ai-publishing-composer/">先生成发布稿</a>
+    </div>
+  </section>
+
+  <section class="section compact-section">
+    <div class="test-warning">
+      <strong>测试原则</strong>
+      <span>只用测试频道、测试站点、临时 Token。不要把主账号密码发到聊天里，也不要先发正式内容。</span>
+    </div>
+  </section>
+
+  <section class="section test-publish-grid">
+    <article class="form-panel test-publish-card" id="telegram-test">
+      <div>
+        <p class="eyebrow">Telegram Channel</p>
+        <h2>发送一条测试消息。</h2>
+        <p class="page-lead">
+          适合最快验证“一键发布”是否真实可用。你需要创建测试频道，把 Bot 加为管理员。
+        </p>
+      </div>
+
+      <ol class="plain-steps">
+        <li>
+          <strong>准备测试频道</strong>
+          <span>在 Telegram 新建一个测试频道，不要用正式频道。</span>
+        </li>
+        <li>
+          <strong>创建临时 Bot</strong>
+          <span>通过 BotFather 创建 bot，把 token 填到下面。测试后可以 revoke。</span>
+        </li>
+        <li>
+          <strong>添加管理员</strong>
+          <span>把 bot 加到频道并允许发消息，频道可填 @channel_username。</span>
+        </li>
+      </ol>
+
+      <form class="form-grid" data-test-publish-form data-target="telegram">
+        <div class="field">
+          <label for="telegram-bot-token">Bot Token</label>
+          <input
+            id="telegram-bot-token"
+            name="botToken"
+            autocomplete="off"
+            placeholder="123456789:AA..."
+            required
+          />
+          <p class="muted">只用于这次测试请求，不写入页面链接，也不保存到网站。</p>
+        </div>
+        <div class="field">
+          <label for="telegram-chat-id">测试频道或 Chat ID</label>
+          <input id="telegram-chat-id" name="chatId" placeholder="@your_test_channel" required />
+        </div>
+        <div class="field">
+          <label for="telegram-message">测试消息</label>
+          <textarea id="telegram-message" name="message" required>AI PubKit 测试发布：这是一条从发布稿流程发出的 Telegram 测试消息。</textarea>
+        </div>
+        <button class="button dark" type="submit">发送 Telegram 测试</button>
+        <p class="test-status" data-test-status role="status"></p>
+      </form>
+
+      <p class="muted">
+        官方依据：
+        <a href="https://core.telegram.org/bots/api" target="_blank" rel="noreferrer">
+          Telegram Bot API sendMessage
+        </a>
+      </p>
+    </article>
+
+    <article class="form-panel test-publish-card" id="wordpress-test">
+      <div>
+        <p class="eyebrow">WordPress</p>
+        <h2>创建一篇测试草稿。</h2>
+        <p class="page-lead">
+          适合验证 AI 发布稿能否进入 CMS。默认创建 draft，不直接 publish。
+        </p>
+      </div>
+
+      <ol class="plain-steps">
+        <li>
+          <strong>准备测试站点</strong>
+          <span>使用 HTTPS 的测试 WordPress 站点，先不要用正式站。</span>
+        </li>
+        <li>
+          <strong>创建临时应用密码</strong>
+          <span>在 WordPress 用户资料里创建 Application Password，测试后删除。</span>
+        </li>
+        <li>
+          <strong>只创建草稿</strong>
+          <span>先确认标题、正文、权限和链接，再考虑接入正式发布。</span>
+        </li>
+      </ol>
+
+      <form class="form-grid" data-test-publish-form data-target="wordpress">
+        <div class="grid two">
+          <div class="field">
+            <label for="wp-site-url">WordPress 站点</label>
+            <input id="wp-site-url" name="siteUrl" placeholder="https://example.com" required />
+          </div>
+          <div class="field">
+            <label for="wp-username">用户名</label>
+            <input id="wp-username" name="username" autocomplete="username" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="wp-application-password">Application Password</label>
+          <input
+            id="wp-application-password"
+            name="applicationPassword"
+            autocomplete="off"
+            placeholder="xxxx xxxx xxxx xxxx xxxx xxxx"
+            required
+          />
+          <p class="muted">只建议使用临时测试用户或临时应用密码。</p>
+        </div>
+        <div class="field">
+          <label for="wp-title">草稿标题</label>
+          <input id="wp-title" name="title" value="AI PubKit 测试发布草稿" required />
+        </div>
+        <div class="field">
+          <label for="wp-content">草稿正文</label>
+          <textarea id="wp-content" name="content" required>这是一篇由 AI PubKit 测试发布流程创建的 WordPress 草稿。请确认它只出现在测试站点或测试账号里。</textarea>
+        </div>
+        <div class="field">
+          <label for="wp-status">创建状态</label>
+          <select id="wp-status" name="status">
+            <option value="draft">Draft 草稿</option>
+            <option value="pending">Pending 待审核</option>
+          </select>
+        </div>
+        <button class="button dark" type="submit">创建 WordPress 草稿</button>
+        <p class="test-status" data-test-status role="status"></p>
+      </form>
+
+      <p class="muted">
+        官方依据：
+        <a href="https://developer.wordpress.org/rest-api/reference/posts/" target="_blank" rel="noreferrer">
+          WordPress REST API posts
+        </a>
+      </p>
+    </article>
+  </section>
+
+  <section class="section">
+    <div class="notice">
+      <p class="eyebrow">下一步</p>
+      <h2>跑通测试后，再决定接哪些正式授权。</h2>
+      <p>
+        如果 Telegram 和 WordPress 能稳定跑通，下一批建议做 Slack、Discord、YouTube 未公开视频、Shopify
+        测试店。TikTok、Instagram、X、Amazon、小红书、抖音要等开发者权限、审核和账号规则明确后再接主流程。
+      </p>
+    </div>
+  </section>
+
+  <script>
+    function formPayload(form) {
+      const data = new FormData(form);
+      const body = { target: form.dataset.target };
+      data.forEach((value, key) => {
+        body[key] = value;
+      });
+      return body;
+    }
+
+    function setStatus(form, message, kind) {
+      const status = form.querySelector("[data-test-status]");
+      if (!(status instanceof HTMLElement)) return;
+      status.textContent = message;
+      status.dataset.kind = kind;
+    }
+
+    document.querySelectorAll("[data-test-publish-form]").forEach((form) => {
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!(form instanceof HTMLFormElement)) return;
+        const button = form.querySelector("button[type='submit']");
+        if (button instanceof HTMLButtonElement) button.disabled = true;
+        setStatus(form, "正在发送测试请求...", "loading");
+
+        try {
+          const response = await fetch("/api/test-publish", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formPayload(form)),
+          });
+          const result = await response.json();
+          if (!response.ok || !result.ok) {
+            throw new Error(result.error || "测试失败，请检查账号权限。");
+          }
+
+          if (result.target === "wordpress") {
+            setStatus(
+              form,
+              `成功：已创建 WordPress ${result.status}，ID ${result.id}${result.link ? `，链接 ${result.link}` : ""}`,
+              "success",
+            );
+          } else {
+            setStatus(form, `成功：Telegram 测试消息已发送，message_id ${result.messageId || "-"}`, "success");
+          }
+        } catch (error) {
+          setStatus(form, error instanceof Error ? error.message : "测试失败，请重新检查。", "error");
+        } finally {
+          if (button instanceof HTMLButtonElement) button.disabled = false;
+        }
+      });
+    });
+  </script>
+</BaseLayout>

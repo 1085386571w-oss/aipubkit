@@ -170,6 +170,7 @@ const faqSchema = {
         <strong>AI PubKit</strong>
         <a class="active" href="/">Content</a>
         <a href="/tools/ai-publishing-composer/">AI Publish</a>
+        <a href="/test-publish/">Test publish</a>
         <a href="/apps/">Destinations</a>
         <a href="/source-apps/">Source Apps</a>
         <a href="/request-app/">Request App</a>
@@ -184,6 +185,7 @@ const faqSchema = {
           <div class="console-actions">
             <a href="/apps.json">Registry</a>
             <a href="/tools/ai-publishing-composer/">New package</a>
+            <a href="/test-publish/">Test publish</a>
           </div>
         </div>
 
@@ -219,10 +221,10 @@ const faqSchema = {
                   <div class="destination-panel-head">
                     <div>
                       <strong>Choose publishing destinations</strong>
-                      <p>Click apps to select where this package should go. Connect accounts before direct sending.</p>
+                      <p>Click apps to select where this package should go. Test low-risk paths before direct sending.</p>
                     </div>
                     <div class="destination-panel-actions">
-                      <button type="button" data-auth-open>Connect selected</button>
+                      <button type="button" data-auth-open>Test publish</button>
                       <a href="/apps/">All app rules</a>
                     </div>
                   </div>
@@ -272,11 +274,11 @@ const faqSchema = {
               <span class="pill-control">9:16</span>
               <span class="pill-control">8s</span>
               <button class="pill-control highlight" type="button" data-start-package>Copy requirements</button>
-              <button class="pill-control connect-control" type="button" data-auth-open>Connect accounts</button>
+              <button class="pill-control connect-control" type="button" data-auth-open>Test publish</button>
             </div>
 
             <p class="selection-note" data-selection-note>
-              {selectedDestinations.length} destinations selected. Direct paths ask for authorization; assisted paths create review-ready drafts.
+              {selectedDestinations.length} destinations selected. Test Telegram or WordPress first, then connect production accounts later.
             </p>
 
             <label class="prompt-row">
@@ -295,18 +297,19 @@ const faqSchema = {
           <div class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">
             <div class="auth-header">
               <div>
-                <p class="eyebrow">Account authorization</p>
-                <h2 id="auth-title">Connect selected platforms.</h2>
+                <p class="eyebrow">Test publish</p>
+                <h2 id="auth-title">Verify with a test account first.</h2>
               </div>
               <button type="button" data-auth-close aria-label="Close authorization">×</button>
             </div>
             <p class="auth-copy">
-              Direct platforms open their official OAuth consent screen.
-              Assisted platforms stay as review-ready drafts without leaving this flow.
+              The first real test paths are Telegram test messages and WordPress draft creation.
+              Use a test channel, test site, and temporary token before connecting a main account.
             </p>
             <div class="auth-list" data-auth-list></div>
             <div class="auth-actions">
               <button class="button dark" type="button" data-auth-confirm>Continue to package</button>
+              <a class="button light" href="/test-publish/">Open test publish</a>
               <button class="button light" type="button" data-auth-close>Cancel</button>
             </div>
           </div>
@@ -321,6 +324,7 @@ const faqSchema = {
           </div>
           <div class="library-actions">
             <a href="/tools/ai-publishing-composer/">Batch move</a>
+            <a href="/test-publish/">Test publish</a>
             <a href="/request-app/">Request app</a>
             <a href="/apps/">App registry</a>
           </div>
@@ -397,8 +401,8 @@ const faqSchema = {
 
       if (selectionNote) {
         selectionNote.textContent = selectedDestinations.size
-          ? `${selectedDestinations.size} destinations selected. Connect accounts before one-click sending.`
-          : "Choose at least one destination before connecting accounts.";
+          ? `${selectedDestinations.size} destinations selected. Test Telegram or WordPress first, then connect production accounts later.`
+          : "Choose at least one destination before testing.";
       }
 
       if (selectedDots) {
@@ -415,7 +419,7 @@ const faqSchema = {
     }
 
     function statusText(status) {
-      if (status === "Live path") return "Official authorization";
+      if (status === "Live path") return "Testable direct path";
       if (status === "Assisted") return "Draft/review handoff";
       return "Research first";
     }
@@ -447,7 +451,7 @@ const faqSchema = {
       if (!(authModal instanceof HTMLElement) || !(authList instanceof HTMLElement)) return;
       if (!selectedDestinations.size) {
         if (selectionNote) {
-          selectionNote.textContent = "Choose at least one destination before connecting accounts.";
+          selectionNote.textContent = "Choose at least one destination before testing.";
         }
         return;
       }

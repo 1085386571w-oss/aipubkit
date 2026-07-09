@@ -5,7 +5,7 @@ import { comparisons } from "../data/comparisons";
 import { sourceApps } from "../data/sourceApps";
 import { tools } from "../data/tools";
 
-const lastmod = "2026-07-07";
+const lastmod = "2026-07-09";
 const pages = [
   {
     path: "/",
@@ -34,6 +34,7 @@ const pages = [
   { path: "/answers.json", priority: "0.8", changefreq: "weekly" },
   { path: "/app-requests.json", priority: "0.7", changefreq: "weekly" },
   { path: "/tools.json", priority: "0.7", changefreq: "weekly" },
+  { path: "/test-publish/", priority: "0.85", changefreq: "weekly" },
   { path: "/content-package.schema.json", priority: "0.7", changefreq: "weekly" },
   { path: "/llms.txt", priority: "0.7", changefreq: "weekly" },
   { path: "/llms-full.txt", priority: "0.7", changefreq: "weekly" },

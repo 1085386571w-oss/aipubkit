@@ -24,7 +24,7 @@ const {
 const siteName = "AI PubKit";
 const siteUrl = "https://aipubkit.com";
 const githubUrl = "https://github.com/1085386571w-oss/aipubkit";
-const dateModified = "2026-07-07";
+const dateModified = "2026-07-09";
 const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
 const ogImageUrl = `${siteUrl}/images/ai-pubkit-hero.png`;
 const websiteId = `${siteUrl}/#website`;
@@ -40,6 +40,7 @@ const labels = {
     sourceApps: "Source apps",
     useCase: "Use case",
     tools: "Tools",
+    testPublish: "Test publish",
     developers: "Developers",
     compare: "Compare",
     requestApp: "Request app",
@@ -88,6 +89,7 @@ const labels = {
     sourceApps: "源 App",
     useCase: "应用场景",
     tools: "免费工具",
+    testPublish: "测试发布",
     developers: "开发者",
     compare: "竞品对比",
     requestApp: "申请接入",
@@ -287,6 +289,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/source-apps/">{labels.sourceApps}</a>
         <a href="/apps/">{labels.apps}</a>
         <a href="/tools/ai-publishing-composer/">{labels.tools}</a>
+        <a href="/test-publish/">{labels.testPublish}</a>
         <a href="/request-app/">{labels.requestApp}</a>
         <span class="language-switch" aria-label={labels.languageLabel}>
           <a class={locale === "en" ? "active" : undefined} href="/">{labels.english}</a>
@@ -320,6 +323,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/compare/repurpose-io-alternative/">{labels.repurposeAlternative}</a>
         <a href="/compare/socialbee-alternative/">{labels.socialbeeAlternative}</a>
         <a href="/tools/ai-publishing-composer/">{labels.publishingComposer}</a>
+        <a href="/test-publish/">{labels.testPublish}</a>
         <a href="/tools/ai-social-media-post-generator/">{labels.aiPostGenerator}</a>
         <a href="/tools/content-repurposing-planner/">{labels.repurposingPlanner}</a>
         <a href="/tools/multi-platform-publishing-checklist/">{labels.publishingChecklist}</a>
