@@ -104,7 +104,13 @@ Each source app page explains what the source app creates, what handoff fields A
 - https://aipubkit.com/tools/multi-platform-publishing-checklist/ - generates a preflight checklist before publishing AI content across multiple apps.
 - https://aipubkit.com/tools/app-publishing-status-checker/ - checks whether an app is direct, assisted, or researching in AI PubKit's open app registry.
 - https://aipubkit.com/tools/ai-content-distribution-brief/ - generates a structured AI content distribution brief for a campaign or source asset.
+- https://aipubkit.com/how-to-use/ - explains the upload, destination selection, publishing package, and test-before-production workflow.
+- https://aipubkit.com/zh/how-to-use/ - Chinese usage guide for the same action-first workflow.
 - https://aipubkit.com/test-publish/ - verifies a real publishing path with Telegram test messages, WordPress draft creation, or assisted Xiaohongshu publish-package generation before using main accounts.
+
+## Workspace behavior
+
+The homepage is an action workspace, not a documentation landing page. The Add content / 填写内容 control opens the local device file picker for images and videos on desktop or mobile. The workspace then lets the customer add source notes, keep selected destination apps, and continue to a publishing package. How-to content lives on separate guide pages at /how-to-use/ and /zh/how-to-use/ with breadcrumb markup.
 
 ## Use Case Pages
 

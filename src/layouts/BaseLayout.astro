@@ -40,6 +40,7 @@ const labels = {
     sourceApps: "Source apps",
     useCase: "Use case",
     tools: "Tools",
+    howToUse: "How to use",
     testPublish: "Test publish",
     developers: "Developers",
     compare: "Compare",
@@ -89,6 +90,7 @@ const labels = {
     sourceApps: "源 App",
     useCase: "应用场景",
     tools: "免费工具",
+    howToUse: "使用说明",
     testPublish: "测试发布",
     developers: "开发者",
     compare: "竞品对比",
@@ -289,6 +291,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/source-apps/">{labels.sourceApps}</a>
         <a href="/apps/">{labels.apps}</a>
         <a href="/tools/ai-publishing-composer/">{labels.tools}</a>
+        <a href={locale === "zh" ? "/zh/how-to-use/" : "/how-to-use/"}>{labels.howToUse}</a>
         <a href="/test-publish/">{labels.testPublish}</a>
         <a href="/request-app/">{labels.requestApp}</a>
         <span class="language-switch" aria-label={labels.languageLabel}>
@@ -323,6 +326,7 @@ const schemaJson = JSON.stringify([...baseSchema, ...pageSchema]);
         <a href="/compare/repurpose-io-alternative/">{labels.repurposeAlternative}</a>
         <a href="/compare/socialbee-alternative/">{labels.socialbeeAlternative}</a>
         <a href="/tools/ai-publishing-composer/">{labels.publishingComposer}</a>
+        <a href={locale === "zh" ? "/zh/how-to-use/" : "/how-to-use/"}>{labels.howToUse}</a>
         <a href="/test-publish/">{labels.testPublish}</a>
         <a href="/tools/ai-social-media-post-generator/">{labels.aiPostGenerator}</a>
         <a href="/tools/content-repurposing-planner/">{labels.repurposingPlanner}</a>

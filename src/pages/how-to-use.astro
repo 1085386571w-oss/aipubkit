@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "How to use AI PubKit - upload content and generate publishing packages";
+const description =
+  "How to use AI PubKit: upload an image or video, choose destination platforms, generate a multi-platform publishing package, then test direct or assisted publishing paths.";
+const steps = [
+  {
+    title: "Upload or describe the content",
+    text: "Click Add content on the workspace. Mobile opens the gallery or file picker; desktop opens the local file picker. You can also paste source notes, links, or copy requirements.",
+  },
+  {
+    title: "Choose destinations",
+    text: "Select apps such as TikTok, YouTube, Instagram, Xiaohongshu, Amazon, Shopify Blog, WordPress, and other target platforms.",
+  },
+  {
+    title: "Generate the publishing package",
+    text: "AI PubKit creates titles, captions, descriptions, hashtags, cover text, alt text, and review checks for the selected platforms.",
+  },
+  {
+    title: "Test before production access",
+    text: "Validate low-risk paths first, such as Telegram, WordPress drafts, or assisted Xiaohongshu publish packages. Then connect production accounts where official authorization is available.",
+  },
+];
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "AI PubKit",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Workspace",
+      item: "https://aipubkit.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "How to use",
+      item: "https://aipubkit.com/how-to-use/",
+    },
+  ],
+};
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to use AI PubKit",
+  description,
+  step: steps.map((step, index) => ({
+    "@type": "HowToStep",
+    position: index + 1,
+    name: step.title,
+    text: step.text,
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/how-to-use/"
+  alternates={[
+    { hrefLang: "en", path: "/how-to-use/" },
+    { hrefLang: "zh-CN", path: "/zh/how-to-use/" },
+    { hrefLang: "x-default", path: "/how-to-use/" },
+  ]}
+  schema={[breadcrumbSchema, howToSchema]}
+>
+  <section class="page-hero">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">AI PubKit</a>
+      <span>/</span>
+      <a href="/">Workspace</a>
+      <span>/</span>
+      <strong>How to use</strong>
+    </nav>
+    <p class="eyebrow">How to use</p>
+    <h1>The workspace is for action. This page is only the guide.</h1>
+    <p class="page-lead">
+      Customers should start by adding content, selecting destinations, and generating a publishing package.
+      Use this page when they need the workflow explained.
+    </p>
+    <div class="actions">
+      <a class="button dark" href="/">Back to workspace</a>
+      <a class="button light" href="/test-publish/">Test publish</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="guide-grid">
+      {steps.map((step, index) => (
+        <article class="guide-card">
+          <span>{index + 1}</span>
+          <h2>{step.title}</h2>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section compact-section">
+    <div class="notice">
+      <p class="eyebrow">Boundary</p>
+      <h2>Upload and direct publishing are separate steps.</h2>
+      <p>
+        The workspace file picker is for bringing source content into the publishing package flow.
+        Direct publishing requires official authorization. Assisted destinations create drafts or copy-ready packages first.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

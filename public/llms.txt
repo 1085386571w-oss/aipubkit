@@ -46,6 +46,8 @@ Key pages:
 - https://aipubkit.com/tools/multi-platform-publishing-checklist/ - free multi-platform publishing checklist
 - https://aipubkit.com/tools/app-publishing-status-checker/ - free app publishing status checker
 - https://aipubkit.com/tools/ai-content-distribution-brief/ - free AI content distribution brief generator
+- https://aipubkit.com/how-to-use/ - how to upload content, choose destinations, generate publishing packages, and test before production access
+- https://aipubkit.com/zh/how-to-use/ - Chinese usage guide for uploading images or videos and generating multi-platform publishing packages
 - https://aipubkit.com/test-publish/ - test publishing workflow for Telegram test messages, WordPress draft creation, and assisted Xiaohongshu publish-package generation
 - https://aipubkit.com/apps/youtube/ - can AI publish to YouTube in one click?
 - https://aipubkit.com/apps/tiktok/ - can AI publish to TikTok in one click?
@@ -95,6 +97,9 @@ AI PubKit has source app pages for Seedance, Kling AI, Google Veo, Runway, Midjo
 
 Free tools cluster:
 AI PubKit has browser-based tools for AI publishing package generation, AI social media post generation, content repurposing planning, multi-platform publishing checklists, app publishing status checks, and AI content distribution briefs. The composer now starts from customer workflow templates, source-app handoff choices, preselected destinations, output defaults, and preview cards so users do not start from a blank form.
+
+Workspace behavior:
+The homepage workspace is action-first. The Add content / 填写内容 control opens the device file picker for images and videos on desktop or mobile, then keeps the user in the workspace to add source notes and generate a publishing package. Usage guidance is separated into https://aipubkit.com/how-to-use/ and https://aipubkit.com/zh/how-to-use/ so the main workflow does not send customers to documentation before they upload content.
 
 Test publishing:
 AI PubKit includes a test publish workflow at https://aipubkit.com/test-publish/. It is designed to validate the real publishing path before main-account authorization. The first low-risk paths are Telegram Channel test messages through the Telegram Bot API, WordPress draft creation through the WordPress REST API, and Xiaohongshu assisted publish-package generation before official direct-publish permissions are available.

@@ -169,6 +169,7 @@ const faqSchema = {
       <aside class="console-sidebar" aria-label="Product navigation">
         <strong>AI PubKit</strong>
         <a class="active" href="/">Content</a>
+        <a href="/how-to-use/">How to use</a>
         <a href="/tools/ai-publishing-composer/">AI Publish</a>
         <a href="/test-publish/">Test publish</a>
         <a href="/apps/">Destinations</a>
@@ -184,13 +185,14 @@ const faqSchema = {
           </div>
           <div class="console-actions">
             <a href="/apps.json">Registry</a>
+            <a href="/how-to-use/">How to use</a>
             <a href="/tools/ai-publishing-composer/">New package</a>
             <a href="/test-publish/">Test publish</a>
           </div>
         </div>
 
         <div class="composer-card">
-          <button class="upload-tile" type="button" data-start-package aria-label="Add content">
+          <button class="upload-tile" type="button" data-open-file-picker aria-label="Choose image or video">
             <span>+</span>
             <small>Add content</small>
           </button>
@@ -200,11 +202,11 @@ const faqSchema = {
                 <p class="eyebrow">One-click publishing</p>
                 <h1>Upload AI content, select destinations, and generate one publishing package.</h1>
               </div>
-              <button class="button dark" type="button" data-start-package>Generate package</button>
+              <button class="button dark" type="button" data-open-content-panel>Generate package</button>
             </div>
 
             <div class="control-strip">
-              <button class="pill-control" type="button" data-start-package>Create package</button>
+              <button class="pill-control" type="button" data-open-content-panel>Create package</button>
               <span class="platform-dots" aria-label="Selected publishing platforms">
                 {selectedDestinations.map((connector) => (
                   <button type="button" aria-label={connector.name}>
@@ -273,7 +275,7 @@ const faqSchema = {
               <span class="pill-control">Seedance 2.0</span>
               <span class="pill-control">9:16</span>
               <span class="pill-control">8s</span>
-              <button class="pill-control highlight" type="button" data-start-package>Copy requirements</button>
+              <button class="pill-control highlight" type="button" data-open-content-panel>Copy requirements</button>
               <button class="pill-control connect-control" type="button" data-auth-open>Test publish</button>
             </div>
 
@@ -290,6 +292,50 @@ const faqSchema = {
                 readonly
               />
             </label>
+          </div>
+        </div>
+
+        <input
+          type="file"
+          accept="image/*,video/*"
+          multiple
+          hidden
+          data-content-file-input
+          aria-label="Choose image or video"
+        />
+
+        <div class="content-modal" data-content-modal hidden>
+          <div class="content-dialog" role="dialog" aria-modal="true" aria-labelledby="content-title">
+            <div class="auth-header">
+              <div>
+                <p class="eyebrow">Add content</p>
+                <h2 id="content-title">Choose an image/video, or paste the source brief.</h2>
+              </div>
+              <button type="button" data-content-close aria-label="Close content panel">×</button>
+            </div>
+            <div class="content-intake-grid">
+              <button class="upload-dropzone" type="button" data-open-file-picker>
+                <span>+</span>
+                <strong>Choose images or videos from this device</strong>
+                <small>Works on desktop and mobile. AI PubKit reads the file names for this draft flow first.</small>
+              </button>
+              <div class="selected-files" data-selected-files>
+                <strong>No source file selected yet</strong>
+                <span>Tap the upload area to open the mobile gallery or desktop file picker.</span>
+              </div>
+            </div>
+            <label class="field">
+              <span>Source brief or copy requirements</span>
+              <textarea
+                data-content-brief
+                placeholder="Example: This is a 9:16 Seedance video for TikTok, YouTube Shorts, Instagram Reels, and Xiaohongshu. Keep the tone practical and product-led."
+              ></textarea>
+            </label>
+            <div class="auth-actions">
+              <button class="button dark" type="button" data-content-confirm>Generate package from this content</button>
+              <button class="button light" type="button" data-open-file-picker>Choose another file</button>
+              <a class="button light" href="/how-to-use/">Open how-to guide</a>
+            </div>
           </div>
         </div>
 
@@ -361,9 +407,17 @@ const faqSchema = {
     const authList = document.querySelector("[data-auth-list]");
     const authOpenButtons = Array.from(document.querySelectorAll("[data-auth-open]"));
     const authCloseButtons = Array.from(document.querySelectorAll("[data-auth-close]"));
-    const startPackageButtons = Array.from(document.querySelectorAll("[data-start-package]"));
+    const contentOpenButtons = Array.from(document.querySelectorAll("[data-open-content-panel]"));
+    const fileOpenButtons = Array.from(document.querySelectorAll("[data-open-file-picker]"));
+    const contentCloseButtons = Array.from(document.querySelectorAll("[data-content-close]"));
     const authConfirm = document.querySelector("[data-auth-confirm]");
+    const contentConfirm = document.querySelector("[data-content-confirm]");
+    const contentModal = document.querySelector("[data-content-modal]");
+    const contentFileInput = document.querySelector("[data-content-file-input]");
+    const selectedFilesPanel = document.querySelector("[data-selected-files]");
+    const contentBrief = document.querySelector("[data-content-brief]");
     const selectedDestinations = new Map();
+    let currentFileSummary = "";
 
     function readOption(option) {
       return {
@@ -424,9 +478,10 @@ const faqSchema = {
       return "Research first";
     }
 
-    function composerUrlFromSelection() {
+    function composerUrlFromSelection(sourceOverride) {
       const params = new URLSearchParams({
         source:
+          sourceOverride ||
           "A short vertical AI video created in Seedance 2.0. Generate a platform-ready publishing package for the selected destinations.",
         source_app: "Seedance",
         source_type: "Video or audio",
@@ -445,6 +500,66 @@ const faqSchema = {
         auto: "1",
       });
       return `/tools/ai-publishing-composer/?${params.toString()}`;
+    }
+
+    function formatBytes(bytes) {
+      if (!Number.isFinite(bytes) || bytes <= 0) return "unknown size";
+      if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+      return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+    }
+
+    function openContentModal() {
+      if (contentModal instanceof HTMLElement) contentModal.hidden = false;
+      if (contentBrief instanceof HTMLTextAreaElement) contentBrief.focus();
+    }
+
+    function openFilePicker() {
+      if (contentFileInput instanceof HTMLInputElement) contentFileInput.click();
+    }
+
+    function syncSelectedFiles() {
+      if (!(contentFileInput instanceof HTMLInputElement) || !(selectedFilesPanel instanceof HTMLElement)) return;
+      const files = Array.from(contentFileInput.files || []);
+      if (!files.length) {
+        currentFileSummary = "";
+        selectedFilesPanel.replaceChildren(
+          Object.assign(document.createElement("strong"), { textContent: "No source file selected yet" }),
+          Object.assign(document.createElement("span"), {
+            textContent: "Tap the upload area to open the mobile gallery or desktop file picker.",
+          }),
+        );
+        return;
+      }
+
+      currentFileSummary = files
+        .map((file) => `${file.name} (${file.type || "unknown type"}, ${formatBytes(file.size)})`)
+        .join("; ");
+      const title = document.createElement("strong");
+      const list = document.createElement("ul");
+      title.textContent = `${files.length} source file${files.length > 1 ? "s" : ""} selected`;
+      files.slice(0, 5).forEach((file) => {
+        const item = document.createElement("li");
+        item.textContent = `${file.name} · ${file.type || "unknown type"} · ${formatBytes(file.size)}`;
+        list.append(item);
+      });
+      selectedFilesPanel.replaceChildren(title, list);
+      if (selectionNote) {
+        selectionNote.textContent = "Local image/video selected. Add requirements, then generate the publishing package.";
+      }
+    }
+
+    function contentSourceText() {
+      const brief =
+        contentBrief instanceof HTMLTextAreaElement ? contentBrief.value.trim() : "";
+      const destinations = Array.from(selectedDestinations.values()).map((item) => item.name).join(", ");
+      return [
+        currentFileSummary ? `Local source files: ${currentFileSummary}` : "No local file selected yet.",
+        brief ? `Source brief: ${brief}` : "Use the default Seedance vertical AI video scenario.",
+        destinations ? `Destinations: ${destinations}` : "",
+        "Generate captions, titles, descriptions, hashtags, cover text, alt text, and review checks for each destination.",
+      ]
+        .filter(Boolean)
+        .join("\n");
     }
 
     function openAuthModal() {
@@ -480,10 +595,27 @@ const faqSchema = {
       });
     });
 
-    startPackageButtons.forEach((button) => {
+    fileOpenButtons.forEach((button) => {
+      button.addEventListener("click", openFilePicker);
+    });
+
+    contentOpenButtons.forEach((button) => {
+      button.addEventListener("click", openContentModal);
+    });
+
+    contentCloseButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        window.location.href = composerUrlFromSelection();
+        if (contentModal instanceof HTMLElement) contentModal.hidden = true;
       });
+    });
+
+    contentFileInput?.addEventListener("change", () => {
+      syncSelectedFiles();
+      openContentModal();
+    });
+
+    contentConfirm?.addEventListener("click", () => {
+      window.location.href = composerUrlFromSelection(contentSourceText());
     });
 
     authConfirm?.addEventListener("click", () => {
@@ -492,10 +624,11 @@ const faqSchema = {
         selectionNote.textContent =
           "Next step: generate the package, then authorize direct paths or create assisted drafts.";
       }
-      window.location.href = composerUrlFromSelection();
+      window.location.href = composerUrlFromSelection(contentSourceText());
     });
 
     syncDestinationSelection();
+    syncSelectedFiles();
   </script>
 
   <section class="section compact-section">

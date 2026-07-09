@@ -27,6 +27,26 @@ const pages = [
       { hrefLang: "x-default", path: "/" },
     ],
   },
+  {
+    path: "/how-to-use/",
+    priority: "0.85",
+    changefreq: "weekly",
+    alternates: [
+      { hrefLang: "en", path: "/how-to-use/" },
+      { hrefLang: "zh-CN", path: "/zh/how-to-use/" },
+      { hrefLang: "x-default", path: "/how-to-use/" },
+    ],
+  },
+  {
+    path: "/zh/how-to-use/",
+    priority: "0.85",
+    changefreq: "weekly",
+    alternates: [
+      { hrefLang: "en", path: "/how-to-use/" },
+      { hrefLang: "zh-CN", path: "/zh/how-to-use/" },
+      { hrefLang: "x-default", path: "/how-to-use/" },
+    ],
+  },
   { path: "/apps/", priority: "0.9", changefreq: "weekly" },
   { path: "/source-apps/", priority: "0.95", changefreq: "weekly" },
   { path: "/apps.json", priority: "0.8", changefreq: "weekly" },
