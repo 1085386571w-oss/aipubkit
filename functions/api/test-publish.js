@@ -115,6 +115,77 @@ async function createWordPressDraft(body) {
   });
 }
 
+function splitTags(value) {
+  return String(value || "")
+    .split(/[,，#\s]+/)
+    .map((tag) => tag.trim())
+    .filter(Boolean)
+    .slice(0, 8);
+}
+
+function firstSentence(value, maxLength) {
+  const text = String(value || "")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!text) return "";
+  if (text.length <= maxLength) {
+    return text.replace(/[，。,.!！?？、：:;；-]+$/g, "");
+  }
+  return `${text.slice(0, Math.max(1, maxLength - 1)).replace(/[，。,.!！?？、：:;；-]+$/g, "")}…`;
+}
+
+function createXiaohongshuPackage(body) {
+  const sourceApp = cleanText(body.sourceApp, 80) || "AI source app";
+  const assetType = cleanText(body.assetType, 80) || "AI content";
+  const hook = required(body, "hook", "Core selling point", 160);
+  const brief = required(body, "brief", "Content brief", 1200);
+  const audience = cleanText(body.audience, 160) || "对这个主题感兴趣的人";
+  const mediaNote = cleanText(body.mediaNote, 500);
+  const inputTags = splitTags(body.tags);
+  const tags = [
+    ...inputTags,
+    assetType.includes("视频") ? "AI视频" : "AI内容",
+    "小红书运营",
+    "内容分发",
+    "一键发布",
+  ]
+    .filter(Boolean)
+    .filter((tag, index, list) => list.indexOf(tag) === index)
+    .slice(0, 8);
+
+  const title = firstSentence(hook, 28);
+  const opening = firstSentence(brief, 140);
+  const bodyText = [
+    opening,
+    "",
+    `来源：${sourceApp}`,
+    `内容类型：${assetType}`,
+    `适合人群：${audience}`,
+    mediaNote ? `素材备注：${mediaNote}` : null,
+    "",
+    "发布前检查：封面文字清楚、首图/首帧能说明结果、正文不要夸大承诺，商业合作或 AI 生成内容按账号规则标注。",
+    "",
+    tags.map((tag) => `#${tag.replace(/^#/, "")}`).join(" "),
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
+
+  return json(200, {
+    ok: true,
+    target: "xiaohongshu",
+    mode: "assisted",
+    title,
+    body: bodyText,
+    tags,
+    checklist: [
+      "当前是 Assisted 测试：生成发布稿，不登录、不代发小红书账号。",
+      "如需官方直发，需要小红书开放平台资质、应用类目和相应权限。",
+      "先把这份发布稿复制到测试账号或创作服务平台，再人工确认发布。",
+    ],
+    copyText: `标题：${title}\n\n正文：\n${bodyText}`,
+  });
+}
+
 export async function onRequestPost({ request }) {
   let body;
   try {
@@ -132,7 +203,11 @@ export async function onRequestPost({ request }) {
       return createWordPressDraft(body);
     }
 
-    return json(400, { ok: false, error: "Choose telegram or wordpress as the test target." });
+    if (body.target === "xiaohongshu") {
+      return createXiaohongshuPackage(body);
+    }
+
+    return json(400, { ok: false, error: "Choose telegram, wordpress, or xiaohongshu as the test target." });
   } catch (error) {
     return json(400, {
       ok: false,

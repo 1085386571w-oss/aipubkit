@@ -779,9 +779,54 @@ button.pill-control {
   gap: 18px;
 }
 
+.test-publish-card.wide-card {
+  grid-column: 1 / -1;
+}
+
 .test-publish-card .page-lead {
   font-size: 1rem;
   margin: 10px 0 0;
+}
+
+.assisted-test-layout {
+  align-items: start;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
+}
+
+.publish-package-preview {
+  background: #fbfbfc;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+}
+
+.publish-package-preview[hidden] {
+  display: none;
+}
+
+.publish-package-preview h3 {
+  font-size: 1.35rem;
+  margin: 2px 0 0;
+}
+
+.publish-package-preview pre {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0;
+  max-height: 440px;
+  overflow: auto;
+  padding: 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .test-status {
@@ -1896,7 +1941,8 @@ pre {
     .playbook-grid,
     .source-app-cluster-grid,
     .readiness-grid,
-    .test-publish-grid {
+    .test-publish-grid,
+    .assisted-test-layout {
     grid-template-columns: 1fr;
   }
 

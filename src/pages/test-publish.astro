@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const title = "AI PubKit 测试发布 - Telegram 和 WordPress";
+const title = "AI PubKit 测试发布 - Telegram、WordPress 和小红书";
 const description =
-  "用测试频道或测试站点验证 AI PubKit 的真实发布链路：先发 Telegram 测试消息，或在 WordPress 创建草稿。";
+  "用测试频道、测试站点或小红书发布稿验证 AI PubKit 的发布链路：先发 Telegram 测试消息，在 WordPress 创建草稿，或生成小红书可复制发布稿。";
 const schema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
@@ -14,7 +14,7 @@ const schema = {
       "@type": "HowToStep",
       position: 1,
       name: "Prepare a test destination",
-      text: "Use a Telegram test channel or a WordPress test site. Do not start with a main production account.",
+      text: "Use a Telegram test channel, a WordPress test site, or an assisted Xiaohongshu draft workflow. Do not start with a main production account.",
     },
     {
       "@type": "HowToStep",
@@ -45,11 +45,12 @@ const schema = {
     <h1>先用测试账号，把“生成发布稿 → 发出测试内容”跑通。</h1>
     <p class="page-lead">
       不要一开始接主账号。先用 Telegram 测试频道或 WordPress 测试站点验证：
-      AI PubKit 生成的发布稿是否能进入真实平台。
+      AI PubKit 生成的发布稿是否能进入真实平台。小红书先按 Assisted 流程生成发布稿，再人工确认。
     </p>
     <div class="actions">
       <a class="button dark" href="#telegram-test">测试 Telegram</a>
       <a class="button light" href="#wordpress-test">测试 WordPress 草稿</a>
+      <a class="button light" href="#xiaohongshu-test">测试小红书发布稿</a>
       <a class="button light" href="/tools/ai-publishing-composer/">先生成发布稿</a>
     </div>
   </section>
@@ -190,6 +191,94 @@ const schema = {
         </a>
       </p>
     </article>
+
+    <article class="form-panel test-publish-card wide-card" id="xiaohongshu-test">
+      <div>
+        <p class="eyebrow">Xiaohongshu / 小红书</p>
+        <h2>先生成小红书发布稿，再人工确认。</h2>
+        <p class="page-lead">
+          小红书不能先按“随便给账号就直发”来设计。当前适合测试发布稿、标题、话题和检查项；
+          如果后续拿到开放平台权限，再接官方直发。
+        </p>
+      </div>
+
+      <div class="assisted-test-layout">
+        <form class="form-grid" data-test-publish-form data-target="xiaohongshu">
+          <div class="grid two">
+            <div class="field">
+              <label for="xhs-source-app">源 App</label>
+              <select id="xhs-source-app" name="sourceApp">
+                <option>Seedance 2.0</option>
+                <option>Kling AI</option>
+                <option>Midjourney</option>
+                <option>Canva</option>
+                <option>Runway</option>
+                <option>其他 AI 工具</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="xhs-asset-type">内容类型</label>
+              <select id="xhs-asset-type" name="assetType">
+                <option>AI 短视频</option>
+                <option>图片笔记</option>
+                <option>产品种草</option>
+                <option>教程图文</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="xhs-hook">核心卖点或标题方向</label>
+            <input
+              id="xhs-hook"
+              name="hook"
+              value="30 秒看懂这个 AI 视频适合发到哪些平台"
+              required
+            />
+            <p class="muted">会压缩成小红书标题方向，不写夸大承诺。</p>
+          </div>
+          <div class="field">
+            <label for="xhs-brief">内容说明</label>
+            <textarea id="xhs-brief" name="brief" required>这个内容由 Seedance 生成，是一条竖版 AI 视频。目标是展示一个素材如何变成 TikTok、YouTube Shorts、Instagram Reels 和小红书可用的发布稿。</textarea>
+          </div>
+          <div class="grid two">
+            <div class="field">
+              <label for="xhs-audience">目标人群</label>
+              <input id="xhs-audience" name="audience" value="内容运营、跨境卖家、AI 创作者" />
+            </div>
+            <div class="field">
+              <label for="xhs-tags">话题关键词</label>
+              <input id="xhs-tags" name="tags" value="AI工具, 内容运营, 多平台分发" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="xhs-media-note">素材备注</label>
+            <input id="xhs-media-note" name="mediaNote" value="9:16 竖版视频，建议首帧加结果导向封面文字" />
+          </div>
+          <button class="button dark" type="submit">生成小红书测试发布稿</button>
+          <p class="test-status" data-test-status role="status"></p>
+        </form>
+
+        <div class="publish-package-preview" data-package-preview hidden>
+          <div>
+            <p class="eyebrow">生成结果</p>
+            <h3>小红书发布稿</h3>
+          </div>
+          <pre data-package-output></pre>
+          <button class="button light" type="button" data-copy-package>复制发布稿</button>
+          <p class="muted">
+            这是 Assisted 测试，不会登录或代发小红书账号。人工确认后可去
+            <a href="https://creator.xiaohongshu.com/" target="_blank" rel="noreferrer">小红书创作服务平台</a>
+            或 App 发布。
+          </p>
+        </div>
+      </div>
+
+      <p class="muted">
+        官方依据：
+        <a href="https://creator.xiaohongshu.com/" target="_blank" rel="noreferrer">小红书创作服务平台</a>
+        支持创作者视频上传和运营功能；开放平台应用需要资质、类目和权限审核。
+      </p>
+    </article>
   </section>
 
   <section class="section">
@@ -197,8 +286,8 @@ const schema = {
       <p class="eyebrow">下一步</p>
       <h2>跑通测试后，再决定接哪些正式授权。</h2>
       <p>
-        如果 Telegram 和 WordPress 能稳定跑通，下一批建议做 Slack、Discord、YouTube 未公开视频、Shopify
-        测试店。TikTok、Instagram、X、Amazon、小红书、抖音要等开发者权限、审核和账号规则明确后再接主流程。
+        如果 Telegram、WordPress 和小红书 Assisted 发布稿能稳定跑通，下一批建议做 Slack、Discord、YouTube
+        未公开视频、Shopify 测试店。TikTok、Instagram、X、Amazon、小红书直发、抖音直发要等开发者权限、审核和账号规则明确后再接主流程。
       </p>
     </div>
   </section>
@@ -245,6 +334,36 @@ const schema = {
               `成功：已创建 WordPress ${result.status}，ID ${result.id}${result.link ? `，链接 ${result.link}` : ""}`,
               "success",
             );
+          } else if (result.target === "xiaohongshu") {
+            const card = form.closest(".test-publish-card");
+            const preview = card?.querySelector("[data-package-preview]");
+            const output = card?.querySelector("[data-package-output]");
+            const copyButton = card?.querySelector("[data-copy-package]");
+            if (preview instanceof HTMLElement) preview.hidden = false;
+            if (output instanceof HTMLElement) output.textContent = result.copyText || "";
+            if (copyButton instanceof HTMLButtonElement) {
+              copyButton.onclick = async () => {
+                try {
+                  await navigator.clipboard.writeText(result.copyText || "");
+                  copyButton.textContent = "已复制";
+                  setStatus(form, "已复制小红书发布稿。可以粘贴到测试账号或创作服务平台。", "success");
+                } catch {
+                  if (output instanceof HTMLElement) {
+                    const range = document.createRange();
+                    range.selectNodeContents(output);
+                    const selection = window.getSelection();
+                    selection?.removeAllRanges();
+                    selection?.addRange(range);
+                  }
+                  copyButton.textContent = "已选中";
+                  setStatus(form, "浏览器禁止直接复制，已帮你选中文本。请按 Cmd+C 或 Ctrl+C 复制。", "loading");
+                }
+                window.setTimeout(() => {
+                  copyButton.textContent = "复制发布稿";
+                }, 1800);
+              };
+            }
+            setStatus(form, "成功：已生成小红书发布稿。当前是 Assisted 测试，需要人工确认发布。", "success");
           } else {
             setStatus(form, `成功：Telegram 测试消息已发送，message_id ${result.messageId || "-"}`, "success");
           }
