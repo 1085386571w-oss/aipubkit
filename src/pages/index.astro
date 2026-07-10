@@ -191,22 +191,37 @@ const faqSchema = {
           </div>
         </div>
 
-        <div class="composer-card">
-          <button class="upload-tile" type="button" data-open-file-picker aria-label="Choose image or video">
-            <span>+</span>
-            <small>Add content</small>
-          </button>
+        <div class="composer-card action-composer">
+          <div class="intake-column">
+            <button class="upload-dropzone" type="button" data-open-file-picker aria-label="Choose image or video">
+              <span>+</span>
+              <strong>Upload image/video</strong>
+              <small>Mobile opens the gallery or file picker. Desktop opens the local file picker.</small>
+            </button>
+            <div class="selected-files" data-selected-files>
+              <strong>No source file selected yet</strong>
+              <span>Images and videos are supported. Selected files are used as source context for the package.</span>
+            </div>
+            <label class="field inline-brief">
+              <span>Source brief or copy requirements</span>
+              <textarea
+                data-content-brief
+                placeholder="Example: This is a 9:16 Seedance video for TikTok, YouTube Shorts, Instagram Reels, and Xiaohongshu. Keep the tone practical and product-led."
+              ></textarea>
+            </label>
+          </div>
+
           <div class="composer-body">
             <div class="composer-head">
               <div>
                 <p class="eyebrow">One-click publishing</p>
-                <h1>Upload AI content, select destinations, and generate one publishing package.</h1>
+                <h1>Add content, choose destinations, generate the package.</h1>
               </div>
-              <button class="button dark" type="button" data-open-content-panel>Generate package</button>
+              <button class="button dark" type="button" data-content-confirm>Generate package</button>
             </div>
 
             <div class="control-strip">
-              <button class="pill-control" type="button" data-open-content-panel>Create package</button>
+              <button class="pill-control" type="button" data-content-confirm>Create package</button>
               <span class="platform-dots" aria-label="Selected publishing platforms">
                 {selectedDestinations.map((connector) => (
                   <button type="button" aria-label={connector.name}>
@@ -275,7 +290,7 @@ const faqSchema = {
               <span class="pill-control">Seedance 2.0</span>
               <span class="pill-control">9:16</span>
               <span class="pill-control">8s</span>
-              <button class="pill-control highlight" type="button" data-open-content-panel>Copy requirements</button>
+              <button class="pill-control highlight" type="button" data-focus-brief>Copy requirements</button>
               <button class="pill-control connect-control" type="button" data-auth-open>Test publish</button>
             </div>
 
@@ -283,16 +298,24 @@ const faqSchema = {
               {selectedDestinations.length} destinations selected. Test Telegram or WordPress first, then connect production accounts later.
             </p>
 
-            <label class="prompt-row">
-              <span>Prompt</span>
-              <input
-                type="text"
-                value="Publish this AI video to TikTok, YouTube Shorts, Instagram Reels, LinkedIn, Amazon, and Xiaohongshu."
-                aria-label="Publishing prompt"
-                readonly
-              />
-            </label>
+            <div class="action-row">
+              <button class="button dark" type="button" data-content-confirm>Generate package</button>
+              <a class="button light" href="/test-publish/">Test publish</a>
+              <a class="button light" href="/how-to-use/">How to use</a>
+            </div>
           </div>
+
+          <aside class="package-preview-card" data-package-preview>
+            <div class="panel-header">
+              <strong>Publishing package preview</strong>
+              <span data-preview-count>{selectedDestinations.length} destinations</span>
+            </div>
+            <pre data-package-output>Choose a source file or write a brief, then click Generate package. The title, copy, hashtags, cover text, and review checks will appear here.</pre>
+            <div class="action-row">
+              <button class="button light" type="button" data-copy-package>Copy package</button>
+              <a class="button light" href="/tools/ai-publishing-composer/" data-advanced-composer>Open advanced editor</a>
+            </div>
+          </aside>
         </div>
 
         <input
@@ -303,41 +326,6 @@ const faqSchema = {
           data-content-file-input
           aria-label="Choose image or video"
         />
-
-        <div class="content-modal" data-content-modal hidden>
-          <div class="content-dialog" role="dialog" aria-modal="true" aria-labelledby="content-title">
-            <div class="auth-header">
-              <div>
-                <p class="eyebrow">Add content</p>
-                <h2 id="content-title">Choose an image/video, or paste the source brief.</h2>
-              </div>
-              <button type="button" data-content-close aria-label="Close content panel">×</button>
-            </div>
-            <div class="content-intake-grid">
-              <button class="upload-dropzone" type="button" data-open-file-picker>
-                <span>+</span>
-                <strong>Choose images or videos from this device</strong>
-                <small>Works on desktop and mobile. AI PubKit reads the file names for this draft flow first.</small>
-              </button>
-              <div class="selected-files" data-selected-files>
-                <strong>No source file selected yet</strong>
-                <span>Tap the upload area to open the mobile gallery or desktop file picker.</span>
-              </div>
-            </div>
-            <label class="field">
-              <span>Source brief or copy requirements</span>
-              <textarea
-                data-content-brief
-                placeholder="Example: This is a 9:16 Seedance video for TikTok, YouTube Shorts, Instagram Reels, and Xiaohongshu. Keep the tone practical and product-led."
-              ></textarea>
-            </label>
-            <div class="auth-actions">
-              <button class="button dark" type="button" data-content-confirm>Generate package from this content</button>
-              <button class="button light" type="button" data-open-file-picker>Choose another file</button>
-              <a class="button light" href="/how-to-use/">Open how-to guide</a>
-            </div>
-          </div>
-        </div>
 
         <div class="auth-modal" data-auth-modal hidden>
           <div class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">
@@ -407,17 +395,21 @@ const faqSchema = {
     const authList = document.querySelector("[data-auth-list]");
     const authOpenButtons = Array.from(document.querySelectorAll("[data-auth-open]"));
     const authCloseButtons = Array.from(document.querySelectorAll("[data-auth-close]"));
-    const contentOpenButtons = Array.from(document.querySelectorAll("[data-open-content-panel]"));
+    const focusBriefButtons = Array.from(document.querySelectorAll("[data-focus-brief]"));
     const fileOpenButtons = Array.from(document.querySelectorAll("[data-open-file-picker]"));
-    const contentCloseButtons = Array.from(document.querySelectorAll("[data-content-close]"));
     const authConfirm = document.querySelector("[data-auth-confirm]");
-    const contentConfirm = document.querySelector("[data-content-confirm]");
-    const contentModal = document.querySelector("[data-content-modal]");
+    const contentConfirmButtons = Array.from(document.querySelectorAll("[data-content-confirm]"));
     const contentFileInput = document.querySelector("[data-content-file-input]");
     const selectedFilesPanel = document.querySelector("[data-selected-files]");
     const contentBrief = document.querySelector("[data-content-brief]");
+    const packageOutput = document.querySelector("[data-package-output]");
+    const packagePreview = document.querySelector("[data-package-preview]");
+    const previewCount = document.querySelector("[data-preview-count]");
+    const copyPackage = document.querySelector("[data-copy-package]");
+    const advancedComposer = document.querySelector("[data-advanced-composer]");
     const selectedDestinations = new Map();
     let currentFileSummary = "";
+    let currentPackageText = "";
 
     function readOption(option) {
       return {
@@ -458,6 +450,7 @@ const faqSchema = {
           ? `${selectedDestinations.size} destinations selected. Test Telegram or WordPress first, then connect production accounts later.`
           : "Choose at least one destination before testing.";
       }
+      syncAdvancedLink();
 
       if (selectedDots) {
         selectedDots.replaceChildren(
@@ -508,8 +501,7 @@ const faqSchema = {
       return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
     }
 
-    function openContentModal() {
-      if (contentModal instanceof HTMLElement) contentModal.hidden = false;
+    function focusBrief() {
       if (contentBrief instanceof HTMLTextAreaElement) contentBrief.focus();
     }
 
@@ -562,6 +554,57 @@ const faqSchema = {
         .join("\n");
     }
 
+    function selectedDestinationText() {
+      return Array.from(selectedDestinations.values()).map((item) => item.name).join(", ");
+    }
+
+    function buildPackageText() {
+      const brief = contentBrief instanceof HTMLTextAreaElement ? contentBrief.value.trim() : "";
+      const destinations = selectedDestinationText() || "selected destinations";
+      const sourceLine = currentFileSummary || "No local file selected; using the written brief";
+      const briefLine =
+        brief ||
+        "A 9:16 Seedance AI video that should be adapted for short-video, social, ecommerce, and community platforms.";
+      return [
+        "Title: AI content multi-platform publishing package",
+        "",
+        "Post copy:",
+        briefLine,
+        "",
+        `Source: ${sourceLine}`,
+        `Destinations: ${destinations}`,
+        "",
+        "Platform handling:",
+        "- Short-video apps: title, caption, hashtags, and cover text.",
+        "- Social apps: natural post copy and engagement prompt.",
+        "- Ecommerce/CMS: product copy, SEO summary, and review checks.",
+        "- Assisted apps: copy-ready package first, then manual confirmation.",
+        "",
+        "#AIContent #ContentDistribution #OneClickPublishing #ContentOps",
+      ].join("\n");
+    }
+
+    function syncAdvancedLink() {
+      if (advancedComposer instanceof HTMLAnchorElement) {
+        advancedComposer.href = composerUrlFromSelection(contentSourceText());
+      }
+    }
+
+    function generatePackagePreview() {
+      if (!selectedDestinations.size) {
+        if (selectionNote) selectionNote.textContent = "Choose at least one destination before generating.";
+        return;
+      }
+      currentPackageText = buildPackageText();
+      if (packageOutput instanceof HTMLElement) packageOutput.textContent = currentPackageText;
+      if (previewCount instanceof HTMLElement) previewCount.textContent = `${selectedDestinations.size} destinations`;
+      if (packagePreview instanceof HTMLElement) packagePreview.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      if (selectionNote) {
+        selectionNote.textContent = "Package generated. Copy it or open the advanced editor for more control.";
+      }
+      syncAdvancedLink();
+    }
+
     function openAuthModal() {
       if (!(authModal instanceof HTMLElement) || !(authList instanceof HTMLElement)) return;
       if (!selectedDestinations.size) {
@@ -599,36 +642,51 @@ const faqSchema = {
       button.addEventListener("click", openFilePicker);
     });
 
-    contentOpenButtons.forEach((button) => {
-      button.addEventListener("click", openContentModal);
+    focusBriefButtons.forEach((button) => {
+      button.addEventListener("click", focusBrief);
     });
 
-    contentCloseButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        if (contentModal instanceof HTMLElement) contentModal.hidden = true;
-      });
-    });
+    contentBrief?.addEventListener("input", syncAdvancedLink);
 
     contentFileInput?.addEventListener("change", () => {
       syncSelectedFiles();
-      openContentModal();
+      focusBrief();
+      syncAdvancedLink();
     });
 
-    contentConfirm?.addEventListener("click", () => {
-      window.location.href = composerUrlFromSelection(contentSourceText());
+    contentConfirmButtons.forEach((button) => {
+      button.addEventListener("click", generatePackagePreview);
+    });
+
+    copyPackage?.addEventListener("click", async () => {
+      const text = currentPackageText || (packageOutput instanceof HTMLElement ? packageOutput.textContent || "" : "");
+      try {
+        await navigator.clipboard.writeText(text);
+        if (selectionNote) selectionNote.textContent = "Package copied.";
+      } catch {
+        if (packageOutput instanceof HTMLElement) {
+          const range = document.createRange();
+          range.selectNodeContents(packageOutput);
+          const selection = window.getSelection();
+          selection?.removeAllRanges();
+          selection?.addRange(range);
+        }
+        if (selectionNote) selectionNote.textContent = "Browser blocked direct copy, so the package text is selected.";
+      }
     });
 
     authConfirm?.addEventListener("click", () => {
       if (authModal instanceof HTMLElement) authModal.hidden = true;
       if (selectionNote) {
         selectionNote.textContent =
-          "Next step: generate the package, then authorize direct paths or create assisted drafts.";
+          "Back in the workspace. Generate the package first, then test publish.";
       }
-      window.location.href = composerUrlFromSelection(contentSourceText());
+      generatePackagePreview();
     });
 
     syncDestinationSelection();
     syncSelectedFiles();
+    syncAdvancedLink();
   </script>
 
   <section class="section compact-section">

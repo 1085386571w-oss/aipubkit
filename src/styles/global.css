@@ -229,6 +229,72 @@ textarea {
   padding: 20px;
 }
 
+.composer-card.action-composer {
+  align-items: stretch;
+  grid-template-columns: minmax(220px, 0.82fr) minmax(0, 1fr) minmax(280px, 0.9fr);
+}
+
+.intake-column {
+  align-content: start;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.action-composer .upload-dropzone,
+.action-composer .selected-files {
+  min-height: 130px;
+}
+
+.inline-brief {
+  display: grid;
+  gap: 8px;
+}
+
+.inline-brief span {
+  font-size: 0.9rem;
+  font-weight: 780;
+}
+
+.inline-brief textarea {
+  min-height: 118px;
+  resize: vertical;
+}
+
+.action-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.package-preview-card {
+  align-content: start;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px;
+}
+
+.package-preview-card pre {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.58;
+  margin: 0;
+  max-height: 380px;
+  overflow: auto;
+  padding: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .upload-tile {
   align-items: center;
   background: #f4f3f4;
@@ -665,13 +731,11 @@ button.pill-control {
   cursor: pointer;
 }
 
-.auth-modal[hidden],
-.content-modal[hidden] {
+.auth-modal[hidden] {
   display: none;
 }
 
-.auth-modal,
-.content-modal {
+.auth-modal {
   align-items: center;
   background: rgba(17, 24, 39, 0.52);
   display: flex;
@@ -682,21 +746,13 @@ button.pill-control {
   z-index: 100;
 }
 
-.auth-dialog,
-.content-dialog {
+.auth-dialog {
   background: white;
   border-radius: 12px;
   box-shadow: 0 32px 90px rgba(17, 24, 39, 0.28);
   max-width: 560px;
   padding: 18px;
   width: min(560px, 100%);
-}
-
-.content-dialog {
-  max-height: min(760px, calc(100vh - 48px));
-  max-width: 760px;
-  overflow: auto;
-  width: min(760px, 100%);
 }
 
 .auth-header {
@@ -757,13 +813,6 @@ button.pill-control {
   margin-top: 16px;
 }
 
-.content-intake-grid {
-  display: grid;
-  gap: 14px;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  margin-top: 16px;
-}
-
 .upload-dropzone {
   align-content: center;
   background: #fbfafc;
@@ -818,21 +867,6 @@ button.pill-control {
   gap: 6px;
   margin: 0;
   padding-left: 18px;
-}
-
-.content-dialog .field {
-  display: grid;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.content-dialog .field span {
-  font-weight: 780;
-}
-
-.content-dialog textarea {
-  min-height: 110px;
-  resize: vertical;
 }
 
 .test-hero .page-lead {
@@ -2070,20 +2104,19 @@ pre {
   .grid.four,
   .metric-row,
   .job-strip,
-    .workflow-steps,
-    .split,
-    .filter-bar,
-    .option-list,
-    .preset-grid,
-    .preview-grid,
-    .flow-grid,
-    .playbook-grid,
-    .source-app-cluster-grid,
-    .readiness-grid,
-    .test-publish-grid,
-    .assisted-test-layout,
-    .content-intake-grid,
-    .guide-grid {
+  .workflow-steps,
+  .split,
+  .filter-bar,
+  .option-list,
+  .preset-grid,
+  .preview-grid,
+  .flow-grid,
+  .playbook-grid,
+  .source-app-cluster-grid,
+  .readiness-grid,
+  .test-publish-grid,
+  .assisted-test-layout,
+  .guide-grid {
     grid-template-columns: 1fr;
   }
 
@@ -2094,6 +2127,7 @@ pre {
   .destination-strip,
   .console-shell,
   .composer-card,
+  .composer-card.action-composer,
   .composer-head,
   .content-preview {
     grid-template-columns: 1fr;
@@ -2144,17 +2178,6 @@ pre {
     font-size: 0.66rem;
   }
 
-  .content-modal {
-    align-items: flex-start;
-    overflow: auto;
-    padding: 14px;
-  }
-
-  .content-dialog {
-    max-height: none;
-    width: 100%;
-  }
-
   .upload-dropzone,
   .selected-files {
     min-height: 140px;
@@ -2163,9 +2186,18 @@ pre {
   .composer-card,
   .library-card {
     max-width: calc(100vw - 32px);
-    overflow: hidden;
+    overflow: visible;
     padding: 16px;
     width: 100%;
+  }
+
+  .action-composer .upload-dropzone,
+  .action-composer .selected-files {
+    min-height: 118px;
+  }
+
+  .package-preview-card pre {
+    max-height: none;
   }
 
   .composer-head h1,

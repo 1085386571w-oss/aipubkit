@@ -191,22 +191,37 @@ const faqSchema = {
           </div>
         </div>
 
-        <div class="composer-card">
-          <button class="upload-tile" type="button" data-open-file-picker aria-label="选择图片或视频">
-            <span>+</span>
-            <small>填写内容</small>
-          </button>
+        <div class="composer-card action-composer">
+          <div class="intake-column">
+            <button class="upload-dropzone" type="button" data-open-file-picker aria-label="选择图片或视频">
+              <span>+</span>
+              <strong>上传图片/视频</strong>
+              <small>手机打开相册或文件，电脑打开文件选择器。也可以只粘贴素材说明。</small>
+            </button>
+            <div class="selected-files" data-selected-files>
+              <strong>还没有选择素材</strong>
+              <span>支持图片和视频，多选后会带入发布稿要求。</span>
+            </div>
+            <label class="field inline-brief">
+              <span>素材说明或文案要求</span>
+              <textarea
+                data-content-brief
+                placeholder="例如：这是一条 Seedance 生成的 9:16 短视频，想发到 TikTok、YouTube Shorts、Instagram Reels 和小红书，语气要偏种草。"
+              ></textarea>
+            </label>
+          </div>
+
           <div class="composer-body">
             <div class="composer-head">
               <div>
                 <p class="eyebrow">一键发布</p>
-                <h1>上传 AI 内容，选择平台，生成多平台发布稿。</h1>
+                <h1>上传内容，选平台，马上生成发布稿。</h1>
               </div>
-              <button class="button dark" type="button" data-open-content-panel>生成发布稿</button>
+              <button class="button dark" type="button" data-content-confirm>生成发布稿</button>
             </div>
 
             <div class="control-strip">
-              <button class="pill-control" type="button" data-open-content-panel>创建发布稿</button>
+              <button class="pill-control" type="button" data-content-confirm>创建发布稿</button>
               <span class="platform-dots" aria-label="已选择的目标平台">
                 {selectedDestinations.map((connector) => (
                   <button type="button" aria-label={connector.name}>
@@ -275,7 +290,7 @@ const faqSchema = {
               <span class="pill-control">Seedance 2.0</span>
               <span class="pill-control">9:16</span>
               <span class="pill-control">8s</span>
-              <button class="pill-control highlight" type="button" data-open-content-panel>文案要求</button>
+              <button class="pill-control highlight" type="button" data-focus-brief>文案要求</button>
               <button class="pill-control connect-control" type="button" data-auth-open>测试发布</button>
             </div>
 
@@ -283,16 +298,24 @@ const faqSchema = {
               已选 {selectedDestinations.length} 个目标平台。先用测试发布验证，正式接入时再走授权或待审核草稿。
             </p>
 
-            <label class="prompt-row">
-              <span>提示词</span>
-              <input
-                type="text"
-                value="把这个 AI 视频发布到 TikTok、YouTube Shorts、Instagram Reels、LinkedIn、Amazon 和小红书。"
-                aria-label="发布提示词"
-                readonly
-              />
-            </label>
+            <div class="action-row">
+              <button class="button dark" type="button" data-content-confirm>生成发布稿</button>
+              <a class="button light" href="/test-publish/">测试发布</a>
+              <a class="button light" href="/zh/how-to-use/">使用说明</a>
+            </div>
           </div>
+
+          <aside class="package-preview-card" data-package-preview>
+            <div class="panel-header">
+              <strong>发布稿预览</strong>
+              <span data-preview-count>{selectedDestinations.length} 个平台</span>
+            </div>
+            <pre data-package-output>选择素材或填写说明后，点击“生成发布稿”。这里会直接出现可复制的标题、正文、标签、封面文字和检查项。</pre>
+            <div class="action-row">
+              <button class="button light" type="button" data-copy-package>复制发布稿</button>
+              <a class="button light" href="/tools/ai-publishing-composer/" data-advanced-composer>打开高级编辑器</a>
+            </div>
+          </aside>
         </div>
 
         <input
@@ -303,41 +326,6 @@ const faqSchema = {
           data-content-file-input
           aria-label="选择图片或视频"
         />
-
-        <div class="content-modal" data-content-modal hidden>
-          <div class="content-dialog" role="dialog" aria-modal="true" aria-labelledby="content-title">
-            <div class="auth-header">
-              <div>
-                <p class="eyebrow">填写内容</p>
-                <h2 id="content-title">先选择图片/视频，或粘贴素材说明。</h2>
-              </div>
-              <button type="button" data-content-close aria-label="关闭填写内容">×</button>
-            </div>
-            <div class="content-intake-grid">
-              <button class="upload-dropzone" type="button" data-open-file-picker>
-                <span>+</span>
-                <strong>从手机或电脑选择图片/视频</strong>
-                <small>支持多选。这里先读取文件名和类型，不上传主账号内容。</small>
-              </button>
-              <div class="selected-files" data-selected-files>
-                <strong>还没有选择素材</strong>
-                <span>点击左侧上传框，手机会打开相册/文件，电脑会打开文件选择器。</span>
-              </div>
-            </div>
-            <label class="field">
-              <span>素材说明或文案要求</span>
-              <textarea
-                data-content-brief
-                placeholder="例如：这是一条 Seedance 生成的 9:16 短视频，想发到 TikTok、YouTube Shorts、Instagram Reels 和小红书，语气要偏种草。"
-              ></textarea>
-            </label>
-            <div class="auth-actions">
-              <button class="button dark" type="button" data-content-confirm>用这些内容生成发布稿</button>
-              <button class="button light" type="button" data-open-file-picker>重新选择素材</button>
-              <a class="button light" href="/zh/how-to-use/">查看使用说明</a>
-            </div>
-          </div>
-        </div>
 
         <div class="auth-modal" data-auth-modal hidden>
           <div class="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">
@@ -406,17 +394,21 @@ const faqSchema = {
     const authList = document.querySelector("[data-auth-list]");
     const authOpenButtons = Array.from(document.querySelectorAll("[data-auth-open]"));
     const authCloseButtons = Array.from(document.querySelectorAll("[data-auth-close]"));
-    const contentOpenButtons = Array.from(document.querySelectorAll("[data-open-content-panel]"));
+    const focusBriefButtons = Array.from(document.querySelectorAll("[data-focus-brief]"));
     const fileOpenButtons = Array.from(document.querySelectorAll("[data-open-file-picker]"));
-    const contentCloseButtons = Array.from(document.querySelectorAll("[data-content-close]"));
     const authConfirm = document.querySelector("[data-auth-confirm]");
-    const contentConfirm = document.querySelector("[data-content-confirm]");
-    const contentModal = document.querySelector("[data-content-modal]");
+    const contentConfirmButtons = Array.from(document.querySelectorAll("[data-content-confirm]"));
     const contentFileInput = document.querySelector("[data-content-file-input]");
     const selectedFilesPanel = document.querySelector("[data-selected-files]");
     const contentBrief = document.querySelector("[data-content-brief]");
+    const packageOutput = document.querySelector("[data-package-output]");
+    const packagePreview = document.querySelector("[data-package-preview]");
+    const previewCount = document.querySelector("[data-preview-count]");
+    const copyPackage = document.querySelector("[data-copy-package]");
+    const advancedComposer = document.querySelector("[data-advanced-composer]");
     const selectedDestinations = new Map();
     let currentFileSummary = "";
+    let currentPackageText = "";
 
     function readOption(option) {
       return {
@@ -457,6 +449,7 @@ const faqSchema = {
           ? `已选 ${selectedDestinations.size} 个目标平台。先用测试发布验证，正式接入时再走授权或待审核草稿。`
           : "请先选择至少一个目标平台。";
       }
+      syncAdvancedLink();
 
       if (selectedDots) {
         selectedDots.replaceChildren(
@@ -507,8 +500,7 @@ const faqSchema = {
       return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
     }
 
-    function openContentModal() {
-      if (contentModal instanceof HTMLElement) contentModal.hidden = false;
+    function focusBrief() {
       if (contentBrief instanceof HTMLTextAreaElement) contentBrief.focus();
     }
 
@@ -561,6 +553,57 @@ const faqSchema = {
         .join("\n");
     }
 
+    function selectedDestinationText() {
+      return Array.from(selectedDestinations.values()).map((item) => item.name).join("、");
+    }
+
+    function buildPackageText() {
+      const brief = contentBrief instanceof HTMLTextAreaElement ? contentBrief.value.trim() : "";
+      const destinations = selectedDestinationText() || "已选平台";
+      const sourceLine = currentFileSummary || "未选择本地文件，按文字说明生成";
+      const briefLine =
+        brief ||
+        "一条 Seedance 生成的 9:16 AI 短视频，适合改写成短视频、社媒、电商和社区平台发布稿。";
+      return [
+        "标题：AI 内容多平台发布稿",
+        "",
+        "正文：",
+        briefLine,
+        "",
+        `素材：${sourceLine}`,
+        `目标平台：${destinations}`,
+        "",
+        "平台处理：",
+        "- 短视频平台：生成吸引点击的标题、正文、标签和封面文字。",
+        "- 社媒平台：生成更自然的帖子正文和互动引导。",
+        "- 电商/CMS：生成产品说明、SEO 摘要和审核检查项。",
+        "- 小红书/抖音等 Assisted 平台：先生成可复制发布稿，再人工确认。",
+        "",
+        "#AI内容 #多平台分发 #一键发布 #内容运营",
+      ].join("\n");
+    }
+
+    function syncAdvancedLink() {
+      if (advancedComposer instanceof HTMLAnchorElement) {
+        advancedComposer.href = composerUrlFromSelection(contentSourceText());
+      }
+    }
+
+    function generatePackagePreview() {
+      if (!selectedDestinations.size) {
+        if (selectionNote) selectionNote.textContent = "请先选择至少一个目标平台。";
+        return;
+      }
+      currentPackageText = buildPackageText();
+      if (packageOutput instanceof HTMLElement) packageOutput.textContent = currentPackageText;
+      if (previewCount instanceof HTMLElement) previewCount.textContent = `${selectedDestinations.size} 个平台`;
+      if (packagePreview instanceof HTMLElement) packagePreview.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      if (selectionNote) {
+        selectionNote.textContent = "发布稿已生成。你可以复制，也可以打开高级编辑器继续细化。";
+      }
+      syncAdvancedLink();
+    }
+
     function openAuthModal() {
       if (!(authModal instanceof HTMLElement) || !(authList instanceof HTMLElement)) return;
       if (!selectedDestinations.size) {
@@ -598,36 +641,51 @@ const faqSchema = {
       button.addEventListener("click", openFilePicker);
     });
 
-    contentOpenButtons.forEach((button) => {
-      button.addEventListener("click", openContentModal);
+    focusBriefButtons.forEach((button) => {
+      button.addEventListener("click", focusBrief);
     });
 
-    contentCloseButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        if (contentModal instanceof HTMLElement) contentModal.hidden = true;
-      });
-    });
+    contentBrief?.addEventListener("input", syncAdvancedLink);
 
     contentFileInput?.addEventListener("change", () => {
       syncSelectedFiles();
-      openContentModal();
+      focusBrief();
+      syncAdvancedLink();
     });
 
-    contentConfirm?.addEventListener("click", () => {
-      window.location.href = composerUrlFromSelection(contentSourceText());
+    contentConfirmButtons.forEach((button) => {
+      button.addEventListener("click", generatePackagePreview);
+    });
+
+    copyPackage?.addEventListener("click", async () => {
+      const text = currentPackageText || (packageOutput instanceof HTMLElement ? packageOutput.textContent || "" : "");
+      try {
+        await navigator.clipboard.writeText(text);
+        if (selectionNote) selectionNote.textContent = "发布稿已复制。";
+      } catch {
+        if (packageOutput instanceof HTMLElement) {
+          const range = document.createRange();
+          range.selectNodeContents(packageOutput);
+          const selection = window.getSelection();
+          selection?.removeAllRanges();
+          selection?.addRange(range);
+        }
+        if (selectionNote) selectionNote.textContent = "浏览器禁止直接复制，已帮你选中文本。请按 Cmd+C 或 Ctrl+C。";
+      }
     });
 
     authConfirm?.addEventListener("click", () => {
       if (authModal instanceof HTMLElement) authModal.hidden = true;
       if (selectionNote) {
         selectionNote.textContent =
-          "下一步生成发布稿。先做测试发布，正式接入时再走授权或待审核草稿。";
+          "已回到首页生成流程。先生成发布稿，再测试发布。";
       }
-      window.location.href = composerUrlFromSelection(contentSourceText());
+      generatePackagePreview();
     });
 
     syncDestinationSelection();
     syncSelectedFiles();
+    syncAdvancedLink();
   </script>
 
   <section class="section compact-section">
